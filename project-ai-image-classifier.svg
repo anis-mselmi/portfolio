@@ -1,0 +1,23 @@
+<svg width="1200" height="800" viewBox="0 0 1200 800" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#0b1220"/>
+      <stop offset="100%" stop-color="#1a2a45"/>
+    </linearGradient>
+    <linearGradient id="accent" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#7c9cff"/>
+      <stop offset="100%" stop-color="#57e0ff"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="800" rx="40" fill="url(#bg)"/>
+  <rect x="110" y="140" width="520" height="520" rx="32" fill="#121c30" stroke="#26354f"/>
+  <rect x="150" y="190" width="440" height="320" rx="24" fill="#0f172a" stroke="#1f2b42"/>
+  <circle cx="370" cy="350" r="90" fill="url(#accent)" opacity="0.35"/>
+  <rect x="720" y="180" width="360" height="420" rx="28" fill="#111a2b" stroke="#26354f"/>
+  <path d="M770 260h260" stroke="url(#accent)" stroke-width="10" stroke-linecap="round"/>
+  <path d="M770 320h220" stroke="#2a3d5e" stroke-width="8" stroke-linecap="round"/>
+  <path d="M770 370h240" stroke="#2a3d5e" stroke-width="8" stroke-linecap="round"/>
+  <path d="M770 420h180" stroke="#2a3d5e" stroke-width="8" stroke-linecap="round"/>
+  <path d="M770 470h200" stroke="#2a3d5e" stroke-width="8" stroke-linecap="round"/>
+  <text x="150" y="620" fill="#9fb0c3" font-family="Inter, Arial" font-size="28">AI Image Classifier</text>
+</svg>
