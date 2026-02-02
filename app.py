@@ -51,6 +51,11 @@ st.markdown(
             color: var(--text);
         }
 
+        header[data-testid="stHeader"] {
+            background: transparent;
+            box-shadow: none;
+        }
+
         section[data-testid="stSidebar"] {
             background: linear-gradient(180deg, #0f1522 0%, #0b0f17 100%);
             border-right: 1px solid var(--border);
@@ -216,11 +221,20 @@ st.markdown(
 
         .project-image {
             width: 100%;
-            height: 180px;
+            aspect-ratio: 16 / 9;
+            height: auto;
             object-fit: cover;
+            object-position: center;
             border-radius: 14px;
             border: 1px solid var(--border);
             background: #0b0f17;
+            display: block;
+        }
+
+        .project-image--contain {
+            object-fit: contain;
+            padding: 0.75rem;
+            background: #0d1422;
         }
 
         .project-body {
@@ -266,6 +280,51 @@ st.markdown(
         .st-link-button:hover {
             transform: translateY(-1px);
             box-shadow: 0 14px 30px rgba(87, 224, 255, 0.35);
+        }
+
+        .skill-card {
+            background: #0f1626;
+            border: 1px solid rgba(124, 156, 255, 0.25);
+            border-radius: 16px;
+            padding: 1rem 1.1rem;
+            box-shadow: 0 10px 26px rgba(3, 9, 20, 0.4);
+            margin-bottom: 0.35rem;
+        }
+
+        .skill-head {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 0.5rem;
+        }
+
+        .skill-name {
+            font-weight: 600;
+            color: var(--text);
+        }
+
+        .skill-value {
+            color: var(--muted);
+            font-size: 0.9rem;
+            font-weight: 600;
+        }
+
+        .skill-bar {
+            position: relative;
+            height: 8px;
+            border-radius: 999px;
+            background: #0c1422;
+            border: 1px solid var(--border);
+            overflow: hidden;
+        }
+
+        .skill-bar > span {
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            border-radius: 999px;
+            background: linear-gradient(90deg, var(--accent) 0%, var(--accent-2) 100%);
         }
     </style>
     """,
@@ -338,13 +397,14 @@ PROJECTS = [
         "image": "PHP_Logo.png",
         "logo": "logo-php-blog.svg",
         "link": "https://github.com/anis-mselmi/Mini-Blog-PHP",
+        "fit": "cover",
     },
     {
         "name": "AI Image Classifier",
         "desc": "A fast, intuitive image classifier with model insights and confidence scoring.",
         "tags": ["AI", "Computer Vision", "Python"],
         "image": "téléchargement.jpg",
-        "logo": "logo-ai-classifier.svg",
+        "logo": "logo-ai-classifier.smavg",
         "link": "https://github.com/anis-mselmi/AI-Image-Classifier",
     },
     {
@@ -461,24 +521,22 @@ def hero_section() -> None:
 def render_skills() -> None:
     section_title("Skills", "🛠")
     st.caption("Skill levels are indicative and continuously evolving.")
-    emoji_map = {
-        "Machine Learning & Deep Learning (AI)": "🤖",
-        "Python, Jupyter Notebook, Google Colab": "🐍",
-        "Web Development (PHP)": "🌐",
-        "Data Analysis & Visualization": "📊",
-        "C++": "⚙️",
-        "Git & GitHub": "🧰",
-        "Problem Solving & Innovation": "💡",
-    }
 
     cols = st.columns(2, gap="large")
     for index, (skill, level) in enumerate(SKILLS):
         with cols[index % 2]:
-            with st.container(border=True):
-                emoji = emoji_map.get(skill, "✨")
-                st.markdown(f"### {emoji} {skill}")
-                st.progress(level)
-                st.caption(f"{level}%")
+            st.markdown(
+                f"""
+                <div class="skill-card">
+                    <div class="skill-head">
+                        <span class="skill-name">{skill}</span>
+                        <span class="skill-value">{level}%</span>
+                    </div>
+                    <div class="skill-bar"><span style="width:{level}%"></span></div>
+                </div>
+                """,
+                unsafe_allow_html=True,
+            )
 
 
 def render_education() -> None:
@@ -533,8 +591,11 @@ def render_projects() -> None:
         with cols[idx % 3]:
             image_path = Path(__file__).parent / project.get("image", "")
             image_data = image_to_data_uri(image_path)
+            fit = project.get("fit", "cover")
+            image_class = "project-image project-image--contain" if fit == "contain" else "project-image"
+            image_style = f"object-fit:{fit};"
             image_html = (
-                f"<img src='{image_data}' alt='{project['name']}' class='project-image' />"
+                f"<img src='{image_data}' alt='{project['name']}' class='{image_class}' style='{image_style}' />"
                 if image_data
                 else f"<div class='project-image'></div>"
             )
