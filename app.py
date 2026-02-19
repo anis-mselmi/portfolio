@@ -408,12 +408,12 @@ PROJECTS = [
         "link": "https://github.com/anis-mselmi/AI-Image-Classifier",
     },
     {
-        "name": "Restaurant Review Sentiment Analysis",
-        "desc": "NLP pipeline that analyzes reviews to surface sentiment and key themes.",
-        "tags": ["NLP", "Sentiment", "Analytics"],
+        "name": "AI KFC Menu Predictor Recommendation System",
+        "desc": "AI system that predicts menu preferences and recommends KFC items based on user input.",
+        "tags": ["AI", "Recommendation", "Analytics"],
         "image": "caption.jpg",
         "logo": "logo-restaurant-sentiment.svg",
-        "link": "https://github.com/anis-mselmi/Restaurant-Review-Sentiment-Analysis",
+        "link": "https://github.com/anis-mselmi/AI-KFC-Menu-Predictor-Recommendation-System",
     },
 ]
 
