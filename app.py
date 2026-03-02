@@ -368,7 +368,7 @@ EDUCATION = [
     {
         "title": "High School Diploma (Baccalauréat)",
         "school": "Lycée Les Lumières Sousse",
-        "years": "2021 – 2023",
+        "years": "2022 – 2023",
     },
 ]
 
@@ -558,7 +558,7 @@ def render_experience() -> None:
             "detail": "Managed web presence, content updates, and digital visibility.",
         },
         {
-            "title": "Ambassador at ATIC, NPC 2.0 PolyRobots",
+            "title": "Ambassador at ATIC, NPC 2.0 PolyRobots, IEEE YESIST12, IEEE Smart Cities",
             "emoji": "🌐",
             "detail": "Represented the community and supported outreach initiatives.",
         },
