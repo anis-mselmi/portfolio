@@ -408,12 +408,12 @@ PROJECTS = [
         "link": "https://github.com/anis-mselmi/AI-Image-Classifier",
     },
     {
-        "name": "AI KFC Menu Predictor Recommendation System",
-        "desc": "AI system that predicts menu preferences and recommends KFC items based on user input.",
-        "tags": ["AI", "Recommendation", "Analytics"],
-        "image": "caption.jpg",
+        "name": "SmartParkTN",
+        "desc": "Scans car license plates (matricules) at the parking entrance to automate access and tracking.",
+        "tags": ["AI", "Computer Vision", "ALPR"],
+        "image": "Gemini_Generated_Image_3ingj23ingj23ing.png",
         "logo": "logo-restaurant-sentiment.svg",
-        "link": "https://github.com/anis-mselmi/AI-KFC-Menu-Predictor-Recommendation-System",
+        "link": "https://github.com/anis-mselmi/SmartParkTN-D-tection-automatique-des-plaques-tunisiennes-ALPR-pour-parking",
     },
 ]
 
