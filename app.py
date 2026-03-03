@@ -1,4 +1,5 @@
 import base64
+import io
 import streamlit as st
 from datetime import datetime
 from pathlib import Path
@@ -449,7 +450,8 @@ def load_profile_image(image_path: Path):
     return image
 
 
-def image_to_data_uri(image_path: Path) -> str | None:
+@st.cache_data(show_spinner=False)
+def image_to_data_uri(image_path: Path, max_width: int = 900) -> str | None:
     if not image_path.exists():
         return None
     suffix = image_path.suffix.lower().lstrip(".")
@@ -460,6 +462,21 @@ def image_to_data_uri(image_path: Path) -> str | None:
         "webp": "image/webp",
     }
     mime_type = mime_map.get(suffix, "image/png")
+
+    if Image is not None:
+        image = Image.open(image_path)
+        if image.width > max_width:
+            ratio = max_width / image.width
+            new_size = (max_width, max(1, int(image.height * ratio)))
+            image = image.resize(new_size)
+
+        buffer = io.BytesIO()
+        if image.mode in {"RGBA", "P"}:
+            image = image.convert("RGB")
+        image.save(buffer, format="JPEG", quality=80, optimize=True)
+        encoded = base64.b64encode(buffer.getvalue()).decode("utf-8")
+        return f"data:image/jpeg;base64,{encoded}"
+
     encoded = base64.b64encode(image_path.read_bytes()).decode("utf-8")
     return f"data:{mime_type};base64,{encoded}"
 
