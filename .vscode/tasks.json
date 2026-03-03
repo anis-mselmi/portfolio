@@ -37,6 +37,19 @@
 			"isBackground": true,
 			"problemMatcher": [],
 			"group": "test"
+		},
+		{
+			"label": "Run Streamlit app (venv)",
+			"type": "shell",
+			"command": "c:/Users/MSI/Desktop/anis mselmi portfolio/.venv/Scripts/python.exe",
+			"args": [
+				"-m",
+				"streamlit",
+				"run",
+				"app.py"
+			],
+			"isBackground": true,
+			"group": "test"
 		}
 	]
 }
