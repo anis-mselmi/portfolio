@@ -473,7 +473,7 @@ def image_to_data_uri(image_path: Path, max_width: int = 900) -> str | None:
         buffer = io.BytesIO()
         if image.mode in {"RGBA", "P"}:
             image = image.convert("RGB")
-        image.save(buffer, format="JPEG", quality=80, optimize=True)
+        image.save(buffer, format="JPEG", quality=80)
         encoded = base64.b64encode(buffer.getvalue()).decode("utf-8")
         return f"data:image/jpeg;base64,{encoded}"
 
