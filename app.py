@@ -204,8 +204,43 @@ st.markdown(
             gap: 1.1rem;
         }
 
+        .hero-frame {
+            margin: 2.2rem auto 0;
+            width: 290px;
+            max-width: 100%;
+            padding: 6px;
+            border-radius: 32px;
+            background: linear-gradient(120deg, rgba(124, 156, 255, 0.85), rgba(87, 224, 255, 0.4), rgba(124, 156, 255, 0.9));
+            background-size: 200% 200%;
+            animation: heroBorderShift 10s ease-in-out infinite;
+            box-shadow: 0 16px 38px rgba(3, 9, 20, 0.45);
+            transform: rotate(-1.5deg);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        .hero-frame:hover {
+            transform: rotate(0deg) translateY(-4px);
+            box-shadow: 0 20px 46px rgba(3, 9, 20, 0.55);
+        }
+
         .hero-image {
-            margin-top: 3.6rem;
+            display: block;
+            width: 100%;
+            height: auto;
+            border-radius: 26px;
+            border: 1px solid rgba(15, 22, 38, 0.7);
+        }
+
+        @keyframes heroBorderShift {
+            0% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+            100% {
+                background-position: 0% 50%;
+            }
         }
 
         .project-card {
@@ -518,20 +553,24 @@ def hero_section() -> None:
             st.link_button("💼 LinkedIn", PROFILE["linkedin"])
 
     with col2:
-        icon_path = Path(__file__).parent / "Logo-Polytec-Eurace-bleu-01 (1).png"
+        icon_path = Path(__file__).parent / "Gemini_Generated_Image_vilfj9vilfj9vilf.png"
 
         st.write("")
         if icon_path.exists():
             hero_image = image_to_data_uri(icon_path)
             if hero_image:
                 st.markdown(
-                    f"<img src='{hero_image}' class='hero-image' width='260' />",
+                    f"""
+                    <div class='hero-frame'>
+                        <img src='{hero_image}' class='hero-image' alt='Profile photo' />
+                    </div>
+                    """,
                     unsafe_allow_html=True,
                 )
             else:
-                st.image(str(icon_path), width=260)
+                st.image(str(icon_path), width=290)
         else:
-            st.info("Add hero icon: hero-tech-icon.svg")
+            st.info("Add hero image: Gemini_Generated_Image_vilfj9vilfj9vilf.png")
     st.markdown("</div>", unsafe_allow_html=True)
 
 
