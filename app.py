@@ -495,22 +495,30 @@ def image_to_data_uri(image_path: Path, max_width: int = 900) -> str | None:
         "jpeg": "image/jpeg",
         "png": "image/png",
         "webp": "image/webp",
+        "svg": "image/svg+xml",
     }
     mime_type = mime_map.get(suffix, "image/png")
 
-    if Image is not None:
-        image = Image.open(image_path)
-        if image.width > max_width:
-            ratio = max_width / image.width
-            new_size = (max_width, max(1, int(image.height * ratio)))
-            image = image.resize(new_size)
+    if suffix == "svg":
+        encoded = base64.b64encode(image_path.read_bytes()).decode("utf-8")
+        return f"data:{mime_type};base64,{encoded}"
 
-        buffer = io.BytesIO()
-        if image.mode in {"RGBA", "P"}:
-            image = image.convert("RGB")
-        image.save(buffer, format="JPEG", quality=80)
-        encoded = base64.b64encode(buffer.getvalue()).decode("utf-8")
-        return f"data:image/jpeg;base64,{encoded}"
+    if Image is not None:
+        try:
+            image = Image.open(image_path)
+            if image.width > max_width:
+                ratio = max_width / image.width
+                new_size = (max_width, max(1, int(image.height * ratio)))
+                image = image.resize(new_size)
+
+            buffer = io.BytesIO()
+            if image.mode in {"RGBA", "P"}:
+                image = image.convert("RGB")
+            image.save(buffer, format="JPEG", quality=80)
+            encoded = base64.b64encode(buffer.getvalue()).decode("utf-8")
+            return f"data:image/jpeg;base64,{encoded}"
+        except Exception:
+            pass
 
     encoded = base64.b64encode(image_path.read_bytes()).decode("utf-8")
     return f"data:{mime_type};base64,{encoded}"
