@@ -1,4 +1,8 @@
-# Anis Mselmi — Streamlit Portfolio
+<h1 align="center">Anis Mselmi</h1>
+
+<p align="center">
+  <img src="Gemini_Generated_Image_vilfj9vilfj9vilf.png" alt="Project Image" width="500"/>
+</p>
 
 A modern, responsive personal portfolio built with Streamlit. The app highlights a hero section, skills, education, experience, projects, languages, and contact form, all styled with a custom dark UI.
 
