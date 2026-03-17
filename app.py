@@ -372,7 +372,7 @@ st.markdown(
 # -----------------------------
 PROFILE = {
     "name": "Anis Mselmi",
-    "role": "Computer Engineering Student | AI & Web Development Enthusiast",
+    "role": "Computer Engineering Student | AI, RAG, and LLM Enthusiast",
     "location": "Khzema Ouest, Sousse, Tunisia",
     "email": "anismselmi490@gmail.com",
     "phone": "+216 25 141 636",
@@ -382,12 +382,12 @@ PROFILE = {
 
 ABOUT = (
     "🧠 Computer Engineering student at École Polytechnique de Sousse, focused on AI, "
-    "machine learning, and modern web development. I love turning complex ideas into "
-    "clean, user‑friendly experiences—whether that’s building intelligent Python models "
-    "or crafting fast, responsive interfaces. ⚡ I’m hands‑on with Jupyter/Colab workflows, "
-    "data visualization, and rapid experimentation, and I bring a builder’s mindset to "
-    "every project. 🌍 Curious, driven, and always learning, I’m open to internships and "
-    "part‑time roles where I can contribute to impactful AI and web products."
+    "machine learning, and LLMs. I love turning complex ideas into reliable AI systems "
+    "by building intelligent Python models, RAG pipelines, and conversational agents. "
+    "⚡ I am hands-on with Jupyter/Colab workflows, data visualization, and rapid "
+    "experimentation, and I bring a builder's mindset to every project. 🌍 Curious, "
+    "driven, and always learning, I am open to internships and part-time roles where "
+    "I can contribute to impactful AI, RAG, and LLM products."
 )
 
 EDUCATION = [
@@ -418,7 +418,7 @@ EXPERIENCE = [
 SKILLS = [
     ("Machine Learning & Deep Learning (AI)", 75),
     ("Python, Jupyter Notebook, Google Colab", 85),
-    ("Web Development (PHP)", 70),
+    ("RAG Pipelines & LLM Apps", 75),
     ("Data Analysis & Visualization", 70),
     ("C++", 65),
     ("Git & GitHub", 75),
@@ -427,19 +427,19 @@ SKILLS = [
 
 PROJECTS = [
     {
-        "name": "Mini Blog (PHP)",
-        "desc": "A lightweight PHP blog with clean CRUD, authentication, and a sleek editorial UI.",
-        "tags": ["PHP", "MySQL", "Web"],
-        "image": "PHP_Logo.png",
+        "name": "Prototype-de-chatbot-intelligent",
+        "desc": "An intelligent chatbot prototype with contextual responses and natural language understanding.",
+        "tags": ["AI", "NLP", "Python"],
+        "image": "chatbot.jpg",
         "logo": "logo-php-blog.svg",
-        "link": "https://github.com/anis-mselmi/Mini-Blog-PHP",
+        "link": "https://github.com/anis-mselmi/Prototype-de-chatbot-intelligent",
         "fit": "cover",
     },
     {
         "name": "AI Image Classifier",
         "desc": "A fast, intuitive image classifier with model insights and confidence scoring.",
         "tags": ["AI", "Computer Vision", "Python"],
-        "image": "téléchargement.jpg",
+        "image": "1669108029830.png",
         "logo": "logo-ai-classifier.smavg",
         "link": "https://github.com/anis-mselmi/AI-Image-Classifier",
     },
