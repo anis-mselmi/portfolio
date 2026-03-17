@@ -635,6 +635,8 @@ st.markdown(
             display: flex !important;
             justify-content: center !important;
             align-items: center;
+            position: relative;
+            isolation: isolate;
             gap: 0.58rem;
             margin: 0 auto 1.05rem;
             width: fit-content;
@@ -658,6 +660,16 @@ st.markdown(
             padding: 0.45rem 1.05rem !important;
             transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease !important;
             min-height: 42px;
+            cursor: pointer !important;
+            pointer-events: auto !important;
+            user-select: none;
+            white-space: nowrap;
+            position: relative;
+            z-index: 1;
+        }
+
+        button[data-baseweb="tab"] * {
+            color: inherit !important;
         }
 
         button[data-baseweb="tab"]:hover {
@@ -666,11 +678,29 @@ st.markdown(
             box-shadow: 0 0 16px rgba(87, 224, 255, 0.22);
         }
 
+        button[data-baseweb="tab"]:focus-visible {
+            outline: 2px solid rgba(130, 235, 255, 0.9) !important;
+            outline-offset: 2px;
+            box-shadow: 0 0 0 3px rgba(87, 224, 255, 0.22);
+        }
+
         button[data-baseweb="tab"][aria-selected="true"] {
             background: linear-gradient(90deg, rgba(29, 141, 255, 0.42), rgba(87, 224, 255, 0.28)) !important;
             border-color: rgba(87, 224, 255, 0.68) !important;
             color: #f7fbff !important;
             box-shadow: 0 0 0 1px rgba(87, 224, 255, 0.25), 0 10px 22px rgba(87, 224, 255, 0.26);
+        }
+
+        button[data-baseweb="tab"][aria-selected="true"]::after {
+            content: "";
+            position: absolute;
+            left: 20%;
+            right: 20%;
+            bottom: -7px;
+            height: 3px;
+            border-radius: 999px;
+            background: linear-gradient(90deg, rgba(29, 141, 255, 0.95), rgba(87, 224, 255, 0.95));
+            box-shadow: 0 0 12px rgba(87, 224, 255, 0.55);
         }
 
         .skills-grid-note {
@@ -1199,9 +1229,9 @@ PROJECTS = [
 ]
 
 LANGUAGES = [
-    {"name": "Arabic", "level": "Native / Fluent", "icon": "🇹🇳", "icon_src": "https://flagcdn.com/w40/tn.png", "style": "arabic"},
-    {"name": "English", "level": "Professional Proficiency", "icon": "🇬🇧", "icon_src": "https://flagcdn.com/w40/gb.png", "style": "english"},
-    {"name": "French", "level": "Professional Proficiency", "icon": "🇫🇷", "icon_src": "https://flagcdn.com/w40/fr.png", "style": "french"},
+    ("Arabic", "Native / Fluent", 100),
+    ("English", "Professional Proficiency", 80),
+    ("French", "Professional Proficiency", 75),
 ]
 
 SOFT_SKILLS = ["Communication", "Teamwork", "Project Management", "Organization"]
@@ -1501,30 +1531,14 @@ def render_projects() -> None:
 def render_languages() -> None:
     section_start("languages")
     section_title("Languages", "🌍")
-    st.caption("Each language now has its own visual identity and glass card style.")
-    st.markdown("<div class='lang-grid-kicker'>Language Stack</div>", unsafe_allow_html=True)
-
-    cols = st.columns(3, gap="large")
-    for index, item in enumerate(LANGUAGES):
-        lang_icon = (
-            f"<img src='{item['icon_src']}' class='lang-icon-img' alt='{item['name']} flag' />"
-            if item.get("icon_src")
-            else item["icon"]
-        )
-        with cols[index % 3]:
-            st.markdown(
-                f"""
-                <div class="lang-card lang-fade-in lang-{item['style']}">
-                    <div class="lang-top">
-                        <span class="lang-icon">{lang_icon}</span>
-                        <span class="lang-pill">{item['level']}</span>
-                    </div>
-                    <div class="lang-name">{item['name']}</div>
-                    <div class="lang-note">Communication ready for international teams.</div>
-                </div>
-                """,
-                unsafe_allow_html=True,
-            )
+    st.caption("Communication strengths across native and professional proficiency.")
+    cols = st.columns(2, gap="large")
+    for index, (lang, level, score) in enumerate(LANGUAGES):
+        with cols[index % 2]:
+            with st.container(border=True):
+                st.markdown(f"### {lang}")
+                st.caption(level)
+                st.progress(score)
     section_end()
 
 
