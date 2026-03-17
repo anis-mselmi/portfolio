@@ -296,7 +296,7 @@ st.markdown(
             aspect-ratio: 16 / 4;
             object-fit: cover;
             object-position: center;
-            background: #0d1422;
+            background: transparent;
         }
 
 
@@ -414,63 +414,561 @@ st.markdown(
             box-shadow: 0 14px 30px rgba(87, 224, 255, 0.35);
         }
 
-        .skill-card {
-            background: #0f1626;
-            border: 1px solid rgba(124, 156, 255, 0.25);
-            border-radius: 16px;
-            padding: 1rem 1.1rem;
-            box-shadow: 0 10px 26px rgba(3, 9, 20, 0.4);
+        .skills-grid-kicker {
             margin-bottom: 0.35rem;
+            font-size: 0.8rem;
+            color: #9fb4d3;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            font-weight: 700;
+        }
+
+        .skills-grid-note {
+            margin-bottom: 0.8rem;
+            font-size: 0.93rem;
+            color: #b9cae0;
+        }
+
+        .skill-card {
+            position: relative;
+            margin-bottom: 0.75rem;
+            border-radius: 19px;
+            padding: 1px;
+            overflow: hidden;
+            background: linear-gradient(135deg, rgba(29, 122, 255, 0.95), rgba(47, 228, 255, 0.84));
+            box-shadow: 0 8px 22px rgba(2, 8, 22, 0.32);
+            transform: translateY(0) scale(1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, filter 0.3s ease;
+        }
+
+        .skill-card.tone-red {
+            background: linear-gradient(135deg, rgba(255, 93, 93, 0.9), rgba(255, 255, 255, 0.82));
+        }
+
+        .skill-card::before {
+            content: "";
+            position: absolute;
+            inset: -120% -35%;
+            background: linear-gradient(120deg, transparent 30%, rgba(255, 255, 255, 0.34) 50%, transparent 70%);
+            transform: translateX(-45%) rotate(16deg);
+            opacity: 0;
+            transition: opacity 0.35s ease, transform 0.55s ease;
+            pointer-events: none;
+        }
+
+        .skill-card:hover::before {
+            opacity: 1;
+            transform: translateX(30%) rotate(16deg);
+        }
+
+        .skill-card-inner {
+            position: relative;
+            border-radius: 18px;
+            background: rgba(7, 14, 28, 0.62);
+            border: 1px solid rgba(170, 210, 255, 0.2);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            padding: 1rem;
+            min-height: 190px;
+            display: flex;
+            flex-direction: column;
+            gap: 0.62rem;
         }
 
         .skill-head {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            margin-bottom: 0.5rem;
+            gap: 0.6rem;
+        }
+
+        .skill-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 14px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.42rem;
+            color: #f5fbff;
+            background: radial-gradient(circle at 30% 20%, rgba(124, 156, 255, 0.42), rgba(87, 224, 255, 0.13));
+            border: 1px solid rgba(124, 156, 255, 0.48);
+            box-shadow: 0 0 0 rgba(87, 224, 255, 0);
+            transition: transform 0.35s ease, box-shadow 0.35s ease, filter 0.35s ease;
+        }
+
+        .skill-icon-img {
+            width: 24px;
+            height: 24px;
+            object-fit: contain;
+            filter: drop-shadow(0 0 8px rgba(87, 224, 255, 0.3));
         }
 
         .skill-name {
-            font-weight: 600;
-            color: var(--text);
+            font-size: 1.03rem;
+            line-height: 1.26;
+            font-weight: 700;
+            color: #ffffff;
+            text-shadow: 0 1px 1px rgba(0, 0, 0, 0.28);
+            letter-spacing: 0.01em;
         }
 
-        .skill-value {
-            color: var(--muted);
-            font-size: 0.9rem;
-            font-weight: 600;
+        .skill-subtitle {
+            font-size: 0.86rem;
+            color: #d2e4ff;
+            line-height: 1.45;
+            margin-top: -0.15rem;
         }
 
-        .skill-bar {
+        .skill-level {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 999px;
+            padding: 0.3rem 0.7rem;
+            font-size: 0.75rem;
+            font-weight: 700;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+
+        .level-expert {
+            color: #ffffff;
+            background: linear-gradient(90deg, rgba(18, 118, 255, 0.56), rgba(45, 232, 255, 0.46));
+            border: 1px solid rgba(130, 235, 255, 0.7);
+        }
+
+        .level-advanced {
+            color: #ffffff;
+            background: linear-gradient(90deg, rgba(255, 93, 93, 0.44), rgba(255, 255, 255, 0.22));
+            border: 1px solid rgba(255, 205, 205, 0.7);
+        }
+
+        .level-intermediate {
+            color: #ffffff;
+            background: linear-gradient(90deg, rgba(86, 145, 255, 0.32), rgba(107, 218, 255, 0.28));
+            border: 1px solid rgba(160, 196, 255, 0.65);
+        }
+
+        .skill-chips {
+            margin-top: auto;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.4rem;
+        }
+
+        .skill-chip {
             position: relative;
-            height: 8px;
-            border-radius: 999px;
-            background: #0c1422;
-            border: 1px solid var(--border);
             overflow: hidden;
+            display: inline-flex;
+            align-items: center;
+            border-radius: 999px;
+            padding: 0.23rem 0.58rem;
+            font-size: 0.7rem;
+            font-weight: 600;
+            color: #eff7ff;
+            background: rgba(17, 32, 61, 0.78);
+            border: 1px solid rgba(141, 185, 255, 0.44);
+            animation: chipPulse 3.4s ease-in-out infinite;
         }
 
-        .skill-bar > span {
+        .skill-chip::after {
+            content: "";
             position: absolute;
-            left: 0;
-            top: 0;
-            bottom: 0;
+            inset: 0;
+            transform: translateX(-105%);
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.22), transparent);
+            animation: chipSweep 4.2s ease-in-out infinite;
+        }
+
+        .skill-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 0 1px rgba(87, 224, 255, 0.34), 0 18px 36px rgba(22, 186, 255, 0.22);
+            filter: saturate(1.08);
+        }
+
+        .skill-card:hover .skill-icon {
+            transform: translateY(-2px) rotate(-8deg);
+            box-shadow: 0 0 22px rgba(87, 224, 255, 0.38);
+            filter: brightness(1.1);
+        }
+
+        .skill-fade-in {
+            opacity: 0;
+            transform: translateY(16px);
+            animation: skillReveal 650ms cubic-bezier(0.2, 0.7, 0.2, 1) forwards;
+            animation-delay: var(--delay, 0ms);
+        }
+
+        .skill-fade-in.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @keyframes skillReveal {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes chipSweep {
+            0%, 65% {
+                transform: translateX(-110%);
+            }
+            100% {
+                transform: translateX(120%);
+            }
+        }
+
+        @keyframes chipPulse {
+            0%, 100% {
+                box-shadow: 0 0 0 rgba(87, 224, 255, 0);
+            }
+            50% {
+                box-shadow: 0 0 12px rgba(87, 224, 255, 0.2);
+            }
+        }
+
+        div[data-baseweb="tab-list"] {
+            display: flex !important;
+            justify-content: center !important;
+            align-items: center;
+            gap: 0.58rem;
+            margin: 0 auto 1.05rem;
+            width: fit-content;
+            max-width: 100%;
+            flex-wrap: wrap;
+            padding: 0.35rem;
             border-radius: 999px;
-            background: linear-gradient(90deg, var(--accent) 0%, var(--accent-2) 100%);
+            border: 1px solid rgba(124, 156, 255, 0.25);
+            background: linear-gradient(120deg, rgba(15, 22, 38, 0.82), rgba(12, 18, 32, 0.74));
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.08), 0 12px 28px rgba(4, 10, 22, 0.28);
+        }
+
+        button[data-baseweb="tab"] {
+            border-radius: 999px !important;
+            border: 1px solid rgba(124, 156, 255, 0.36) !important;
+            background: rgba(255, 255, 255, 0.03) !important;
+            color: #d7e6f8 !important;
+            font-weight: 650 !important;
+            padding: 0.45rem 1.05rem !important;
+            transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease !important;
+            min-height: 42px;
+        }
+
+        button[data-baseweb="tab"]:hover {
+            transform: translateY(-1px);
+            border-color: rgba(87, 224, 255, 0.55) !important;
+            box-shadow: 0 0 16px rgba(87, 224, 255, 0.22);
+        }
+
+        button[data-baseweb="tab"][aria-selected="true"] {
+            background: linear-gradient(90deg, rgba(29, 141, 255, 0.42), rgba(87, 224, 255, 0.28)) !important;
+            border-color: rgba(87, 224, 255, 0.68) !important;
+            color: #f7fbff !important;
+            box-shadow: 0 0 0 1px rgba(87, 224, 255, 0.25), 0 10px 22px rgba(87, 224, 255, 0.26);
+        }
+
+        .skills-grid-note {
+            color: #d4e6ff;
+        }
+
+        .lang-grid-kicker {
+            margin-bottom: 0.6rem;
+            font-size: 0.84rem;
+            color: #b7c6da;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        .lang-card {
+            border-radius: 18px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(124, 156, 255, 0.3);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            padding: 0.95rem;
+            box-shadow: 0 10px 24px rgba(4, 10, 22, 0.35);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .lang-card:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 0 0 1px rgba(87, 224, 255, 0.26), 0 14px 30px rgba(23, 182, 255, 0.2);
+        }
+
+        .lang-top {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 0.6rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .lang-icon {
+            width: 44px;
+            height: 44px;
+            border-radius: 12px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.25rem;
+            border: 1px solid rgba(124, 156, 255, 0.4);
+            background: rgba(124, 156, 255, 0.16);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .lang-icon-img {
+            width: 28px;
+            height: 20px;
+            object-fit: cover;
+            border-radius: 5px;
+            border: 1px solid rgba(255, 255, 255, 0.35);
+        }
+
+        .lang-card:hover .lang-icon {
+            transform: rotate(-8deg) scale(1.08);
+            box-shadow: 0 0 16px rgba(87, 224, 255, 0.34);
+        }
+
+        .lang-pill {
+            font-size: 0.74rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            padding: 0.27rem 0.62rem;
+            border-radius: 999px;
+            color: #f0f7ff;
+            border: 1px solid rgba(255, 255, 255, 0.25);
+            background: rgba(255, 255, 255, 0.08);
+        }
+
+        .lang-name {
+            font-size: 1rem;
+            font-weight: 700;
+            color: #eef5ff;
+        }
+
+        .lang-note {
+            font-size: 0.88rem;
+            color: #afc1d8;
+            margin-top: 0.3rem;
+        }
+
+        .lang-arabic .lang-icon { background: rgba(16, 185, 129, 0.16); border-color: rgba(16, 185, 129, 0.45); }
+        .lang-english .lang-icon { background: rgba(59, 130, 246, 0.16); border-color: rgba(59, 130, 246, 0.45); }
+        .lang-french .lang-icon { background: rgba(244, 63, 94, 0.16); border-color: rgba(244, 63, 94, 0.45); }
+
+        .lang-fade-in {
+            opacity: 0;
+            transform: translateY(14px);
+            transition: opacity 0.5s ease, transform 0.5s ease;
+        }
+
+        .lang-fade-in.is-visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .skill-name {
+            font-weight: 700;
+            font-size: 1rem;
+            color: #eef5ff;
+            line-height: 1.25;
+            margin-top: 0.2rem;
+        }
+
+        .skill-level {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 999px;
+            padding: 0.28rem 0.68rem;
+            font-size: 0.78rem;
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            white-space: nowrap;
+        }
+
+        .level-expert {
+            color: #f7fbff;
+            background: linear-gradient(90deg, rgba(124, 156, 255, 0.4), rgba(87, 224, 255, 0.35));
+            border: 1px solid rgba(87, 224, 255, 0.45);
+        }
+
+        .level-advanced {
+            color: #f7fbff;
+            background: linear-gradient(90deg, rgba(255, 77, 77, 0.34), rgba(255, 255, 255, 0.2));
+            border: 1px solid rgba(255, 177, 177, 0.45);
+        }
+
+        .level-intermediate {
+            color: #f7fbff;
+            background: linear-gradient(90deg, rgba(116, 211, 255, 0.26), rgba(124, 156, 255, 0.24));
+            border: 1px solid rgba(124, 156, 255, 0.45);
+        }
+
+        .skill-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 0 1px rgba(87, 224, 255, 0.28), 0 14px 34px rgba(23, 182, 255, 0.26);
+        }
+
+        .skill-card:hover .skill-icon {
+            transform: translateY(-2px) scale(1.08) rotate(-7deg);
+            box-shadow: 0 0 20px rgba(87, 224, 255, 0.35);
+        }
+
+        .skill-fade-in {
+            opacity: 0;
+            transform: translateY(16px);
+            transition: opacity 0.55s ease, transform 0.55s ease;
+        }
+
+        .skill-fade-in.is-visible {
+            opacity: 1;
+            transform: translateY(0);
         }
 
         @media (max-width: 900px) {
-            .nav-link {
-                padding: 0.55rem 0.65rem;
-                font-size: 0.92rem;
+            div[data-baseweb="tab-list"] {
+                width: 100%;
+                justify-content: center !important;
+                border-radius: 16px;
+                padding: 0.42rem;
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .block-container {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+
+            h1 {
+                font-size: 2.45rem;
+            }
+
+            h2, .section-title {
+                font-size: 1.75rem;
             }
 
             .cover-banner {
+                aspect-ratio: 16 / 6;
+            }
+        }
+
+        @media (max-width: 900px) {
+            .block-container {
+                padding-top: 1.2rem;
+                padding-bottom: 2rem;
+            }
+
+            .hero-card {
+                padding: 1.15rem;
+                border-radius: 18px;
+            }
+
+            .cover-banner-wrap {
+                border-radius: 18px;
+                padding: 4px;
+            }
+
+            .cover-banner {
+                border-radius: 14px;
                 aspect-ratio: 16 / 7;
+                object-position: center 46%;
+            }
+
+            .hero-frame {
+                width: 220px;
+                margin: 1rem auto 0.1rem;
+            }
+
+            .project-card,
+            .skill-card,
+            .glass-card {
+                border-radius: 14px;
+            }
+
+            .skill-card-inner {
+                min-height: 114px;
+            }
+
+            div[data-testid="stHorizontalBlock"] {
+                flex-wrap: wrap;
+                gap: 0.75rem;
+            }
+
+            div[data-testid="stHorizontalBlock"] > div[data-testid="column"] {
+                min-width: calc(50% - 0.5rem) !important;
+                flex: 1 1 calc(50% - 0.5rem) !important;
+            }
+
+            .nav-link {
+                padding: 0.55rem 0.65rem;
+                font-size: 0.9rem;
             }
 
             .sidebar-nav {
                 grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
+
+        @media (max-width: 640px) {
+            h1 {
+                font-size: 1.85rem;
+                line-height: 1.12;
+            }
+
+            h2, .section-title {
+                font-size: 1.4rem;
+            }
+
+            h3 {
+                font-size: 1.12rem;
+            }
+
+            .section-kicker {
+                letter-spacing: 0.12em;
+                font-size: 0.68rem;
+            }
+
+            .cover-banner {
+                aspect-ratio: 16 / 9;
+                object-position: center 50%;
+            }
+
+            div[data-testid="stHorizontalBlock"] > div[data-testid="column"] {
+                min-width: 100% !important;
+                flex: 1 1 100% !important;
+            }
+
+            .stButton > button,
+            .stLinkButton > a,
+            .st-link-button {
+                width: 100% !important;
+                justify-content: center;
+            }
+
+            .project-card {
+                padding: 0.82rem;
+            }
+
+            .skill-icon {
+                width: 40px;
+                height: 40px;
+                font-size: 1.2rem;
+            }
+
+            .pill,
+            .tag {
+                font-size: 0.74rem;
             }
         }
     </style>
@@ -526,15 +1024,151 @@ EXPERIENCE = [
     "Participant at CSTAM 1.0, SDC 3.0, WIE ACT 4.0",
 ]
 
-SKILLS = [
-    ("Machine Learning & Deep Learning (AI)", 75),
-    ("Python, Jupyter Notebook, Google Colab", 85),
-    ("RAG Pipelines & LLM Apps", 75),
-    ("Data Analysis & Visualization", 70),
-    ("C++", 65),
-    ("Git & GitHub", 75),
-    ("Problem Solving & Innovation", 80),
-]
+SKILLS_BY_CATEGORY = {
+    "AI & Machine Learning": [
+        {
+            "icon": "🤖",
+            "name": "Machine Learning",
+            "level": "Advanced",
+            "subtitle": "Model training, evaluation, deployment",
+            "tags": ["scikit-learn", "feature engineering", "pipelines"],
+            "details": "Production-oriented supervised and unsupervised model building.",
+            "tone": "blue",
+        },
+        {
+            "icon": "🧠",
+            "name": "Deep Learning",
+            "level": "Intermediate",
+            "subtitle": "Neural architectures and optimization",
+            "tags": ["CNN", "transformers", "fine-tuning"],
+            "details": "Focused on practical DL experiments and model iteration.",
+            "tone": "blue",
+        },
+        {
+            "icon": "🧩",
+            "name": "RAG Pipelines",
+            "level": "Advanced",
+            "subtitle": "Retrieval + generation system design",
+            "tags": ["vector DB", "chunking", "reranking"],
+            "details": "Builds robust knowledge-grounded assistants with retrieval chains.",
+            "tone": "red",
+        },
+        {
+            "icon": "💬",
+            "name": "LLM Applications",
+            "level": "Advanced",
+            "subtitle": "Agent flows and prompt orchestration",
+            "tags": ["prompting", "chat UX", "evaluation"],
+            "details": "From prototype to reliable user-facing LLM workflows.",
+            "tone": "blue",
+        },
+    ],
+    "Programming": [
+        {
+            "icon": "🐍",
+            "name": "Python",
+            "level": "Expert",
+            "subtitle": "Core language for AI and automation",
+            "tags": ["clean code", "APIs", "scripting"],
+            "details": "Primary stack for AI products, experimentation, and tooling.",
+            "tone": "blue",
+        },
+        {
+            "icon": "⚙️",
+            "name": "C++",
+            "level": "Intermediate",
+            "subtitle": "Performance-focused systems concepts",
+            "tags": ["OOP", "memory", "algorithms"],
+            "details": "Solid foundation for low-level optimization and logic design.",
+            "tone": "red",
+        },
+        {
+            "icon": "📓",
+            "name": "Jupyter Notebook",
+            "level": "Advanced",
+            "subtitle": "Experiment-first development workflow",
+            "tags": ["EDA", "prototyping", "visual insight"],
+            "details": "Fast iteration environment for data and model experiments.",
+            "tone": "blue",
+        },
+        {
+            "icon": "☁️",
+            "name": "Google Colab",
+            "level": "Advanced",
+            "subtitle": "Cloud notebooks for rapid training",
+            "tags": ["GPU", "sharing", "quick runs"],
+            "details": "Accelerated collaborative experimentation in the cloud.",
+            "tone": "blue",
+        },
+    ],
+    "Data & Analytics": [
+        {
+            "icon": "📊",
+            "name": "Data Analysis",
+            "level": "Advanced",
+            "subtitle": "Insight extraction from raw datasets",
+            "tags": ["cleaning", "profiling", "statistics"],
+            "details": "Transforms noisy data into actionable information.",
+            "tone": "blue",
+        },
+        {
+            "icon": "📈",
+            "name": "Data Visualization",
+            "level": "Advanced",
+            "subtitle": "Narrative dashboards and reporting",
+            "tags": ["charts", "storytelling", "KPIs"],
+            "details": "Builds visuals that communicate decisions clearly.",
+            "tone": "red",
+        },
+        {
+            "icon": "🧪",
+            "name": "Experiment Tracking",
+            "level": "Intermediate",
+            "subtitle": "Metrics, iteration and model comparison",
+            "tags": ["versioning", "benchmarks", "ablation"],
+            "details": "Keeps model experiments measurable and reproducible.",
+            "tone": "blue",
+        },
+    ],
+    "Tools & Platforms": [
+        {
+            "icon": "🌿",
+            "name": "Git",
+            "level": "Advanced",
+            "subtitle": "Version control and clean collaboration",
+            "tags": ["branching", "history", "workflow"],
+            "details": "Maintains clean commit strategy and collaboration standards.",
+            "tone": "red",
+        },
+        {
+            "icon": "🐙",
+            "name": "GitHub",
+            "level": "Advanced",
+            "subtitle": "Repo management and project delivery",
+            "tags": ["PRs", "issues", "CI-ready"],
+            "details": "Organizes portfolio projects with professional structure.",
+            "tone": "blue",
+        },
+        {
+            "icon": "🧿",
+            "name": "VS Code",
+            "level": "Expert",
+            "subtitle": "AI-assisted high-productivity workflow",
+            "tags": ["debug", "extensions", "terminal"],
+            "details": "Primary IDE for fast iteration and project execution.",
+            "tone": "blue",
+        },
+        {
+            "icon": "⚡",
+            "name": "Streamlit",
+            "level": "Advanced",
+            "subtitle": "Interactive AI dashboard development",
+            "tags": ["UI", "rapid build", "deploy"],
+            "details": "Transforms ML demos into polished interactive apps.",
+            "tone": "red",
+        },
+    ],
+}
 
 PROJECTS = [
     {
@@ -565,9 +1199,9 @@ PROJECTS = [
 ]
 
 LANGUAGES = [
-    ("Arabic", "Native / Fluent", 100),
-    ("English", "Professional Proficiency", 80),
-    ("French", "Professional Proficiency", 75),
+    {"name": "Arabic", "level": "Native / Fluent", "icon": "🇹🇳", "icon_src": "https://flagcdn.com/w40/tn.png", "style": "arabic"},
+    {"name": "English", "level": "Professional Proficiency", "icon": "🇬🇧", "icon_src": "https://flagcdn.com/w40/gb.png", "style": "english"},
+    {"name": "French", "level": "Professional Proficiency", "icon": "🇫🇷", "icon_src": "https://flagcdn.com/w40/fr.png", "style": "french"},
 ]
 
 SOFT_SKILLS = ["Communication", "Teamwork", "Project Management", "Organization"]
@@ -623,9 +1257,17 @@ def image_to_data_uri(image_path: Path, max_width: int = 900) -> str | None:
                 image = image.resize(new_size)
 
             buffer = io.BytesIO()
-            if image.mode in {"RGBA", "P"}:
-                image = image.convert("RGB")
-            image.save(buffer, format="JPEG", quality=80)
+            has_alpha = image.mode in {"RGBA", "LA"} or (
+                image.mode == "P" and "transparency" in image.info
+            )
+
+            if has_alpha:
+                image.save(buffer, format="PNG", optimize=True)
+                encoded = base64.b64encode(buffer.getvalue()).decode("utf-8")
+                return "data:image/png;base64," + encoded
+
+            image = image.convert("RGB")
+            image.save(buffer, format="JPEG", quality=80, optimize=True)
             encoded = base64.b64encode(buffer.getvalue()).decode("utf-8")
             return f"data:image/jpeg;base64,{encoded}"
         except Exception:
@@ -663,7 +1305,9 @@ def section_end() -> None:
 
 def render_cover_banner() -> None:
     cover_path = Path(__file__).parent / "Copie de photo de couverture LinkedIn (1).png"
-    cover_data = image_to_data_uri(cover_path, max_width=1600)
+    cover_data = None
+    if cover_path.exists():
+        cover_data = "data:image/png;base64," + base64.b64encode(cover_path.read_bytes()).decode("utf-8")
 
     if cover_data:
         st.markdown(
@@ -721,26 +1365,50 @@ def hero_section() -> None:
     section_end()
 
 
-def render_skills() -> None:
+def render_skills_section() -> None:
     section_start("skills")
     section_title("Skills", "🛠")
-    st.caption("Skill levels are indicative and continuously evolving.")
+    st.caption("Futuristic AI dashboard cards with neon glow, animated chips, and role-focused depth.")
 
-    cols = st.columns(2, gap="large")
-    for index, (skill, level) in enumerate(SKILLS):
-        with cols[index % 2]:
+    tabs = st.tabs(list(SKILLS_BY_CATEGORY.keys()))
+
+    for tab, (category, items) in zip(tabs, SKILLS_BY_CATEGORY.items()):
+        with tab:
+            st.markdown(f"<div class='skills-grid-kicker'>{category}</div>", unsafe_allow_html=True)
             st.markdown(
-                f"""
-                <div class="skill-card">
-                    <div class="skill-head">
-                        <span class="skill-name">{skill}</span>
-                        <span class="skill-value">{level}%</span>
-                    </div>
-                    <div class="skill-bar"><span style="width:{level}%"></span></div>
-                </div>
-                """,
+                "<div class='skills-grid-note'>Hover cards for glow, motion, and a quick expertise snapshot.</div>",
                 unsafe_allow_html=True,
             )
+            cols = st.columns(3, gap="large")
+            for index, item in enumerate(items):
+                level_class = f"level-{item['level'].lower()}"
+                tone_class = "tone-red" if item.get("tone") == "red" else ""
+                skill_icon = (
+                    f"<img src='{item['icon_src']}' class='skill-icon-img' alt='{item['name']} icon' />"
+                    if item.get("icon_src")
+                    else item["icon"]
+                )
+                chips_html = "".join(
+                    [f"<span class='skill-chip'>{tag}</span>" for tag in item.get("tags", [])[:3]]
+                )
+                delay_ms = (index % 3) * 90
+                with cols[index % 3]:
+                    st.markdown(
+                        f"""
+                        <div class="skill-card skill-fade-in {tone_class}" style="--delay:{delay_ms}ms" title="{item.get('details', '')}">
+                            <div class="skill-card-inner" title="{item.get('details', '')}">
+                                <div class="skill-head">
+                                    <span class="skill-icon">{skill_icon}</span>
+                                    <span class="skill-level {level_class}">{item['level']}</span>
+                                </div>
+                                <div class="skill-name">{item['name']}</div>
+                                <div class="skill-subtitle">{item.get('subtitle', '')}</div>
+                                <div class="skill-chips">{chips_html}</div>
+                            </div>
+                        </div>
+                        """,
+                        unsafe_allow_html=True,
+                    )
     section_end()
 
 
@@ -833,14 +1501,30 @@ def render_projects() -> None:
 def render_languages() -> None:
     section_start("languages")
     section_title("Languages", "🌍")
-    st.caption("Communication strengths across native and professional proficiency.")
-    cols = st.columns(2, gap="large")
-    for index, (lang, level, score) in enumerate(LANGUAGES):
-        with cols[index % 2]:
-            with st.container(border=True):
-                st.markdown(f"### {lang}")
-                st.caption(level)
-                st.progress(score)
+    st.caption("Each language now has its own visual identity and glass card style.")
+    st.markdown("<div class='lang-grid-kicker'>Language Stack</div>", unsafe_allow_html=True)
+
+    cols = st.columns(3, gap="large")
+    for index, item in enumerate(LANGUAGES):
+        lang_icon = (
+            f"<img src='{item['icon_src']}' class='lang-icon-img' alt='{item['name']} flag' />"
+            if item.get("icon_src")
+            else item["icon"]
+        )
+        with cols[index % 3]:
+            st.markdown(
+                f"""
+                <div class="lang-card lang-fade-in lang-{item['style']}">
+                    <div class="lang-top">
+                        <span class="lang-icon">{lang_icon}</span>
+                        <span class="lang-pill">{item['level']}</span>
+                    </div>
+                    <div class="lang-name">{item['name']}</div>
+                    <div class="lang-note">Communication ready for international teams.</div>
+                </div>
+                """,
+                unsafe_allow_html=True,
+            )
     section_end()
 
 
@@ -922,6 +1606,34 @@ def mount_scroll_behavior() -> None:
                     });
                 });
 
+                const observeSkillCards = () => {
+                    const revealCards = Array.from(
+                        document.querySelectorAll('.skill-fade-in, .lang-fade-in')
+                    );
+                    if (!revealCards.length) return;
+
+                    const skillObserver = new IntersectionObserver(
+                        (entries) => {
+                            entries.forEach((entry) => {
+                                if (entry.isIntersecting) {
+                                    entry.target.classList.add('is-visible');
+                                    skillObserver.unobserve(entry.target);
+                                }
+                            });
+                        },
+                        {
+                            root: null,
+                            rootMargin: '0px 0px -12% 0px',
+                            threshold: 0.08,
+                        }
+                    );
+
+                    revealCards.forEach((card, index) => {
+                        card.style.transitionDelay = `${Math.min(index * 35, 180)}ms`;
+                        skillObserver.observe(card);
+                    });
+                };
+
                 const setActive = (anchor) => {
                     links.forEach((link) => {
                         const isActive = link.dataset.target === anchor;
@@ -951,6 +1663,8 @@ def mount_scroll_behavior() -> None:
 
                 setActive('hero');
                 updateProgress();
+                observeSkillCards();
+                setTimeout(observeSkillCards, 350);
                 window.addEventListener('scroll', updateProgress, { passive: true });
             })();
         </script>
@@ -968,7 +1682,7 @@ def main() -> None:
     render_cover_banner()
 
     hero_section()
-    render_skills()
+    render_skills_section()
     render_education()
     render_experience()
     render_projects()
