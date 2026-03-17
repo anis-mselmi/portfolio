@@ -18,7 +18,7 @@ st.set_page_config(
     page_title="Anis Mselmi | Portfolio",
     page_icon="🧠",
     layout="wide",
-    initial_sidebar_state="expanded",
+    initial_sidebar_state="collapsed",
 )
 
 # -----------------------------
@@ -41,6 +41,10 @@ st.markdown(
             --border: #1f2a3b;
         }
 
+        html {
+            scroll-behavior: smooth;
+        }
+
         html, body, [class*="css"] {
             font-family: 'Inter', system-ui, -apple-system, sans-serif;
         }
@@ -60,6 +64,17 @@ st.markdown(
         section[data-testid="stSidebar"] {
             background: linear-gradient(180deg, #0f1522 0%, #0b0f17 100%);
             border-right: 1px solid var(--border);
+            display: none !important;
+        }
+
+        section[data-testid="stSidebar"] div[data-testid="stSidebarUserContent"] {
+            position: sticky;
+            top: 0.6rem;
+        }
+
+        button[kind="header"][aria-label="View sidebar"],
+        button[kind="header"][aria-label="Close sidebar"] {
+            display: none !important;
         }
 
         section[data-testid="stSidebar"] .stSidebarHeader,
@@ -203,6 +218,87 @@ st.markdown(
         div[data-testid="stVerticalBlock"] > div:has(> .stContainer) {
             gap: 1.1rem;
         }
+
+        .scroll-progress {
+            position: fixed;
+            left: 0;
+            top: 0;
+            height: 4px;
+            width: 0%;
+            z-index: 9999;
+            background: linear-gradient(90deg, var(--accent) 0%, var(--accent-2) 100%);
+            box-shadow: 0 0 18px rgba(124, 156, 255, 0.45);
+        }
+
+        .sidebar-nav-title {
+            font-size: 0.82rem;
+            letter-spacing: 0.12em;
+            text-transform: uppercase;
+            color: var(--muted);
+            margin: 0.75rem 0 0.65rem;
+            font-weight: 700;
+        }
+
+        .sidebar-nav {
+            display: grid;
+            grid-template-columns: repeat(7, minmax(0, 1fr));
+            gap: 0.55rem;
+        }
+
+        .nav-link {
+            display: block;
+            width: 100%;
+            text-decoration: none;
+            color: var(--text) !important;
+            background: #111a2b;
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 0.6rem 0.75rem;
+            font-size: 0.96rem;
+            font-weight: 600;
+            text-align: center;
+            white-space: nowrap;
+            transition: all 0.25s ease;
+        }
+
+        .nav-link:hover {
+            transform: translateX(2px);
+            border-color: rgba(124, 156, 255, 0.55);
+            box-shadow: 0 8px 20px rgba(3, 9, 20, 0.38);
+        }
+
+        .nav-link.active {
+            background: linear-gradient(90deg, rgba(124,156,255,0.26) 0%, rgba(87,224,255,0.16) 100%);
+            border-color: rgba(124, 156, 255, 0.65);
+            color: #f3f7ff !important;
+        }
+
+        .anchor-target {
+            display: block;
+            position: relative;
+            top: -0.7rem;
+            visibility: hidden;
+        }
+
+        .cover-banner-wrap {
+            margin: 0 0 1.35rem;
+            border-radius: 24px;
+            padding: 6px;
+            background: linear-gradient(120deg, rgba(124, 156, 255, 0.75), rgba(87, 224, 255, 0.35));
+            box-shadow: 0 16px 38px rgba(3, 9, 20, 0.42);
+        }
+
+        .cover-banner {
+            width: 100%;
+            display: block;
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.18);
+            aspect-ratio: 16 / 4;
+            object-fit: cover;
+            object-position: center;
+            background: #0d1422;
+        }
+
 
         .hero-frame {
             margin: 2.2rem auto 0;
@@ -362,6 +458,21 @@ st.markdown(
             border-radius: 999px;
             background: linear-gradient(90deg, var(--accent) 0%, var(--accent-2) 100%);
         }
+
+        @media (max-width: 900px) {
+            .nav-link {
+                padding: 0.55rem 0.65rem;
+                font-size: 0.92rem;
+            }
+
+            .cover-banner {
+                aspect-ratio: 16 / 7;
+            }
+
+            .sidebar-nav {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+            }
+        }
     </style>
     """,
     unsafe_allow_html=True,
@@ -469,7 +580,7 @@ INTERESTS = ["Travelling", "Sports", "Reading"]
 def load_profile_image(image_path: Path):
     if not image_path.exists():
         return None
-    if Image is None:
+    if Image is None or ImageDraw is None:
         return str(image_path)
 
     image = Image.open(image_path).convert("RGBA")
@@ -539,11 +650,38 @@ def badge(text: str) -> None:
     st.markdown(f"<span class=\"pill\">{text}</span>", unsafe_allow_html=True)
 
 
+def section_start(anchor: str, hero: bool = False) -> None:
+    st.markdown(
+        f"<span id='{anchor}' class='anchor-target anchor-section' data-anchor='{anchor}'></span>",
+        unsafe_allow_html=True,
+    )
+
+
+def section_end() -> None:
+    return
+
+
+def render_cover_banner() -> None:
+    cover_path = Path(__file__).parent / "Copie de photo de couverture LinkedIn (1).png"
+    cover_data = image_to_data_uri(cover_path, max_width=1600)
+
+    if cover_data:
+        st.markdown(
+            f"""
+            <div class='cover-banner-wrap'>
+                <img src='{cover_data}' class='cover-banner' alt='LinkedIn cover image' />
+            </div>
+            """,
+            unsafe_allow_html=True,
+        )
+
+
 # -----------------------------
 # Sections
 # -----------------------------
 
 def hero_section() -> None:
+    section_start("hero", hero=True)
     section_title("Welcome", "👋")
     st.markdown('<div class="hero-card">', unsafe_allow_html=True)
     col1, col2 = st.columns([2, 1], gap="large")
@@ -580,9 +718,11 @@ def hero_section() -> None:
         else:
             st.info("Add hero image: Gemini_Generated_Image_vilfj9vilfj9vilf.png")
     st.markdown("</div>", unsafe_allow_html=True)
+    section_end()
 
 
 def render_skills() -> None:
+    section_start("skills")
     section_title("Skills", "🛠")
     st.caption("Skill levels are indicative and continuously evolving.")
 
@@ -601,18 +741,22 @@ def render_skills() -> None:
                 """,
                 unsafe_allow_html=True,
             )
+    section_end()
 
 
 def render_education() -> None:
+    section_start("education")
     section_title("Education", "🎓")
     for item in EDUCATION:
         st.markdown(f"### {item['title']}")
         st.markdown(f"**{item['school']}**")
         st.markdown(item["years"])
         st.markdown("---")
+    section_end()
 
 
 def render_experience() -> None:
+    section_start("experience")
     section_title("Experience & Community", "💼")
     st.caption("Leadership, community, and event experience across tech initiatives.")
     cards = [
@@ -644,9 +788,11 @@ def render_experience() -> None:
             with st.container(border=True):
                 st.markdown(f"### {item['emoji']} {item['title']}")
                 st.caption(item["detail"])
+    section_end()
 
 
 def render_projects() -> None:
+    section_start("projects")
     section_title("Projects", "🚀")
     st.caption("Project placeholders — ready to be replaced with real work samples.")
 
@@ -681,9 +827,11 @@ def render_projects() -> None:
                 </div>
             """
             st.markdown(card_html, unsafe_allow_html=True)
+    section_end()
 
 
 def render_languages() -> None:
+    section_start("languages")
     section_title("Languages", "🌍")
     st.caption("Communication strengths across native and professional proficiency.")
     cols = st.columns(2, gap="large")
@@ -693,9 +841,11 @@ def render_languages() -> None:
                 st.markdown(f"### {lang}")
                 st.caption(level)
                 st.progress(score)
+    section_end()
 
 
 def render_contact() -> None:
+    section_start("contact")
     section_title("Contact", "📬")
     st.caption("Send a direct message — it opens your email client with everything pre‑filled.")
     with st.form("contact_form", clear_on_submit=True):
@@ -715,24 +865,97 @@ def render_contact() -> None:
 
     st.markdown("---")
     st.caption(f"© {datetime.now().year} {PROFILE['name']} · Built with Streamlit")
+    section_end()
 
 
-def render_sidebar() -> str:
-    st.sidebar.title("🧭 Navigation")
-    st.sidebar.write(PROFILE["name"])
-    st.sidebar.caption(PROFILE["role"])
-    return st.sidebar.radio(
-        "Go to",
-        [
-            "Hero",
-            "Skills",
-            "Education",
-            "Experience",
-            "Projects",
-            "Languages",
-            "Contact",
-        ],
-        label_visibility="collapsed",
+def mount_scroll_behavior() -> None:
+    st.markdown("<div class='scroll-progress' id='scroll-progress'></div>", unsafe_allow_html=True)
+    st.markdown(
+        """
+        <script>
+            (() => {
+                const SIDE_LINK_SELECTOR = '.nav-link';
+                const SECTION_SELECTOR = '.anchor-section';
+                const duration = 600;
+
+                const easeInOut = (t) => {
+                    return t < 0.5 ? 2 * t * t : 1 - Math.pow(-2 * t + 2, 2) / 2;
+                };
+
+                const smoothScrollTo = (targetY) => {
+                    const startY = window.pageYOffset;
+                    const distance = targetY - startY;
+                    let startTime = null;
+
+                    const tick = (currentTime) => {
+                        if (!startTime) startTime = currentTime;
+                        const elapsed = currentTime - startTime;
+                        const progress = Math.min(elapsed / duration, 1);
+                        const eased = easeInOut(progress);
+                        window.scrollTo(0, startY + distance * eased);
+                        if (elapsed < duration) {
+                            window.requestAnimationFrame(tick);
+                        }
+                    };
+
+                    window.requestAnimationFrame(tick);
+                };
+
+                const updateProgress = () => {
+                    const el = document.getElementById('scroll-progress');
+                    if (!el) return;
+                    const scrollTop = window.pageYOffset;
+                    const docHeight = document.documentElement.scrollHeight - window.innerHeight;
+                    const ratio = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+                    el.style.width = `${Math.min(100, Math.max(0, ratio))}%`;
+                };
+
+                const links = Array.from(document.querySelectorAll(SIDE_LINK_SELECTOR));
+                links.forEach((link) => {
+                    link.addEventListener('click', (event) => {
+                        event.preventDefault();
+                        const targetId = link.dataset.target;
+                        const target = document.getElementById(targetId);
+                        if (!target) return;
+                        const top = target.getBoundingClientRect().top + window.pageYOffset - 10;
+                        smoothScrollTo(top);
+                    });
+                });
+
+                const setActive = (anchor) => {
+                    links.forEach((link) => {
+                        const isActive = link.dataset.target === anchor;
+                        link.classList.toggle('active', isActive);
+                    });
+                };
+
+                const sections = Array.from(document.querySelectorAll(SECTION_SELECTOR));
+                if (sections.length) {
+                    const observer = new IntersectionObserver(
+                        (entries) => {
+                            entries.forEach((entry) => {
+                                if (entry.isIntersecting) {
+                                    const anchor = entry.target.dataset.anchor;
+                                    if (anchor) setActive(anchor);
+                                }
+                            });
+                        },
+                        {
+                            root: null,
+                            rootMargin: '-40% 0px -45% 0px',
+                            threshold: 0.01,
+                        }
+                    );
+                    sections.forEach((section) => observer.observe(section));
+                }
+
+                setActive('hero');
+                updateProgress();
+                window.addEventListener('scroll', updateProgress, { passive: true });
+            })();
+        </script>
+        """,
+        unsafe_allow_html=True,
     )
 
 
@@ -741,22 +964,16 @@ def render_sidebar() -> str:
 # -----------------------------
 
 def main() -> None:
-    selection = render_sidebar()
+    mount_scroll_behavior()
+    render_cover_banner()
 
-    if selection == "Hero":
-        hero_section()
-    elif selection == "Skills":
-        render_skills()
-    elif selection == "Education":
-        render_education()
-    elif selection == "Experience":
-        render_experience()
-    elif selection == "Projects":
-        render_projects()
-    elif selection == "Languages":
-        render_languages()
-    elif selection == "Contact":
-        render_contact()
+    hero_section()
+    render_skills()
+    render_education()
+    render_experience()
+    render_projects()
+    render_languages()
+    render_contact()
 
 
 if __name__ == "__main__":
