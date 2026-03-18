@@ -293,10 +293,11 @@ st.markdown(
             display: block;
             border-radius: 20px;
             border: 1px solid rgba(255, 255, 255, 0.18);
-            aspect-ratio: 16 / 4;
-            object-fit: cover;
+            height: auto;
+            max-height: 260px;
+            object-fit: contain;
             object-position: center;
-            background: transparent;
+            background: #0a1220;
         }
 
 
@@ -666,6 +667,25 @@ st.markdown(
             white-space: nowrap;
             position: relative;
             z-index: 1;
+            box-shadow: none !important;
+        }
+
+        button[data-baseweb="tab"]::before,
+        button[data-baseweb="tab"]::after {
+            content: none !important;
+            display: none !important;
+        }
+
+        /* Remove Streamlit/BaseWeb default tab underline indicator (often red). */
+        button[data-baseweb="tab"],
+        button[data-baseweb="tab"][aria-selected="true"] {
+            border-bottom: 0 !important;
+        }
+
+        div[data-baseweb="tab-highlight"] {
+            display: none !important;
+            height: 0 !important;
+            background: transparent !important;
         }
 
         button[data-baseweb="tab"] * {
@@ -685,22 +705,10 @@ st.markdown(
         }
 
         button[data-baseweb="tab"][aria-selected="true"] {
-            background: linear-gradient(90deg, rgba(29, 141, 255, 0.42), rgba(87, 224, 255, 0.28)) !important;
-            border-color: rgba(87, 224, 255, 0.68) !important;
+            background: rgba(87, 224, 255, 0.16) !important;
+            border-color: rgba(87, 224, 255, 0.5) !important;
             color: #f7fbff !important;
-            box-shadow: 0 0 0 1px rgba(87, 224, 255, 0.25), 0 10px 22px rgba(87, 224, 255, 0.26);
-        }
-
-        button[data-baseweb="tab"][aria-selected="true"]::after {
-            content: "";
-            position: absolute;
-            left: 20%;
-            right: 20%;
-            bottom: -7px;
-            height: 3px;
-            border-radius: 999px;
-            background: linear-gradient(90deg, rgba(29, 141, 255, 0.95), rgba(87, 224, 255, 0.95));
-            box-shadow: 0 0 12px rgba(87, 224, 255, 0.55);
+            box-shadow: none !important;
         }
 
         .skills-grid-note {
@@ -708,101 +716,191 @@ st.markdown(
         }
 
         .lang-grid-kicker {
-            margin-bottom: 0.6rem;
+            margin-bottom: 0.65rem;
             font-size: 0.84rem;
             color: #b7c6da;
-            letter-spacing: 0.06em;
+            letter-spacing: 0.1em;
             text-transform: uppercase;
-            font-weight: 600;
+            font-weight: 700;
         }
 
-        .lang-card {
-            border-radius: 18px;
-            background: rgba(255, 255, 255, 0.05);
-            border: 1px solid rgba(124, 156, 255, 0.3);
-            backdrop-filter: blur(10px);
-            -webkit-backdrop-filter: blur(10px);
-            padding: 0.95rem;
-            box-shadow: 0 10px 24px rgba(4, 10, 22, 0.35);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        .lang-showcase {
+            position: relative;
+            margin-top: 0.25rem;
         }
 
-        .lang-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 0 0 1px rgba(87, 224, 255, 0.26), 0 14px 30px rgba(23, 182, 255, 0.2);
+        .lang-cards-grid {
+            display: grid;
+            grid-template-columns: repeat(2, minmax(0, 1fr));
+            gap: 1rem;
         }
 
-        .lang-top {
+        .lang-glass-card {
+            position: relative;
+            border-radius: 22px;
+            padding: 1px;
+            overflow: hidden;
+            background: linear-gradient(130deg, rgba(82, 165, 255, 0.95), rgba(124, 156, 255, 0.62), rgba(87, 224, 255, 0.92));
+            box-shadow: 0 14px 32px rgba(3, 9, 22, 0.42);
+            transform: translateY(0) scale(1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease, filter 0.3s ease;
+            animation: none;
+        }
+
+        .lang-glass-card::before {
+            content: "";
+            position: absolute;
+            inset: -115% -35%;
+            transform: translateX(-45%) rotate(14deg);
+            background: linear-gradient(120deg, transparent 30%, rgba(255, 255, 255, 0.33) 50%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.35s ease, transform 0.55s ease;
+            pointer-events: none;
+        }
+
+        .lang-glass-card:hover::before {
+            opacity: 1;
+            transform: translateX(28%) rotate(14deg);
+        }
+
+        .lang-glass-card:hover {
+            transform: translateY(-4px) scale(1.03);
+            box-shadow: 0 0 0 1px rgba(159, 227, 255, 0.42), 0 18px 38px rgba(21, 189, 255, 0.3);
+            filter: saturate(1.06);
+        }
+
+        .lang-glass-card-inner {
+            position: relative;
+            border-radius: 21px;
+            height: 100%;
+            min-height: 180px;
+            padding: 1rem 1rem 0.95rem;
+            display: flex;
+            flex-direction: column;
+            gap: 0.72rem;
+            background: linear-gradient(145deg, rgba(9, 18, 34, 0.76), rgba(11, 21, 39, 0.68));
+            border: 1px solid rgba(165, 205, 255, 0.22);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+        }
+
+        .lang-head {
             display: flex;
             align-items: center;
             justify-content: space-between;
-            gap: 0.6rem;
-            margin-bottom: 0.5rem;
+            gap: 0.55rem;
         }
 
-        .lang-icon {
-            width: 44px;
-            height: 44px;
-            border-radius: 12px;
+        .lang-flag {
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            font-size: 1.25rem;
-            border: 1px solid rgba(124, 156, 255, 0.4);
-            background: rgba(124, 156, 255, 0.16);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        .lang-icon-img {
-            width: 28px;
-            height: 20px;
-            object-fit: cover;
-            border-radius: 5px;
-            border: 1px solid rgba(255, 255, 255, 0.35);
-        }
-
-        .lang-card:hover .lang-icon {
-            transform: rotate(-8deg) scale(1.08);
-            box-shadow: 0 0 16px rgba(87, 224, 255, 0.34);
-        }
-
-        .lang-pill {
-            font-size: 0.74rem;
-            font-weight: 700;
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-            padding: 0.27rem 0.62rem;
-            border-radius: 999px;
-            color: #f0f7ff;
-            border: 1px solid rgba(255, 255, 255, 0.25);
+            width: 54px;
+            height: 54px;
+            border-radius: 16px;
+            font-size: 1.9rem;
             background: rgba(255, 255, 255, 0.08);
+            border: 1px solid rgba(203, 227, 255, 0.33);
+            box-shadow: 0 8px 20px rgba(3, 9, 20, 0.28);
+        }
+
+        .lang-flag-img {
+            width: 34px;
+            height: 24px;
+            border-radius: 6px;
+            object-fit: cover;
+            border: 1px solid rgba(255, 255, 255, 0.45);
+            box-shadow: 0 3px 8px rgba(3, 9, 20, 0.28);
+        }
+
+        .lang-flag-img--uk {
+            width: 42px;
+            height: 30px;
+            border-radius: 8px;
+            object-fit: cover;
+        }
+
+        .lang-badge {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 0.32rem 0.72rem;
+            border-radius: 999px;
+            font-size: 0.72rem;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            font-weight: 800;
+            color: #f4fbff;
+            border: 1px solid rgba(198, 231, 255, 0.5);
+            background: linear-gradient(90deg, rgba(82, 165, 255, 0.28), rgba(87, 224, 255, 0.24));
         }
 
         .lang-name {
-            font-size: 1rem;
-            font-weight: 700;
-            color: #eef5ff;
+            font-size: 1.5rem;
+            font-weight: 800;
+            color: #f5fbff;
+            letter-spacing: -0.01em;
+            line-height: 1.1;
         }
 
         .lang-note {
-            font-size: 0.88rem;
-            color: #afc1d8;
-            margin-top: 0.3rem;
+            font-size: 0.95rem;
+            color: #bcd1ea;
+            line-height: 1.45;
         }
 
-        .lang-arabic .lang-icon { background: rgba(16, 185, 129, 0.16); border-color: rgba(16, 185, 129, 0.45); }
-        .lang-english .lang-icon { background: rgba(59, 130, 246, 0.16); border-color: rgba(59, 130, 246, 0.45); }
-        .lang-french .lang-icon { background: rgba(244, 63, 94, 0.16); border-color: rgba(244, 63, 94, 0.45); }
+        .lang-accent {
+            margin-top: auto;
+            width: 100%;
+            height: 8px;
+            border-radius: 999px;
+            background: linear-gradient(90deg, rgba(82, 165, 255, 0.78), rgba(87, 224, 255, 0.62));
+            box-shadow: 0 0 16px rgba(87, 224, 255, 0.26);
+            opacity: 0.88;
+        }
+
+        .lang-tone-arabic {
+            background: linear-gradient(130deg, rgba(22, 176, 129, 0.95), rgba(26, 155, 117, 0.7), rgba(78, 215, 171, 0.88));
+        }
+
+        .lang-tone-english {
+            background: linear-gradient(130deg, rgba(69, 123, 255, 0.95), rgba(102, 136, 255, 0.72), rgba(89, 205, 255, 0.86));
+        }
+
+        .lang-tone-french {
+            background: linear-gradient(130deg, rgba(56, 112, 255, 0.95), rgba(255, 255, 255, 0.76), rgba(255, 95, 95, 0.92));
+        }
 
         .lang-fade-in {
-            opacity: 0;
-            transform: translateY(14px);
-            transition: opacity 0.5s ease, transform 0.5s ease;
+            opacity: 1;
+            transform: translateY(0);
+            animation: none;
         }
 
         .lang-fade-in.is-visible {
             opacity: 1;
             transform: translateY(0);
+        }
+
+        @keyframes langRevealSoft {
+            from {
+                opacity: 0;
+                transform: translateY(12px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes langFloat {
+            0%,
+            100% {
+                transform: translateY(0);
+            }
+            50% {
+                transform: translateY(-4px);
+            }
         }
 
         .skill-name {
@@ -866,11 +964,25 @@ st.markdown(
         }
 
         @media (max-width: 900px) {
+            .lang-cards-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .lang-glass-card-inner {
+                min-height: 162px;
+            }
+
             div[data-baseweb="tab-list"] {
                 width: 100%;
                 justify-content: center !important;
                 border-radius: 16px;
                 padding: 0.42rem;
+            }
+        }
+
+        @media (min-width: 1200px) {
+            .lang-cards-grid {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
             }
         }
 
@@ -889,7 +1001,7 @@ st.markdown(
             }
 
             .cover-banner {
-                aspect-ratio: 16 / 6;
+                max-height: 220px;
             }
         }
 
@@ -911,7 +1023,7 @@ st.markdown(
 
             .cover-banner {
                 border-radius: 14px;
-                aspect-ratio: 16 / 7;
+                max-height: 180px;
                 object-position: center 46%;
             }
 
@@ -970,7 +1082,7 @@ st.markdown(
             }
 
             .cover-banner {
-                aspect-ratio: 16 / 9;
+                max-height: 150px;
                 object-position: center 50%;
             }
 
@@ -1229,9 +1341,31 @@ PROJECTS = [
 ]
 
 LANGUAGES = [
-    ("Arabic", "Native / Fluent", 100),
-    ("English", "Professional Proficiency", 80),
-    ("French", "Professional Proficiency", 75),
+    {
+        "name": "Arabic",
+        "flag_src": "https://flagcdn.com/w80/sa.png",
+        "flag_alt": "Saudi Arabia flag",
+        "badge": "Native",
+        "detail": "Native / Fluent communication across personal, academic, and team environments.",
+        "tone": "arabic",
+    },
+    {
+        "name": "English",
+        "flag_src": "https://flagcdn.com/w80/gb.png",
+        "flag_alt": "United Kingdom flag",
+        "flag_class": "lang-flag-img--uk",
+        "badge": "Professional",
+        "detail": "Professional proficiency for technical writing, collaboration, and presentations.",
+        "tone": "english",
+    },
+    {
+        "name": "French",
+        "flag_src": "https://flagcdn.com/w80/fr.png",
+        "flag_alt": "France flag",
+        "badge": "Professional",
+        "detail": "Professional proficiency for communication, documentation, and everyday teamwork.",
+        "tone": "french",
+    },
 ]
 
 SOFT_SKILLS = ["Communication", "Teamwork", "Project Management", "Organization"]
@@ -1531,14 +1665,34 @@ def render_projects() -> None:
 def render_languages() -> None:
     section_start("languages")
     section_title("Languages", "🌍")
-    st.caption("Communication strengths across native and professional proficiency.")
-    cols = st.columns(2, gap="large")
-    for index, (lang, level, score) in enumerate(LANGUAGES):
-        with cols[index % 2]:
-            with st.container(border=True):
-                st.markdown(f"### {lang}")
-                st.caption(level)
-                st.progress(score)
+    st.caption("Communication strengths presented as premium glass cards.")
+    st.markdown(
+        "<div class='lang-grid-kicker'>Global communication profile</div>",
+        unsafe_allow_html=True,
+    )
+
+    cols = st.columns(3, gap="large")
+    for index, item in enumerate(LANGUAGES):
+        delay_ms = min(index * 90, 220)
+        float_delay = index * 140
+        card_html = (
+            f"<div class='lang-showcase'>"
+            f"<div class='lang-glass-card lang-tone-{item['tone']} lang-fade-in' "
+            f"style='--delay:{delay_ms}ms;--float-delay:{float_delay}ms;'>"
+            "<div class='lang-glass-card-inner'>"
+            "<div class='lang-head'>"
+            f"<span class='lang-flag'><img src='{item['flag_src']}' alt='{item['flag_alt']}' class='lang-flag-img {item.get('flag_class', '')}' /></span>"
+            f"<span class='lang-badge'>{item['badge']}</span>"
+            "</div>"
+            f"<div class='lang-name'>{item['name']}</div>"
+            f"<div class='lang-note'>{item['detail']}</div>"
+            "<div class='lang-accent'></div>"
+            "</div>"
+            "</div>"
+            "</div>"
+        )
+        with cols[index % 3]:
+            st.markdown(card_html, unsafe_allow_html=True)
     section_end()
 
 
