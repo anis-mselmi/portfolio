@@ -346,6 +346,7 @@ st.markdown(
             border-radius: 18px;
             padding: 1rem;
             height: 100%;
+            min-height: 400px;
             display: flex;
             flex-direction: column;
             gap: 0.85rem;
@@ -773,7 +774,7 @@ st.markdown(
             position: relative;
             border-radius: 21px;
             height: 100%;
-            min-height: 180px;
+            min-height: 220px;
             padding: 1rem 1rem 0.95rem;
             display: flex;
             flex-direction: column;
@@ -813,11 +814,8 @@ st.markdown(
             box-shadow: 0 3px 8px rgba(3, 9, 20, 0.28);
         }
 
-        .lang-flag-img--uk {
-            width: 42px;
-            height: 30px;
-            border-radius: 8px;
-            object-fit: cover;
+        .lang-flag-img--us {
+            object-fit: fill !important;
         }
 
         .lang-badge {
@@ -969,7 +967,7 @@ st.markdown(
             }
 
             .lang-glass-card-inner {
-                min-height: 162px;
+                min-height: 190px;
             }
 
             div[data-baseweb="tab-list"] {
@@ -1042,15 +1040,7 @@ st.markdown(
                 min-height: 114px;
             }
 
-            div[data-testid="stHorizontalBlock"] {
-                flex-wrap: wrap;
-                gap: 0.75rem;
-            }
 
-            div[data-testid="stHorizontalBlock"] > div[data-testid="column"] {
-                min-width: calc(50% - 0.5rem) !important;
-                flex: 1 1 calc(50% - 0.5rem) !important;
-            }
 
             .nav-link {
                 padding: 0.55rem 0.65rem;
@@ -1086,10 +1076,7 @@ st.markdown(
                 object-position: center 50%;
             }
 
-            div[data-testid="stHorizontalBlock"] > div[data-testid="column"] {
-                min-width: 100% !important;
-                flex: 1 1 100% !important;
-            }
+
 
             .stButton > button,
             .stLinkButton > a,
@@ -1351,9 +1338,9 @@ LANGUAGES = [
     },
     {
         "name": "English",
-        "flag_src": "https://flagcdn.com/w80/gb.png",
-        "flag_alt": "United Kingdom flag",
-        "flag_class": "lang-flag-img--uk",
+        "flag_src": "https://flagcdn.com/w80/us.png",
+        "flag_alt": "United States flag",
+        "flag_class": "lang-flag-img--us",
         "badge": "Professional",
         "detail": "Professional proficiency for technical writing, collaboration, and presentations.",
         "tone": "english",
@@ -1686,7 +1673,6 @@ def render_languages() -> None:
             "</div>"
             f"<div class='lang-name'>{item['name']}</div>"
             f"<div class='lang-note'>{item['detail']}</div>"
-            "<div class='lang-accent'></div>"
             "</div>"
             "</div>"
             "</div>"
