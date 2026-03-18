@@ -343,13 +343,12 @@ st.markdown(
         .project-card {
             background: linear-gradient(180deg, var(--panel) 0%, var(--panel-2) 100%);
             border: 1px solid var(--border);
-            border-radius: 18px;
-            padding: 1rem;
-            height: 100%;
-            min-height: 400px;
+            border-radius: 16px;
+            padding: 0.85rem;
+            height: 420px;
             display: flex;
             flex-direction: column;
-            gap: 0.85rem;
+            gap: 0.65rem;
             box-shadow: 0 10px 28px rgba(3, 9, 20, 0.35);
         }
 
@@ -398,22 +397,28 @@ st.markdown(
             display: inline-flex;
             align-items: center;
             justify-content: center;
-            padding: 0.6rem 1.1rem;
+            align-self: center;
+            padding: 0.65rem 1rem;
             border-radius: 12px;
             background: linear-gradient(90deg, var(--accent) 0%, var(--accent-2) 100%);
-            color: #06101a;
-            font-weight: 700;
+            color: #000000 !important;
+            font-weight: 800;
             font-size: 0.95rem;
-            letter-spacing: 0.02em;
-            text-decoration: none;
-            width: fit-content;
+            letter-spacing: 0.04em;
+            text-transform: uppercase;
+            text-decoration: none !important;
+            width: 100%;
+            margin-top: 0.4rem;
             border: 1px solid rgba(255, 255, 255, 0.35);
             box-shadow: 0 10px 24px rgba(87, 224, 255, 0.25);
+            transition: transform 0.25s ease, box-shadow 0.25s ease, color 0.25s ease;
         }
 
         .st-link-button:hover {
             transform: translateY(-1px);
             box-shadow: 0 14px 30px rgba(87, 224, 255, 0.35);
+            text-decoration: none !important;
+            color: #000000 !important;
         }
 
         .skills-grid-kicker {
@@ -1030,7 +1035,11 @@ st.markdown(
                 margin: 1rem auto 0.1rem;
             }
 
-            .project-card,
+            .project-card {
+                border-radius: 14px;
+                height: auto !important;
+            }
+
             .skill-card,
             .glass-card {
                 border-radius: 14px;
@@ -1182,15 +1191,7 @@ SKILLS_BY_CATEGORY = {
             "details": "Builds robust knowledge-grounded assistants with retrieval chains.",
             "tone": "red",
         },
-        {
-            "icon": "💬",
-            "name": "LLM Applications",
-            "level": "Advanced",
-            "subtitle": "Agent flows and prompt orchestration",
-            "tags": ["prompting", "chat UX", "evaluation"],
-            "details": "From prototype to reliable user-facing LLM workflows.",
-            "tone": "blue",
-        },
+
     ],
     "Programming": [
         {
@@ -1220,15 +1221,7 @@ SKILLS_BY_CATEGORY = {
             "details": "Fast iteration environment for data and model experiments.",
             "tone": "blue",
         },
-        {
-            "icon": "☁️",
-            "name": "Google Colab",
-            "level": "Advanced",
-            "subtitle": "Cloud notebooks for rapid training",
-            "tags": ["GPU", "sharing", "quick runs"],
-            "details": "Accelerated collaborative experimentation in the cloud.",
-            "tone": "blue",
-        },
+
     ],
     "Data & Analytics": [
         {
@@ -1261,7 +1254,7 @@ SKILLS_BY_CATEGORY = {
     ],
     "Tools & Platforms": [
         {
-            "icon": "🌿",
+            "icon": "🐱",
             "name": "Git",
             "level": "Advanced",
             "subtitle": "Version control and clean collaboration",
@@ -1270,7 +1263,7 @@ SKILLS_BY_CATEGORY = {
             "tone": "red",
         },
         {
-            "icon": "🐙",
+            "icon": "🐱",
             "name": "GitHub",
             "level": "Advanced",
             "subtitle": "Repo management and project delivery",
@@ -1279,23 +1272,15 @@ SKILLS_BY_CATEGORY = {
             "tone": "blue",
         },
         {
-            "icon": "🧿",
-            "name": "VS Code",
+            "icon": "🌌",
+            "name": "Antigravity",
             "level": "Expert",
-            "subtitle": "AI-assisted high-productivity workflow",
-            "tags": ["debug", "extensions", "terminal"],
-            "details": "Primary IDE for fast iteration and project execution.",
+            "subtitle": "AI-assisted agentic workflow",
+            "tags": ["AI agent", "pair-programming", "productivity"],
+            "details": "Primary environment for rapid, autonomous, and collaborative coding.",
             "tone": "blue",
         },
-        {
-            "icon": "⚡",
-            "name": "Streamlit",
-            "level": "Advanced",
-            "subtitle": "Interactive AI dashboard development",
-            "tags": ["UI", "rapid build", "deploy"],
-            "details": "Transforms ML demos into polished interactive apps.",
-            "tone": "red",
-        },
+
     ],
 }
 
@@ -1489,7 +1474,7 @@ def hero_section() -> None:
 
         cta_col1, cta_col2 = st.columns(2)
         with cta_col1:
-            st.link_button("GitHub 🐙", PROFILE["github"])
+            st.link_button("GitHub 🐱", PROFILE["github"])
         with cta_col2:
             st.link_button("💼 LinkedIn", PROFILE["linkedin"])
 
@@ -1630,7 +1615,7 @@ def render_projects() -> None:
             )
             tags_html = "".join([f"<span class='tag'>#{t}</span>" for t in project["tags"]])
             link_html = (
-                f"<a class='st-link-button' href='{project['link']}' target='_blank'>View on GitHub</a>"
+                f"<a class='st-link-button' href='{project['link']}' target='_blank'>🧠&nbsp; View on GitHub</a>"
                 if project.get("link")
                 else ""
             )
@@ -1679,6 +1664,44 @@ def render_languages() -> None:
         )
         with cols[index % 3]:
             st.markdown(card_html, unsafe_allow_html=True)
+    section_end()
+
+
+def render_cv() -> None:
+    section_start("cv")
+    section_title("My CV", "📜")
+    st.caption("A glance at my professional background and skills available for direct access.")
+
+    cv_link = "https://drive.google.com/file/d/12FTlWDxiwvmR51csiFUhfn3_HJ9tXjyV/view?usp=sharing"
+    direct_download = "https://drive.google.com/uc?export=download&id=12FTlWDxiwvmR51csiFUhfn3_HJ9tXjyV"
+    preview_url = "https://drive.google.com/file/d/12FTlWDxiwvmR51csiFUhfn3_HJ9tXjyV/preview"
+
+    col1, col2 = st.columns([1.1, 1], gap="large")
+    with col1:
+        st.markdown(
+            f"""
+            <div class="glass-card" style="display: flex; flex-direction: column; height: 100%; justify-content: center; padding: 2.2rem;">
+                <h3 style="margin-top: 0; margin-bottom: 0.5rem; color: var(--accent-2);">📄 Instant Access to Resume</h3>
+                <p style="margin-bottom: 1.5rem; color: var(--muted); line-height: 1.6; font-size: 0.98rem;">
+                    Download or view my updated PDF resume. Inside, you'll find a detailed listing of my academic computer engineering background, complete technical experiences and project snapshots.
+                </p>
+                <div style="display: flex; flex-direction: column; gap: 0.82rem; width: 100%; margin-top: auto;">
+                    <a class="st-link-button" href="{cv_link}" target="_blank" style="text-decoration: none !important;">📂 View on Drive</a>
+                    <a class="st-link-button" href="{direct_download}" target="_blank" style="text-decoration: none !important;">⬇️ Download Direct PDF</a>
+                </div>
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
+    with col2:
+        st.markdown(
+            f"""
+            <div style="border-radius: 20px; overflow: hidden; border: 1px solid var(--border); box-shadow: 0 16px 40px rgba(3, 9, 20, 0.45); height: 360px;">
+                <iframe src="{preview_url}" width="100%" height="360" style="border: none;"></iframe>
+            </div>
+            """, 
+            unsafe_allow_html=True
+        )
     section_end()
 
 
@@ -1841,6 +1864,7 @@ def main() -> None:
     render_experience()
     render_projects()
     render_languages()
+    render_cv()
     render_contact()
 
 
