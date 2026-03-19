@@ -16,7 +16,7 @@ except ImportError:
 # -----------------------------
 st.set_page_config(
     page_title="Anis Mselmi | Portfolio",
-    page_icon="🧠",
+    page_icon="🍰",
     layout="wide",
     initial_sidebar_state="collapsed",
 )
@@ -61,9 +61,8 @@ st.markdown(
             box-shadow: none;
         }
 
-        section[data-testid="stSidebar"] {
-            background: linear-gradient(180deg, #0f1522 0%, #0b0f17 100%);
-            border-right: 1px solid var(--border);
+        section[data-testid="stSidebar"], 
+        header[data-testid="stHeader"] {
             display: none !important;
         }
 
@@ -211,6 +210,52 @@ st.markdown(
             border: none !important;
         }
 
+        /* Custom Hero Social Action Buttons */
+        .hero-social-btn {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.35rem;
+            padding: 0.35rem 0.9rem;
+            border-radius: 10px;
+            font-weight: 600;
+            font-size: 0.82rem;
+            text-decoration: none !important;
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            color: #ffffff !important;
+            box-shadow: 0 4px 15px rgba(3, 9, 20, 0.35);
+            text-align: center;
+            width: fit-content;
+        }
+
+        .hero-social-btn:hover {
+            transform: translateY(-3px) scale(1.03);
+        }
+
+        .btn-gh {
+            background: linear-gradient(135deg, #2b3137 0%, #181c20 100%);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            box-shadow: 0 6px 18px rgba(24, 28, 32, 0.6);
+        }
+
+        .btn-gh:hover {
+            box-shadow: 0 10px 24px rgba(24, 28, 32, 0.85);
+            border-color: rgba(255, 255, 255, 0.3);
+            background: linear-gradient(135deg, #333940 0%, #1e2328 100%);
+        }
+
+        .btn-li {
+            background: linear-gradient(135deg, #0A66C2 0%, #004182 100%);
+            border: 1px solid rgba(10, 102, 194, 0.4);
+            box-shadow: 0 6px 18px rgba(10, 102, 194, 0.35);
+        }
+
+        .btn-li:hover {
+            box-shadow: 0 10px 24px rgba(10, 102, 194, 0.6);
+            border-color: rgba(87, 224, 255, 0.6);
+            background: linear-gradient(135deg, #0d73d9 0%, #00509e 100%);
+        }
+
         .stProgress > div > div {
             background: linear-gradient(90deg, var(--accent) 0%, var(--accent-2) 100%) !important;
         }
@@ -241,42 +286,58 @@ st.markdown(
 
         .sidebar-nav {
             display: grid;
-            grid-template-columns: repeat(7, minmax(0, 1fr));
+            grid-template-columns: repeat(4, minmax(0, 1fr));
             gap: 0.55rem;
         }
 
         .nav-link {
             display: block;
             width: 100%;
-            text-decoration: none;
-            color: var(--text) !important;
-            background: #111a2b;
-            border: 1px solid var(--border);
-            border-radius: 12px;
-            padding: 0.6rem 0.75rem;
-            font-size: 0.96rem;
-            font-weight: 600;
+            text-decoration: none !important;
+            border-radius: 16px;
+            padding: 1px;
+            overflow: hidden;
+            background: linear-gradient(130deg, rgba(82, 165, 255, 0.65), rgba(124, 156, 255, 0.3), rgba(87, 224, 255, 0.55));
+            box-shadow: 0 4px 15px rgba(3, 9, 20, 0.35);
+            transition: all 0.35s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .nav-link-inner {
+            display: block;
+            width: 100%;
+            border-radius: 15px;
+            background: #0d1523;
+            padding: 0.6rem 0.65rem;
             text-align: center;
+            font-size: 0.95rem;
+            font-weight: 600;
+            color: #ffffff !important;
             white-space: nowrap;
-            transition: all 0.25s ease;
+            transition: background 0.3s ease;
         }
 
         .nav-link:hover {
-            transform: translateX(2px);
-            border-color: rgba(124, 156, 255, 0.55);
-            box-shadow: 0 8px 20px rgba(3, 9, 20, 0.38);
+            transform: translateY(-4px) scale(1.04);
+            box-shadow: 0 8px 22px rgba(87, 224, 255, 0.22);
+        }
+
+        .nav-link:hover .nav-link-inner {
+            background: rgba(13, 21, 35, 0.82);
         }
 
         .nav-link.active {
-            background: linear-gradient(90deg, rgba(124,156,255,0.26) 0%, rgba(87,224,255,0.16) 100%);
-            border-color: rgba(124, 156, 255, 0.65);
-            color: #f3f7ff !important;
+            background: linear-gradient(130deg, rgba(82, 165, 255, 1), rgba(124, 156, 255, 0.8), rgba(87, 224, 255, 0.95));
+            box-shadow: 0 8px 25px rgba(87, 224, 255, 0.3);
+        }
+
+        .nav-link.active .nav-link-inner {
+            background: rgba(13, 21, 35, 0.9);
         }
 
         .anchor-target {
             display: block;
             position: relative;
-            top: -0.7rem;
+            top: -4.8rem;
             visibility: hidden;
         }
 
@@ -1087,6 +1148,7 @@ st.markdown(
             }
 
             .cover-banner-wrap {
+                margin: 4.5rem 0 1.25rem;
                 border-radius: 18px;
                 padding: 4px;
             }
@@ -1124,16 +1186,39 @@ st.markdown(
 
 
             .nav-link {
-                padding: 0.55rem 0.65rem;
-                font-size: 0.9rem;
+                padding: 1px;
+            }
+
+            .nav-link-inner {
+                padding: 0.45rem 0.5rem;
+                font-size: 0.85rem;
             }
 
             .sidebar-nav {
-                grid-template-columns: repeat(2, minmax(0, 1fr));
+                grid-template-columns: repeat(4, minmax(0, 1fr));
             }
         }
 
         @media (max-width: 640px) {
+            .sticky-navbar {
+                padding: 0.4rem 0.5rem;
+            }
+
+            .sidebar-nav {
+                grid-template-columns: repeat(4, minmax(0, 1fr));
+                gap: 0.25rem;
+            }
+
+            .nav-link-inner {
+                padding: 0.4rem 0.2rem;
+                font-size: 0.68rem;
+                white-space: normal;
+            }
+
+            .cover-banner-wrap {
+                margin-top: 4.2rem;
+            }
+
             h1 {
                 font-size: 1.85rem;
                 line-height: 1.12;
@@ -1180,6 +1265,21 @@ st.markdown(
             .tag {
                 font-size: 0.74rem;
             }
+
+            .experience-card-inner {
+                padding: 1.15rem 1.15rem;
+            }
+            .education-card-inner {
+                padding: 1.25rem 1.25rem;
+            }
+            .experience-card .experience-title,
+            .education-card .education-title {
+                font-size: 1.15rem;
+            }
+            .education-card .education-school,
+            .experience-card .experience-detail {
+                font-size: 0.95rem;
+            }
         }
 
         /* Explicit Contact Form Theme Overrides for All Devices */
@@ -1212,6 +1312,147 @@ st.markdown(
         div[data-testid="stForm"] label p {
             color: var(--text) !important;
         }
+        /* Experience Cards */
+        .experience-card {
+            position: relative;
+            border-radius: 20px;
+            padding: 1px 1px 12px 1px;
+            overflow: hidden;
+            background: linear-gradient(130deg, rgba(82, 165, 255, 0.75), rgba(124, 156, 255, 0.4), rgba(87, 224, 255, 0.65));
+            box-shadow: 0 12px 32px rgba(3, 9, 20, 0.38);
+            transform: translateY(0);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease, border-color 0.4s ease;
+            height: 100%;
+            min-height: 220px;
+            margin-bottom: 1.5rem;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .experience-card:hover {
+            transform: translateY(-6px) scale(1.02);
+            box-shadow: 0 18px 42px rgba(3, 9, 20, 0.5), 0 0 20px rgba(87, 224, 255, 0.18);
+        }
+
+        .experience-card-inner {
+            border-radius: 19px;
+            background: linear-gradient(180deg, var(--panel) 0%, var(--panel-2) 100%);
+            padding: 1.35rem 1.5rem;
+            flex-grow: 1;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .experience-card .experience-emoji {
+            font-size: 1.85rem;
+            margin-bottom: 0.3rem;
+        }
+
+        .experience-card .experience-title {
+            font-size: 1.18rem;
+            font-weight: 700;
+            color: #ffffff;
+            line-height: 1.3;
+        }
+
+        .experience-card .experience-detail {
+            color: var(--muted);
+            font-size: 0.94rem;
+            line-height: 1.5;
+            margin-top: 0.2rem;
+        }
+        
+        /* Education Cards */
+        .education-card {
+            position: relative;
+            border-radius: 20px;
+            padding: 1px 1px 12px 1px;
+            overflow: hidden;
+            background: linear-gradient(130deg, rgba(82, 165, 255, 0.75), rgba(124, 156, 255, 0.4), rgba(87, 224, 255, 0.65));
+            box-shadow: 0 12px 32px rgba(3, 9, 20, 0.38);
+            transform: translateY(0);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease, border-color 0.4s ease;
+            height: 100%;
+            margin-bottom: 1.5rem;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .education-card:hover {
+            transform: translateY(-6px) scale(1.02);
+            box-shadow: 0 18px 42px rgba(3, 9, 20, 0.5), 0 0 20px rgba(87, 224, 255, 0.18);
+        }
+
+        .education-card-inner {
+            border-radius: 19px;
+            background: linear-gradient(180deg, var(--panel) 0%, var(--panel-2) 100%);
+            padding: 1.5rem 1.75rem;
+            flex-grow: 1;
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 0.3rem;
+        }
+
+        .education-card .education-years {
+            font-size: 0.88rem;
+            color: var(--accent-2);
+            font-weight: 700;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            margin-bottom: 0.2rem;
+        }
+
+        .education-card .education-title {
+            font-size: 1.35rem;
+            font-weight: 700;
+            color: #ffffff;
+            line-height: 1.3;
+        }
+
+        .education-card .education-school {
+            color: #f1f6fb;
+            font-size: 1.05rem;
+            line-height: 1.45;
+            margin-top: 0.15rem;
+            opacity: 0.95;
+        }
+
+        .education-card .education-detail {
+            color: var(--muted);
+            font-size: 1rem;
+            line-height: 1.55;
+            margin-top: 0.45rem;
+        }
+
+        .education-card .education-emoji {
+            font-size: 1.85rem;
+            margin-bottom: 0.35rem;
+        }
+
+        .sticky-navbar {
+            position: fixed;
+            top: 0px;
+            left: 0px;
+            width: 100%;
+            z-index: 999999;
+            background: transparent;
+            backdrop-filter: none;
+            -webkit-backdrop-filter: none;
+            padding: 0.75rem 2rem;
+            border-bottom: none;
+            box-shadow: none;
+            margin: 0;
+            display: block;
+        }
+
+        .sticky-navbar .sidebar-nav {
+            max-width: 1180px;
+            margin: 0 auto;
+        }
+        
     </style>
     """,
     unsafe_allow_html=True,
@@ -1245,16 +1486,22 @@ EDUCATION = [
         "title": "Computer Engineering Student",
         "school": "École Polytechnique de Sousse",
         "years": "2025 – 2028",
+        "detail": "Focused on Artificial Intelligence, Machine Learning, and Large Language Models (LLMs). Hands-on building intelligent Python models, RAG pipelines, and conversational agents.",
+        "emoji": "💻",
     },
     {
         "title": "Integrated Preparatory Studies",
         "school": "École Polytechnique de Sousse",
         "years": "2023 – 2025",
+        "detail": "Underwent rigorous training in Mathematics, Physics, and foundational engineering principles to develop strong Analytical and Problem-Solving capabilities.",
+        "emoji": "📐",
     },
     {
         "title": "High School Diploma (Baccalauréat)",
         "school": "Lycée Les Lumières Sousse",
         "years": "2022 – 2023",
+        "detail": "Completed secondary education with a science-focused curriculum, establishing a solid foundation in Mathematics and Sciences.",
+        "emoji": "🏫",
     },
 ]
 
@@ -1519,7 +1766,6 @@ def section_title(title: str, icon: str = "") -> None:
     with st.container():
         st.markdown(
             f"""
-            <div class="section-kicker">Section</div>
             <div class="section-title">{icon} {title}</div>
             <div class="section-divider"></div>
             """,
@@ -1543,7 +1789,7 @@ def section_end() -> None:
 
 
 def render_cover_banner() -> None:
-    cover_path = Path(__file__).parent / "Copie de photo de couverture LinkedIn (1).png"
+    cover_path = Path(__file__).parent / "Copie de photo de couverture LinkedIn (2).png"
     cover_data = None
     if cover_path.exists():
         cover_data = "data:image/png;base64," + base64.b64encode(cover_path.read_bytes()).decode("utf-8")
@@ -1559,13 +1805,29 @@ def render_cover_banner() -> None:
         )
 
 
+def render_navbar() -> None:
+    st.markdown(
+        """
+        <div class="sticky-navbar">
+            <div class="sidebar-nav">
+                <a href="#skills" class="nav-link" data-target="skills"><span class="nav-link-inner">🛠 Skills</span></a>
+                <a href="#education" class="nav-link" data-target="education"><span class="nav-link-inner">🎓 Education</span></a>
+                <a href="#experience" class="nav-link" data-target="experience"><span class="nav-link-inner">💼 Experience</span></a>
+                <a href="#projects" class="nav-link" data-target="projects"><span class="nav-link-inner">🚀 Projects</span></a>
+            </div>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )
+
+
 # -----------------------------
 # Sections
 # -----------------------------
 
 def hero_section() -> None:
     section_start("hero", hero=True)
-    section_title("Welcome", "👋")
+    # section_title("Welcome", "👋")
     st.markdown('<div class="hero-card">', unsafe_allow_html=True)
     col1, col2 = st.columns([2, 1], gap="large")
 
@@ -1575,11 +1837,19 @@ def hero_section() -> None:
         st.markdown(f"📍 {PROFILE['location']}")
         st.markdown(ABOUT)
 
-        cta_col1, cta_col2 = st.columns(2)
-        with cta_col1:
-            st.link_button("GitHub 🐱", PROFILE["github"])
-        with cta_col2:
-            st.link_button("💼 LinkedIn", PROFILE["linkedin"])
+        st.markdown(
+            f"""
+            <div style="display: flex; gap: 0.75rem; margin-top: 1rem; flex-wrap: wrap;">
+                <a href="{PROFILE['github']}" class="hero-social-btn btn-gh" target="_blank">
+                    🐱 GitHub
+                </a>
+                <a href="{PROFILE['linkedin']}" class="hero-social-btn btn-li" target="_blank">
+                    💼 LinkedIn
+                </a>
+            </div>
+            """, 
+            unsafe_allow_html=True
+        )
 
     with col2:
         icon_path = Path(__file__).parent / "Gemini_Generated_Image_vilfj9vilfj9vilf.png"
@@ -1655,10 +1925,20 @@ def render_education() -> None:
     section_start("education")
     section_title("Education", "🎓")
     for item in EDUCATION:
-        st.markdown(f"### {item['title']}")
-        st.markdown(f"**{item['school']}**")
-        st.markdown(item["years"])
-        st.markdown("---")
+        st.markdown(
+            f"""
+            <div class="education-card">
+                <div class="education-card-inner">
+                    <div class="education-emoji">{item.get('emoji', '')}</div>
+                    <div class="education-years">{item['years']}</div>
+                    <div class="education-title">{item['title']}</div>
+                    <div class="education-school">{item['school']}</div>
+                    <div class="education-detail">{item.get('detail', '')}</div>
+                </div>
+            </div>
+            """,
+            unsafe_allow_html=True
+        )
     section_end()
 
 
@@ -1692,9 +1972,18 @@ def render_experience() -> None:
     cols = st.columns(2, gap="large")
     for index, item in enumerate(cards):
         with cols[index % 2]:
-            with st.container(border=True):
-                st.markdown(f"### {item['emoji']} {item['title']}")
-                st.caption(item["detail"])
+            st.markdown(
+                f"""
+                <div class="experience-card">
+                    <div class="experience-card-inner">
+                        <div class="experience-emoji">{item['emoji']}</div>
+                        <div class="experience-title">{item['title']}</div>
+                        <div class="experience-detail">{item['detail']}</div>
+                    </div>
+                </div>
+                """,
+                unsafe_allow_html=True
+            )
     section_end()
 
 
@@ -1959,6 +2248,7 @@ def mount_scroll_behavior() -> None:
 def main() -> None:
     mount_scroll_behavior()
     render_cover_banner()
+    render_navbar()
 
     hero_section()
     render_skills_section()
