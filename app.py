@@ -1452,6 +1452,30 @@ st.markdown(
             max-width: 1180px;
             margin: 0 auto;
         }
+
+        /* CV Cards — desktop */
+        .cv-access-card,
+        .cv-preview-card {
+            min-height: 380px;
+        }
+
+        /* CV Cards — mobile: let content breathe */
+        @media (max-width: 640px) {
+            .cv-access-card {
+                min-height: unset !important;
+                height: auto !important;
+            }
+            .cv-access-card .experience-card-inner {
+                padding: 1.5rem !important;
+            }
+            .cv-preview-card {
+                min-height: unset !important;
+                height: auto !important;
+            }
+            .cv-preview-card iframe {
+                height: 260px !important;
+            }
+        }
         
     </style>
     """,
@@ -2071,7 +2095,7 @@ def render_cv() -> None:
     with col1:
         st.markdown(
             f"""
-            <div class="experience-card" style="height: 380px;">
+            <div class="experience-card cv-access-card">
                 <div class="experience-card-inner" style="justify-content: center; padding: 2.2rem;">
                     <h3 style="margin-top: 0; margin-bottom: 0.5rem; color: var(--accent-2);">📄 Instant Access to Resume</h3>
                     <p style="margin-bottom: 1.5rem; color: var(--muted); line-height: 1.6; font-size: 0.98rem;">
@@ -2089,9 +2113,9 @@ def render_cv() -> None:
     with col2:
         st.markdown(
             f"""
-            <div class="experience-card" style="height: 380px;">
+            <div class="experience-card cv-preview-card">
                 <div class="experience-card-inner" style="padding: 0; overflow: hidden; justify-content: center;">
-                    <iframe src="{preview_url}" width="100%" height="100%" style="border: none; min-height: 320px; flex-grow: 1;"></iframe>
+                    <iframe src="{preview_url}" width="100%" height="380" style="border: none; display: block;"></iframe>
                 </div>
             </div>
             """, 
