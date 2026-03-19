@@ -2071,14 +2071,16 @@ def render_cv() -> None:
     with col1:
         st.markdown(
             f"""
-            <div class="glass-card" style="display: flex; flex-direction: column; height: 100%; justify-content: center; padding: 2.2rem;">
-                <h3 style="margin-top: 0; margin-bottom: 0.5rem; color: var(--accent-2);">📄 Instant Access to Resume</h3>
-                <p style="margin-bottom: 1.5rem; color: var(--muted); line-height: 1.6; font-size: 0.98rem;">
-                    Download or view my updated PDF resume. Inside, you'll find a detailed listing of my academic computer engineering background, complete technical experiences and project snapshots.
-                </p>
-                <div style="display: flex; flex-direction: column; gap: 0.82rem; width: 100%; margin-top: auto;">
-                    <a class="st-link-button" href="{cv_link}" target="_blank" style="text-decoration: none !important;">📂 View on Drive</a>
-                    <a class="st-link-button" href="{direct_download}" target="_blank" style="text-decoration: none !important;">⬇️ Download Direct PDF</a>
+            <div class="experience-card" style="height: 380px;">
+                <div class="experience-card-inner" style="justify-content: center; padding: 2.2rem;">
+                    <h3 style="margin-top: 0; margin-bottom: 0.5rem; color: var(--accent-2);">📄 Instant Access to Resume</h3>
+                    <p style="margin-bottom: 1.5rem; color: var(--muted); line-height: 1.6; font-size: 0.98rem;">
+                        Download or view my updated PDF resume. Inside, you'll find a detailed listing of my academic computer engineering background, complete technical experiences and project snapshots.
+                    </p>
+                    <div style="display: flex; flex-direction: column; gap: 0.82rem; width: 100%; margin-top: auto;">
+                        <a class="st-link-button" href="{cv_link}" target="_blank" style="text-decoration: none !important;">📂 View on Drive</a>
+                        <a class="st-link-button" href="{direct_download}" target="_blank" style="text-decoration: none !important;">⬇️ Download Direct PDF</a>
+                    </div>
                 </div>
             </div>
             """,
@@ -2087,8 +2089,10 @@ def render_cv() -> None:
     with col2:
         st.markdown(
             f"""
-            <div style="border-radius: 20px; overflow: hidden; border: 1px solid var(--border); box-shadow: 0 16px 40px rgba(3, 9, 20, 0.45); height: 360px;">
-                <iframe src="{preview_url}" width="100%" height="360" style="border: none;"></iframe>
+            <div class="experience-card" style="height: 380px;">
+                <div class="experience-card-inner" style="padding: 0; overflow: hidden; justify-content: center;">
+                    <iframe src="{preview_url}" width="100%" height="100%" style="border: none; min-height: 320px; flex-grow: 1;"></iframe>
+                </div>
             </div>
             """, 
             unsafe_allow_html=True
