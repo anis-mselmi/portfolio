@@ -341,15 +341,69 @@ st.markdown(
         }
 
         .project-card {
+            display: block;
+            text-decoration: none !important;
+            position: relative;
+            border-radius: 20px;
+            padding: 1px;
+            overflow: hidden;
+            background: linear-gradient(130deg, rgba(82, 165, 255, 0.85), rgba(124, 156, 255, 0.5), rgba(87, 224, 255, 0.8));
+            box-shadow: 0 12px 30px rgba(3, 9, 20, 0.38);
+            height: 340px;
+            transform: translateY(0) scale(1);
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease, filter 0.4s ease;
+        }
+
+        .project-card::before {
+            content: "";
+            position: absolute;
+            inset: -115% -35%;
+            transform: translateX(-45%) rotate(14deg);
+            background: linear-gradient(120deg, transparent 30%, rgba(255, 255, 255, 0.33) 50%, transparent 70%);
+            opacity: 0;
+            transition: opacity 0.35s ease, transform 0.55s ease;
+            pointer-events: none;
+        }
+
+        @media (hover: hover) {
+            .project-card:hover::before {
+                opacity: 1 !important;
+                transform: translateX(28%) rotate(14deg) !important;
+            }
+
+            .project-card:hover {
+                transform: translateY(-8px) scale(1.02) !important;
+                box-shadow: 0 18px 42px rgba(3, 9, 20, 0.5), 0 0 25px rgba(87, 224, 255, 0.2) !important;
+                filter: saturate(1.05) !important;
+            }
+        }
+
+        div[data-testid="stMarkdownContainer"] .project-card:focus,
+        div[data-testid="stMarkdownContainer"] .project-card:active,
+        .project-card:focus,
+        .project-card:focus-within {
+            outline: none !important;
+            box-shadow: 0 12px 30px rgba(3, 9, 20, 0.38) !important;
+            transform: translateY(0) scale(1) !important;
+        }
+
+        /* Prevent press jitter action - match hover look while holding click */
+        @media (hover: hover) {
+            .project-card:active {
+                transform: translateY(-8px) scale(1.02) !important;
+                box-shadow: 0 18px 42px rgba(3, 9, 20, 0.5), 0 0 25px rgba(87, 224, 255, 0.2) !important;
+            }
+        }
+
+        .project-card-inner {
+            position: relative;
+            border-radius: 19px;
             background: linear-gradient(180deg, var(--panel) 0%, var(--panel-2) 100%);
-            border: 1px solid var(--border);
-            border-radius: 16px;
             padding: 0.85rem;
-            height: 420px;
+            height: 100%;
             display: flex;
             flex-direction: column;
             gap: 0.65rem;
-            box-shadow: 0 10px 28px rgba(3, 9, 20, 0.35);
         }
 
         .project-image {
@@ -362,6 +416,14 @@ st.markdown(
             border: 1px solid var(--border);
             background: #0b0f17;
             display: block;
+            transition: transform 0.4s ease, filter 0.4s ease;
+        }
+
+        @media (hover: hover) {
+            .project-card:hover .project-image {
+                transform: scale(1.04) !important;
+                filter: brightness(1.1) !important;
+            }
         }
 
         .project-image--contain {
@@ -385,8 +447,13 @@ st.markdown(
 
         .project-desc {
             color: var(--muted);
-            font-size: 0.95rem;
-            line-height: 1.5;
+            font-size: 0.92rem;
+            line-height: 1.42;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            text-overflow: ellipsis;
         }
 
         .project-tags {
@@ -1040,6 +1107,11 @@ st.markdown(
                 height: auto !important;
             }
 
+            .project-card-inner {
+                height: auto !important;
+                border-radius: 13px;
+            }
+
             .skill-card,
             .glass-card {
                 border-radius: 14px;
@@ -1094,7 +1166,7 @@ st.markdown(
                 justify-content: center;
             }
 
-            .project-card {
+            .project-card-inner {
                 padding: 0.82rem;
             }
 
@@ -1108,6 +1180,37 @@ st.markdown(
             .tag {
                 font-size: 0.74rem;
             }
+        }
+
+        /* Explicit Contact Form Theme Overrides for All Devices */
+        div[data-testid="stForm"] {
+            border: 1px solid var(--border) !important;
+            background-color: var(--panel) !important;
+            border-radius: 16px !important;
+            padding: 1.25rem !important;
+            box-shadow: 0 8px 32px rgba(3, 9, 20, 0.35) !important;
+        }
+
+        /* Inputs & Textareas */
+        div[data-testid="stForm"] input,
+        div[data-testid="stForm"] textarea {
+            background-color: #161c2b !important;
+            color: #ffffff !important;
+            border: 1px solid var(--border) !important;
+            border-radius: 10px !important;
+        }
+
+        /* Focus Ring */
+        div[data-testid="stForm"] input:focus,
+        div[data-testid="stForm"] textarea:focus {
+            border-color: var(--accent) !important;
+            box-shadow: 0 0 0 1px var(--accent) !important;
+        }
+
+        /* Labels alignment and coloring */
+        div[data-testid="stForm"] label div, 
+        div[data-testid="stForm"] label p {
+            color: var(--text) !important;
         }
     </style>
     """,
@@ -1614,21 +1717,20 @@ def render_projects() -> None:
                 else f"<div class='project-image'></div>"
             )
             tags_html = "".join([f"<span class='tag'>#{t}</span>" for t in project["tags"]])
-            link_html = (
-                f"<a class='st-link-button' href='{project['link']}' target='_blank'>🧠&nbsp; View on GitHub</a>"
-                if project.get("link")
-                else ""
-            )
+            start_tag = f'<a class="project-card" href="{project["link"]}" target="_blank" style="text-decoration: none; display: block;">' if project.get("link") else '<div class="project-card">'
+            end_tag = '</a>' if project.get("link") else '</div>'
+            
             card_html = f"""
-                <div class="project-card">
-                    {image_html}
-                    <div class="project-body">
-                        <div class="project-title">{project['name']}</div>
-                        <div class="project-desc">{project['desc']}</div>
-                        <div class="project-tags">{tags_html}</div>
-                        {link_html}
+                {start_tag}
+                    <div class="project-card-inner">
+                        {image_html}
+                        <div class="project-body">
+                            <div class="project-title">{project['name']}</div>
+                            <div class="project-desc">{project['desc']}</div>
+                            <div class="project-tags">{tags_html}</div>
+                        </div>
                     </div>
-                </div>
+                {end_tag}
             """
             st.markdown(card_html, unsafe_allow_html=True)
     section_end()
