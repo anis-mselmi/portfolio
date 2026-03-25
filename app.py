@@ -1660,13 +1660,13 @@ SKILLS_BY_CATEGORY = {
 
 PROJECTS = [
     {
-        "name": "Prototype-de-chatbot-intelligent",
-        "desc": "An intelligent chatbot prototype with contextual responses and natural language understanding.",
-        "tags": ["AI", "NLP", "Python"],
-        "image": "chatbot.jpg",
+        "name": "LLM Chat App",
+        "desc": "A production-ready conversational AI application with a modern UI, streaming responses, and advanced LLM integration.",
+        "tags": ["AI", "LLM", "Python"],
+        "image": "image.png",
         "logo": "logo-php-blog.svg",
-        "link": "https://github.com/anis-mselmi/Prototype-de-chatbot-intelligent",
-        "fit": "cover",
+        "link": "https://github.com/anis-mselmi/LLM-chat-app",
+        "fit": "contain",
     },
     {
         "name": "AI Image Classifier",
