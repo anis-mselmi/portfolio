@@ -2087,9 +2087,8 @@ def render_cv() -> None:
     section_title("My CV", "📜")
     st.caption("A glance at my professional background and skills available for direct access.")
 
-    cv_link = "https://drive.google.com/file/d/12FTlWDxiwvmR51csiFUhfn3_HJ9tXjyV/view?usp=sharing"
-    direct_download = "https://drive.google.com/uc?export=download&id=12FTlWDxiwvmR51csiFUhfn3_HJ9tXjyV"
-    preview_url = "https://drive.google.com/file/d/12FTlWDxiwvmR51csiFUhfn3_HJ9tXjyV/preview"
+    cv_link = "https://canva.link/cmn3h8sq33jeuib"
+    preview_url = "https://www.canva.com/design/DAGzcHTtmzQ/uGneX3fzgU2Q1zRfhlCTRA/view?embed"
 
     col1, col2 = st.columns([1.1, 1], gap="large")
     with col1:
@@ -2099,11 +2098,10 @@ def render_cv() -> None:
                 <div class="experience-card-inner" style="justify-content: center; padding: 2.2rem;">
                     <h3 style="margin-top: 0; margin-bottom: 0.5rem; color: var(--accent-2);">📄 Instant Access to Resume</h3>
                     <p style="margin-bottom: 1.5rem; color: var(--muted); line-height: 1.6; font-size: 0.98rem;">
-                        Download or view my updated PDF resume. Inside, you'll find a detailed listing of my academic computer engineering background, complete technical experiences and project snapshots.
+                        View my updated CV on Canva. Inside, you'll find a detailed listing of my academic computer engineering background, complete technical experiences and project snapshots.
                     </p>
                     <div style="display: flex; flex-direction: column; gap: 0.82rem; width: 100%; margin-top: auto;">
-                        <a class="st-link-button" href="{cv_link}" target="_blank" style="text-decoration: none !important;">📂 View on Drive</a>
-                        <a class="st-link-button" href="{direct_download}" target="_blank" style="text-decoration: none !important;">⬇️ Download Direct PDF</a>
+                        <a class="st-link-button" href="{cv_link}" target="_blank" style="text-decoration: none !important;">🎨 View CV on Canva</a>
                     </div>
                 </div>
             </div>
@@ -2115,7 +2113,7 @@ def render_cv() -> None:
             f"""
             <div class="experience-card cv-preview-card">
                 <div class="experience-card-inner" style="padding: 0; overflow: hidden; justify-content: center;">
-                    <iframe src="{preview_url}" width="100%" height="380" style="border: none; display: block;"></iframe>
+                    <iframe src="{preview_url}" width="100%" height="380" style="border: none; display: block;" allowfullscreen="allowfullscreen" allow="fullscreen"></iframe>
                 </div>
             </div>
             """, 
