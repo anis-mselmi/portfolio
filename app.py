@@ -1663,7 +1663,7 @@ PROJECTS = [
         "name": "LLM Chat App",
         "desc": "A production-ready conversational AI application with a modern UI, streaming responses, and advanced LLM integration.",
         "tags": ["AI", "LLM", "Python"],
-        "image": "image.png",
+        "image": "assets/images/projects/llm_chat_app.png",
         "logo": "logo-php-blog.svg",
         "link": "https://github.com/anis-mselmi/LLM-chat-app",
         "fit": "contain",
@@ -1672,15 +1672,15 @@ PROJECTS = [
         "name": "AI Image Classifier",
         "desc": "A fast, intuitive image classifier with model insights and confidence scoring.",
         "tags": ["AI", "Computer Vision", "Python"],
-        "image": "1669108029830.png",
-        "logo": "logo-ai-classifier.smavg",
+        "image": "assets/images/projects/ai_image_classifier.png",
+        "logo": "logo-ai-classifier.svg",
         "link": "https://github.com/anis-mselmi/AI-Image-Classifier",
     },
     {
         "name": "SmartParkTN",
         "desc": "Scans car license plates (matricules) at the parking entrance to automate access and tracking.",
         "tags": ["AI", "Computer Vision", "ALPR"],
-        "image": "Gemini_Generated_Image_3ingj23ingj23ing.png",
+        "image": "assets/images/projects/smartparktn.png",
         "logo": "logo-restaurant-sentiment.svg",
         "link": "https://github.com/anis-mselmi/SmartParkTN-D-tection-automatique-des-plaques-tunisiennes-ALPR-pour-parking",
     },
@@ -1813,7 +1813,7 @@ def section_end() -> None:
 
 
 def render_cover_banner() -> None:
-    cover_path = Path(__file__).parent / "Copie de photo de couverture LinkedIn (2).png"
+    cover_path = Path(__file__).parent / "assets" / "images" / "profile" / "cover_banner.png"
     cover_data = None
     if cover_path.exists():
         cover_data = "data:image/png;base64," + base64.b64encode(cover_path.read_bytes()).decode("utf-8")
@@ -1876,7 +1876,7 @@ def hero_section() -> None:
         )
 
     with col2:
-        icon_path = Path(__file__).parent / "Gemini_Generated_Image_vilfj9vilfj9vilf.png"
+        icon_path = Path(__file__).parent / "assets" / "images" / "profile" / "hero.png"
 
         st.write("")
         if icon_path.exists():
