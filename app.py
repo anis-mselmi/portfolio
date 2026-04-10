@@ -344,21 +344,34 @@ st.markdown(
         .cover-banner-wrap {
             margin: 0 0 1.35rem;
             border-radius: 24px;
-            padding: 6px;
-            background: linear-gradient(120deg, rgba(124, 156, 255, 0.75), rgba(87, 224, 255, 0.35));
-            box-shadow: 0 16px 38px rgba(3, 9, 20, 0.42);
+            padding: 0;
+            background: transparent;
+            box-shadow: none;
+            transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            box-sizing: border-box;
+        }
+
+        .cover-banner-wrap:hover {
+            transform: translateY(-4px);
         }
 
         .cover-banner {
             width: 100%;
             display: block;
-            border-radius: 20px;
-            border: 1px solid rgba(255, 255, 255, 0.18);
-            height: auto;
-            max-height: 260px;
-            object-fit: contain;
+            border-radius: 24px;
+            border: none;
+            height: 160px;
+            max-height: 160px;
+            object-fit: cover;
             object-position: center;
-            background: #0a1220;
+            background: transparent;
+            filter: drop-shadow(0 0 2px rgba(87, 224, 255, 0.9)) drop-shadow(0 0 6px rgba(124, 156, 255, 0.6)) drop-shadow(0 12px 30px rgba(3, 9, 20, 0.4));
+            transition: transform 0.5s ease, filter 0.5s ease;
+        }
+
+        .cover-banner-wrap:hover .cover-banner {
+            filter: brightness(1.05) drop-shadow(0 0 4px rgba(87, 224, 255, 1)) drop-shadow(0 0 12px rgba(124, 156, 255, 0.85)) drop-shadow(0 20px 42px rgba(3, 9, 20, 0.55));
         }
 
 
@@ -1132,7 +1145,8 @@ st.markdown(
             }
 
             .cover-banner {
-                max-height: 220px;
+                height: 160px;
+                max-height: 160px;
             }
         }
 
@@ -1149,14 +1163,15 @@ st.markdown(
 
             .cover-banner-wrap {
                 margin: 4.5rem 0 1.25rem;
+                padding: 0;
                 border-radius: 18px;
-                padding: 4px;
             }
 
             .cover-banner {
-                border-radius: 14px;
-                max-height: 180px;
-                object-position: center 46%;
+                border-radius: 18px;
+                height: 120px;
+                max-height: 120px;
+                object-position: center;
             }
 
             .hero-frame {
@@ -1238,8 +1253,9 @@ st.markdown(
             }
 
             .cover-banner {
-                max-height: 150px;
-                object-position: center 50%;
+                height: 100px;
+                max-height: 100px;
+                object-position: center;
             }
 
 
