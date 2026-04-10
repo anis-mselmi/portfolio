@@ -361,8 +361,8 @@ st.markdown(
             display: block;
             border-radius: 24px;
             border: none;
-            height: 160px;
-            max-height: 160px;
+            height: 260px;
+            max-height: 260px;
             object-fit: cover;
             object-position: center;
             background: transparent;
@@ -1169,8 +1169,8 @@ st.markdown(
 
             .cover-banner {
                 border-radius: 18px;
-                height: 120px;
-                max-height: 120px;
+                height: 200px;
+                max-height: 200px;
                 object-position: center;
             }
 
