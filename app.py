@@ -1676,29 +1676,28 @@ SKILLS_BY_CATEGORY = {
 
 PROJECTS = [
     {
-        "name": "LLM Chat App",
-        "desc": "A production-ready conversational AI application with a modern UI, streaming responses, and advanced LLM integration.",
-        "tags": ["AI", "LLM", "Python"],
-        "image": "assets/images/projects/llm_chat_app.png",
-        "logo": "logo-php-blog.svg",
-        "link": "https://github.com/anis-mselmi/LLM-chat-app",
-        "fit": "contain",
+        "name": "Brewstone Coffee",
+        "desc": "A modern coffee shop application with layout consistency and professional UI.",
+        "tags": ["Web", "UI", "Design"],
+        "image": "assets/images/projects/coffee shop.png",
+        "logo": "logo-coffee-shop.svg",
+        "fit": "cover",
     },
     {
-        "name": "AI Image Classifier",
-        "desc": "A fast, intuitive image classifier with model insights and confidence scoring.",
-        "tags": ["AI", "Computer Vision", "Python"],
-        "image": "assets/images/projects/ai_image_classifier.png",
-        "logo": "logo-ai-classifier.svg",
-        "link": "https://github.com/anis-mselmi/AI-Image-Classifier",
-    },
-    {
-        "name": "SmartParkTN",
+        "name": "SmartPark",
         "desc": "Scans car license plates (matricules) at the parking entrance to automate access and tracking.",
         "tags": ["AI", "Computer Vision", "ALPR"],
-        "image": "assets/images/projects/smartparktn.png",
+        "image": "assets/images/projects/smartpark.png",
         "logo": "logo-restaurant-sentiment.svg",
-        "link": "https://github.com/anis-mselmi/SmartParkTN-D-tection-automatique-des-plaques-tunisiennes-ALPR-pour-parking",
+        "fit": "cover",
+    },
+    {
+        "name": "Dewejen",
+        "desc": "A robust stock management system (Système de gestion de stock) featuring MySQL database connectivity.",
+        "tags": ["Python", "MySQL", "Management"],
+        "image": "assets/images/projects/dewejen.png",
+        "logo": "logo-dewejen.svg",
+        "fit": "cover",
     },
 ]
 
@@ -2030,7 +2029,6 @@ def render_experience() -> None:
 def render_projects() -> None:
     section_start("projects")
     section_title("Projects", "🚀")
-    st.caption("Project placeholders — ready to be replaced with real work samples.")
 
     cols = st.columns(3, gap="large")
     for idx, project in enumerate(PROJECTS):
