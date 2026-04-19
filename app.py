@@ -521,10 +521,10 @@ st.markdown(
 
         .project-desc {
             color: var(--muted);
-            font-size: 0.92rem;
-            line-height: 1.42;
+            font-size: 0.85rem;
+            line-height: 1.4;
             display: -webkit-box;
-            -webkit-line-clamp: 2;
+            -webkit-line-clamp: 3;
             -webkit-box-orient: vertical;
             overflow: hidden;
             text-overflow: ellipsis;
@@ -1685,7 +1685,7 @@ PROJECTS = [
     },
     {
         "name": "SmartPark",
-        "desc": "Scans car license plates (matricules) at the parking entrance to automate access and tracking.",
+        "desc": "Automates parking access by scanning car license plates.",
         "tags": ["AI", "Computer Vision", "ALPR"],
         "image": "assets/images/projects/smartpark.png",
         "logo": "logo-restaurant-sentiment.svg",
@@ -1693,7 +1693,7 @@ PROJECTS = [
     },
     {
         "name": "Dewejen",
-        "desc": "A robust stock management system (Système de gestion de stock) featuring MySQL database connectivity.",
+        "desc": "Stock management system (Système de gestion de stock) featuring MySQL connectivity.",
         "tags": ["Python", "MySQL", "Management"],
         "image": "assets/images/projects/dewejen.png",
         "logo": "logo-dewejen.svg",
