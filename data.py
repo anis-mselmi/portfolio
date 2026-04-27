@@ -193,6 +193,13 @@ PROJECTS = [
         "logo": "logo-dewejen.svg",
         "fit": "cover",
     },
+    {
+        "name": "BurgerDash",
+        "desc": "A fast-paced 2D restaurant management game built with Pygame.",
+        "tags": ["Python", "Pygame", "Game"],
+        "image": "assets/images/projects/background.png",
+        "fit": "cover",
+    },
 ]
 
 LANGUAGES = [

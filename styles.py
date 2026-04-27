@@ -401,6 +401,7 @@ def inject_styles() -> None:
                 background: linear-gradient(130deg, rgba(82, 165, 255, 0.85), rgba(124, 156, 255, 0.5), rgba(87, 224, 255, 0.8));
                 box-shadow: 0 12px 30px rgba(3, 9, 20, 0.38);
                 height: 340px;
+                margin-bottom: 1.5rem;
                 transform: translateY(0) scale(1);
                 transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease, filter 0.4s ease;
             }
