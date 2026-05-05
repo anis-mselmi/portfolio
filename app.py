@@ -36,7 +36,6 @@ inject_styles()
 # -----------------------------
 def main() -> None:
     mount_scroll_behavior()
-    render_cover_banner()
     render_navbar()
 
     hero_section()
