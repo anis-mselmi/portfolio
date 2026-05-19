@@ -290,14 +290,17 @@ def render_pacman() -> None:
 <meta charset="UTF-8">
 <style>
   * { margin: 0; padding: 0; box-sizing: border-box; }
+  html {
+    background: transparent;
+    overflow: hidden;
+  }
   body {
     background: transparent;
     display: flex;
     flex-direction: column;
     align-items: center;
-    justify-content: center;
     font-family: 'Courier New', monospace;
-    padding: 16px;
+    padding: 16px 16px 8px;
   }
   #header {
     display: flex;
@@ -319,21 +322,26 @@ def render_pacman() -> None:
     color: #ffe600;
     font-size: 17px;
   }
+  /* Wrapper collapses to the scaled canvas height */
+  #canvas-wrap {
+    overflow: hidden;
+    flex-shrink: 0;
+  }
   #canvas {
     border: 2px solid #3333aa;
     border-radius: 10px;
     box-shadow: 0 0 30px #4444ffaa, 0 0 60px #2222aa55;
     background: #000010;
     display: block;
-    max-width: 100%;
+    transform-origin: top left;
   }
   #msg {
-    margin-top: 12px;
+    margin-top: 8px;
     color: #ffe600;
     font-size: 13px;
     letter-spacing: 2px;
     text-shadow: 0 0 8px #ffe600;
-    min-height: 20px;
+    min-height: 18px;
     text-align: center;
   }
 </style>
@@ -344,7 +352,7 @@ def render_pacman() -> None:
   <div class="score-box">HIGH: <span id="highVal">0</span></div>
   <div class="lives-box" id="livesVal">♥ ♥ ♥</div>
 </div>
-<canvas id="canvas" width="560" height="560"></canvas>
+<div id="canvas-wrap"><canvas id="canvas"></canvas></div>
 <div id="msg"></div>
 
 <script>
@@ -883,11 +891,49 @@ function loop() {
 
 initGame();
 loop();
+
+// ─── RESPONSIVE CANVAS (CSS transform — game logic untouched) ────────────────
+(function() {
+  const NATIVE_W = W;  // 672
+  const NATIVE_H = H;  // 360
+  const wrap = document.getElementById('canvas-wrap');
+
+  function fit() {
+    const bodyW    = document.body.clientWidth;
+    const padTotal = 32;   // 16px each side
+    const avail    = bodyW - padTotal;
+    const scale    = Math.min(1, avail / NATIVE_W);
+    const scaledH  = Math.floor(NATIVE_H * scale);
+    const scaledW  = Math.floor(NATIVE_W * scale);
+
+    // Scale canvas visually without changing its internal dimensions
+    canvas.style.transform = 'scale(' + scale + ')';
+    canvas.style.transformOrigin = 'top left';
+
+    // Collapse wrapper to exact scaled size so no dead space
+    wrap.style.width  = scaledW + 'px';
+    wrap.style.height = scaledH + 'px';
+
+    // Measure body height AFTER layout and report to Streamlit
+    requestAnimationFrame(function() {
+      var h = document.body.scrollHeight;
+      window.parent.postMessage({ type: 'streamlit:setFrameHeight', height: h + 4 }, '*');
+    });
+  }
+
+  // Run after first paint + on every resize
+  fit();
+  setTimeout(fit, 80);
+  window.addEventListener('resize', fit);
+  if (window.ResizeObserver) {
+    new ResizeObserver(fit).observe(document.body);
+  }
+})();
 </script>
 </body>
 </html>
 """
-    components.html(pacman_html, height=440, scrolling=False)
+    components.html(pacman_html, height=480, scrolling=False)
     section_end()
 
 
