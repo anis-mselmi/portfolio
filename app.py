@@ -6,9 +6,9 @@ from sections import (
     render_cover_banner,
     render_navbar,
     hero_section,
+    render_ai_console,
     render_skills_section,
     render_education,
-    render_experience,
     render_projects,
     render_languages,
     render_cv,
@@ -39,9 +39,9 @@ def main() -> None:
     render_navbar()
 
     hero_section()
+    render_ai_console()
     render_skills_section()
     render_education()
-    render_experience()
     render_projects()
     render_languages()
     render_cv()

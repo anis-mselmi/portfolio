@@ -1,4 +1,5 @@
 import base64
+import re
 from pathlib import Path
 from urllib.parse import quote
 from datetime import datetime
@@ -10,6 +11,7 @@ from data import (
     PROJECTS, LANGUAGES,
 )
 from utils import image_to_data_uri, section_title, section_start, section_end
+from ai_agent import get_ai_response
 
 
 def render_cover_banner() -> None:
@@ -34,9 +36,9 @@ def render_navbar() -> None:
         """
         <div class="sticky-navbar">
             <div class="sidebar-nav">
+                <a href="#ai-agent" class="nav-link" data-target="ai-agent"><span class="nav-link-inner">🤖 Ask AI</span></a>
                 <a href="#skills" class="nav-link" data-target="skills"><span class="nav-link-inner">🛠 Skills</span></a>
                 <a href="#education" class="nav-link" data-target="education"><span class="nav-link-inner">🎓 Education</span></a>
-                <a href="#experience" class="nav-link" data-target="experience"><span class="nav-link-inner">💼 Experience</span></a>
                 <a href="#projects" class="nav-link" data-target="projects"><span class="nav-link-inner">🚀 Projects</span></a>
             </div>
         </div>
@@ -158,51 +160,6 @@ def render_education() -> None:
             """,
             unsafe_allow_html=True
         )
-    section_end()
-
-
-def render_experience() -> None:
-    section_start("experience")
-    section_title("Experience & Community", "💼")
-    st.caption("Leadership, community, and event experience across tech initiatives.")
-    cards = [
-        {
-            "title": "Web Master at IEEE SIGHT EPS SB",
-            "emoji": "🧩",
-            "detail": "Managed web presence, content updates, and digital visibility.",
-        },
-        {
-            "title": "Ambassador at ATIC, NPC 2.0 PolyRobots, IEEE YESIST12, IEEE Smart Cities",
-            "emoji": "🌐",
-            "detail": "Represented the community and supported outreach initiatives.",
-        },
-        {
-            "title": "Organizer at Twise Night, IEEE Tejmaana, TCPC, IEEE Day",
-            "emoji": "🎯",
-            "detail": "Coordinated events, logistics, and volunteer teams.",
-        },
-        {
-            "title": "Participant at CSTAM 1.0, SDC 3.0, WIE ACT 4.0, TSYP13",
-            "emoji": "🚀",
-            "detail": "Active participant in workshops, challenges, and conferences.",
-        },
-    ]
-
-    cols = st.columns(2, gap="large")
-    for index, item in enumerate(cards):
-        with cols[index % 2]:
-            st.markdown(
-                f"""
-                <div class="experience-card">
-                    <div class="experience-card-inner">
-                        <div class="experience-emoji">{item['emoji']}</div>
-                        <div class="experience-title">{item['title']}</div>
-                        <div class="experience-detail">{item['detail']}</div>
-                    </div>
-                </div>
-                """,
-                unsafe_allow_html=True
-            )
     section_end()
 
 
@@ -462,3 +419,121 @@ def mount_scroll_behavior() -> None:
         """,
         unsafe_allow_html=True,
     )
+
+
+def parse_markdown_to_html(text: str) -> str:
+    """
+    Translates simple markdown bold stars and hyper-links to responsive HTML safe markup.
+    """
+    html = text
+    # Bold parsing (**text**)
+    html = re.sub(r"\*\*(.*?)\*\*", r"<strong>\1</strong>", html)
+    # Hyper-links parsing ([text](url))
+    html = re.sub(r"\[(.*?)\]\((.*?)\)", r'<a href="\2" target="_blank" style="color: var(--accent-2); text-decoration: underline;">\1</a>', html)
+    # Line breaks to standard HTML
+    html = html.replace("\n", "<br>")
+    return html
+
+
+def render_ai_console() -> None:
+    section_start("ai-agent")
+    section_title("Ask My AI Twin", "🤖")
+    st.caption("Interact with a simulated local RAG console trained on my academic background and engineering projects.")
+
+    # Initialize session state for terminal history
+    if "terminal_history" not in st.session_state:
+        st.session_state.terminal_history = [
+            {"role": "system", "content": "Welcome to Anis's Agentic Console [Version 1.0.4]\nInitializing RAG semantic intent scanner...\nSystem ready. Try entering a query, choosing a prompt below, or type /help!"}
+        ]
+
+    # Suggestions row
+    suggestions = {
+        "🛠 My Skills": "Tell me about your tech stack and AI/ML skills.",
+        "🚗 SmartPark": "What is the SmartPark CV project?",
+        "🧩 RAG & LLMs": "What is your experience with RAG and LLMs?",
+        "📜 View CV": "How can I view your CV?",
+        "📬 Contact Info": "How can I contact Anis?",
+    }
+
+    # Render terminal window
+    terminal_html = """
+    <div class="terminal-window">
+        <div class="terminal-header">
+            <div class="terminal-dots">
+                <span class="terminal-dot dot-red"></span>
+                <span class="terminal-dot dot-yellow"></span>
+                <span class="terminal-dot dot-green"></span>
+            </div>
+            <div class="terminal-title">system@anismselmi.ai: ~ (Interactive RAG Agent)</div>
+            <div style="width: 42px;"></div>
+        </div>
+        <div class="terminal-body" id="terminal-body">
+    """
+    
+    # Fill message logs
+    for idx, msg in enumerate(st.session_state.terminal_history):
+        content_html = parse_markdown_to_html(msg["content"])
+        if msg["role"] == "system":
+            terminal_html += f'<div class="terminal-row"><span class="terminal-prompt">[sys]:</span> <span style="color:#b9cae0;">{content_html}</span></div>'
+        elif msg["role"] == "user":
+            terminal_html += f'<div class="terminal-row"><span class="terminal-user">[visitor@lobby]:$</span> <span style="color:#57e0ff; font-weight:bold;">{content_html}</span></div>'
+        else:
+            terminal_html += f'<div class="terminal-row"><span class="terminal-prompt" style="color:#a6e22e;">[anis-ai]:$</span> <span class="terminal-output">{content_html}</span></div>'
+            
+    terminal_html += """
+        </div>
+    </div>
+    <script>
+        // Smoothly auto-scroll the terminal body to the bottom when new logs arrive
+        setTimeout(() => {
+            const body = document.getElementById("terminal-body");
+            if (body) {
+                body.scrollTop = body.scrollHeight;
+            }
+        }, 80);
+    </script>
+    """
+    
+    st.markdown(terminal_html, unsafe_allow_html=True)
+
+    # We can place suggestion pills as small columns or buttons
+    st.markdown("<p style='margin-bottom:0.4rem; font-size:0.9rem; font-weight:600; color:var(--muted);'>Suggested Prompts:</p>", unsafe_allow_html=True)
+    cols = st.columns(len(suggestions))
+    for idx, (label, val) in enumerate(suggestions.items()):
+        with cols[idx]:
+            if st.button(label, key=f"sug_{idx}", use_container_width=True):
+                st.session_state.terminal_history.append({"role": "user", "content": val})
+                response = get_ai_response(val)
+                st.session_state.terminal_history.append({"role": "agent", "content": response})
+                st.rerun()
+
+    # Terminal prompt form at the bottom
+    with st.form("terminal_input_form", clear_on_submit=True):
+        col_input, col_btn = st.columns([5, 1])
+        with col_input:
+            user_query = st.text_input("Enter command or question...", placeholder="e.g., /skills or /help or your custom query...", label_visibility="collapsed")
+        with col_btn:
+            submit_btn = st.form_submit_button("💻 Send", use_container_width=True)
+
+        if submit_btn and user_query:
+            query_str = user_query.strip()
+            if query_str.lower() == "/clear":
+                st.session_state.terminal_history = [
+                    {"role": "system", "content": "Welcome to Anis's Agentic Console [Version 1.0.4]\nConsole buffer cleared.\nSystem ready."}
+                ]
+            else:
+                st.session_state.terminal_history.append({"role": "user", "content": query_str})
+                response = get_ai_response(query_str)
+                st.session_state.terminal_history.append({"role": "agent", "content": response})
+            st.rerun()
+            
+    # Add a Clear Console button
+    if st.button("🧹 Clear Terminal Console", key="clear_terminal"):
+        st.session_state.terminal_history = [
+            {"role": "system", "content": "Welcome to Anis's Agentic Console [Version 1.0.4]\nInitializing RAG semantic intent scanner...\nSystem ready. Try entering a query, choosing a prompt below, or type /help!"}
+        ]
+        st.rerun()
+        
+    section_end()
+
+
