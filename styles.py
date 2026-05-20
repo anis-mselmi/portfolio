@@ -356,27 +356,54 @@ def inject_styles() -> None:
                 margin: 2.2rem auto 0;
                 width: 290px;
                 max-width: 100%;
+                aspect-ratio: 1 / 1;
                 padding: 6px;
-                border-radius: 32px;
-                background: linear-gradient(120deg, rgba(124, 156, 255, 0.85), rgba(87, 224, 255, 0.4), rgba(124, 156, 255, 0.9));
+                border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+                background: linear-gradient(120deg, rgba(124, 156, 255, 0.95), rgba(87, 224, 255, 0.6), rgba(124, 156, 255, 0.95));
                 background-size: 200% 200%;
-                animation: heroBorderShift 10s ease-in-out infinite;
-                box-shadow: 0 16px 38px rgba(3, 9, 20, 0.45);
-                transform: rotate(-1.5deg);
-                transition: transform 0.4s ease, box-shadow 0.4s ease;
+                animation: 
+                    heroBorderShift 8s ease-in-out infinite,
+                    heroMorph 12s ease-in-out infinite;
+                box-shadow: 
+                    0 16px 38px rgba(3, 9, 20, 0.5),
+                    0 0 25px rgba(87, 224, 255, 0.25),
+                    inset 0 0 12px rgba(255, 255, 255, 0.2);
+                transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.5s ease;
             }
 
             .hero-frame:hover {
-                transform: rotate(0deg) translateY(-4px);
-                box-shadow: 0 20px 46px rgba(3, 9, 20, 0.55);
+                transform: scale(1.05) rotate(1.5deg);
+                box-shadow: 
+                    0 22px 48px rgba(3, 9, 20, 0.6),
+                    0 0 35px rgba(87, 224, 255, 0.45),
+                    0 0 15px rgba(124, 156, 255, 0.3);
             }
 
             .hero-image {
                 display: block;
                 width: 100%;
-                height: auto;
-                border-radius: 26px;
+                height: 100%;
+                aspect-ratio: 1 / 1;
+                object-fit: cover;
+                border-radius: inherit;
                 border: 1px solid rgba(15, 22, 38, 0.7);
+                transition: filter 0.5s ease;
+            }
+
+            .hero-frame:hover .hero-image {
+                filter: saturate(1.08) brightness(1.02);
+            }
+
+            @keyframes heroMorph {
+                0% {
+                    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+                }
+                50% {
+                    border-radius: 40% 60% 70% 30% / 50% 60% 30% 65%;
+                }
+                100% {
+                    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
+                }
             }
 
             @keyframes heroBorderShift {
@@ -1514,6 +1541,45 @@ def inject_styles() -> None:
                 font-size: 0.82rem;
                 font-weight: 600;
                 letter-spacing: 0.05em;
+            }
+
+            .terminal-badges {
+                display: flex;
+                gap: 0.55rem;
+                flex-wrap: wrap;
+                align-items: center;
+            }
+
+            .terminal-badge {
+                font-size: 0.72rem !important;
+                padding: 0.2rem 0.55rem !important;
+                border-radius: 6px !important;
+                font-weight: 700 !important;
+                text-transform: uppercase !important;
+                letter-spacing: 0.04em !important;
+                display: inline-flex !important;
+                align-items: center !important;
+                border: 1px solid rgba(255, 255, 255, 0.1) !important;
+            }
+
+            .status-online {
+                background: rgba(39, 201, 63, 0.15) !important;
+                color: #27c93f !important;
+                border-color: rgba(39, 201, 63, 0.35) !important;
+                box-shadow: 0 0 10px rgba(39, 201, 63, 0.2) !important;
+            }
+
+            .status-local {
+                background: rgba(87, 224, 255, 0.12) !important;
+                color: var(--accent-2) !important;
+                border-color: rgba(87, 224, 255, 0.3) !important;
+                box-shadow: 0 0 10px rgba(87, 224, 255, 0.15) !important;
+            }
+
+            .badge-mode {
+                background: rgba(124, 156, 255, 0.12) !important;
+                color: var(--accent) !important;
+                border-color: rgba(124, 156, 255, 0.3) !important;
             }
 
             .terminal-body {

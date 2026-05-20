@@ -440,23 +440,47 @@ def render_ai_console() -> None:
     section_title("Ask My AI Twin", "🤖")
     st.caption("Interact with a simulated local RAG console trained on my academic background and engineering projects.")
 
-    # Initialize session state for terminal history
+    # Initialize session state variables
     if "terminal_history" not in st.session_state:
         st.session_state.terminal_history = [
-            {"role": "system", "content": "Welcome to Anis's Agentic Console [Version 1.0.4]\nInitializing RAG semantic intent scanner...\nSystem ready. Try entering a query, choosing a prompt below, or type /help!"}
+            {"role": "system", "content": "Welcome to Anis's Agentic Console [Version 1.0.5]\nInitializing RAG semantic intent scanner...\nSystem ready. Try entering a query, choosing a prompt below, or type /help!"}
         ]
+    if "ai_persona" not in st.session_state:
+        st.session_state.ai_persona = "twin"
 
-    # Suggestions row
-    suggestions = {
-        "🛠 My Skills": "Tell me about your tech stack and AI/ML skills.",
-        "🚗 SmartPark": "What is the SmartPark CV project?",
-        "🧩 RAG & LLMs": "What is your experience with RAG and LLMs?",
-        "📜 View CV": "How can I view your CV?",
-        "📬 Contact Info": "How can I contact Anis?",
-    }
+    # Add beautiful Persona Selector Buttons just above the console
+    st.markdown("<p style='margin-bottom:0.45rem; font-size:0.92rem; font-weight:700; color:var(--accent-2); text-transform: uppercase; letter-spacing:0.06em;'>Select AI Twin Persona Tone:</p>", unsafe_allow_html=True)
+    col_p1, col_p2, col_p3 = st.columns(3)
+    with col_p1:
+        if st.button("🤖 Cybernetic Twin", key="btn_twin", type="primary" if st.session_state.ai_persona == "twin" else "secondary", use_container_width=True):
+            st.session_state.ai_persona = "twin"
+            st.session_state.terminal_history.append({"role": "system", "content": "⚙️ System Persona swapped to standard AI Twin. Context set to technical, friendly developer twin."})
+            st.rerun()
+    with col_p2:
+        if st.button("💼 Tech Recruiter", key="btn_recruiter", type="primary" if st.session_state.ai_persona == "recruiter" else "secondary", use_container_width=True):
+            st.session_state.ai_persona = "recruiter"
+            st.session_state.terminal_history.append({"role": "system", "content": "⚙️ System Persona swapped to Technical Recruiter. Compiling GPA standing, soft skills, and credentials index."})
+            st.rerun()
+    with col_p3:
+        if st.button("💻 Deep Tech Lead", key="btn_tech", type="primary" if st.session_state.ai_persona == "tech" else "secondary", use_container_width=True):
+            st.session_state.ai_persona = "tech"
+            st.session_state.terminal_history.append({"role": "system", "content": "⚙️ System Persona swapped to Deep Tech Lead. Context set to database schema details and framework parameters."})
+            st.rerun()
 
-    # Render terminal window
-    terminal_html = """
+    # Determine API connection state
+    import os
+    has_api = os.environ.get("GEMINI_API_KEY")
+    if not has_api:
+        try:
+            has_api = st.secrets.get("GEMINI_API_KEY") or st.secrets.get("gemini_api_key")
+        except Exception:
+            pass
+            
+    api_status_text = "● API ONLINE" if has_api else "● COSIM LOCAL ACTIVE"
+    api_status_class = "status-online" if has_api else "status-local"
+
+    # Render advanced terminal window with integrated cyber diagnostics
+    terminal_html = f"""
     <div class="terminal-window">
         <div class="terminal-header">
             <div class="terminal-dots">
@@ -464,8 +488,11 @@ def render_ai_console() -> None:
                 <span class="terminal-dot dot-yellow"></span>
                 <span class="terminal-dot dot-green"></span>
             </div>
-            <div class="terminal-title">system@anismselmi.ai: ~ (Interactive RAG Agent)</div>
-            <div style="width: 42px;"></div>
+            <div class="terminal-title">RAG Engine: Cosine Sim Scorer</div>
+            <div class="terminal-badges">
+                <span class="terminal-badge {api_status_class}">{api_status_text}</span>
+                <span class="terminal-badge badge-mode">MODE: {st.session_state.ai_persona.upper()}</span>
+            </div>
         </div>
         <div class="terminal-body" id="terminal-body">
     """
@@ -478,13 +505,15 @@ def render_ai_console() -> None:
         elif msg["role"] == "user":
             terminal_html += f'<div class="terminal-row"><span class="terminal-user">[visitor@lobby]:$</span> <span style="color:#57e0ff; font-weight:bold;">{content_html}</span></div>'
         else:
-            terminal_html += f'<div class="terminal-row"><span class="terminal-prompt" style="color:#a6e22e;">[anis-ai]:$</span> <span class="terminal-output">{content_html}</span></div>'
+            prompt_symbol = "twin-ai" if st.session_state.ai_persona == "twin" else ("recruit-ai" if st.session_state.ai_persona == "recruiter" else "tech-ai")
+            prompt_color = "#a6e22e" if st.session_state.ai_persona == "twin" else ("#7c9cff" if st.session_state.ai_persona == "recruiter" else "#ffbd2e")
+            terminal_html += f'<div class="terminal-row"><span class="terminal-prompt" style="color:{prompt_color};">[{prompt_symbol}]:$</span> <span class="terminal-output">{content_html}</span></div>'
             
     terminal_html += """
         </div>
     </div>
     <script>
-        // Smoothly auto-scroll the terminal body to the bottom when new logs arrive
+        // Auto-scroll the terminal body to the bottom when logs append
         setTimeout(() => {
             const body = document.getElementById("terminal-body");
             if (body) {
@@ -496,14 +525,23 @@ def render_ai_console() -> None:
     
     st.markdown(terminal_html, unsafe_allow_html=True)
 
-    # We can place suggestion pills as small columns or buttons
-    st.markdown("<p style='margin-bottom:0.4rem; font-size:0.9rem; font-weight:600; color:var(--muted);'>Suggested Prompts:</p>", unsafe_allow_html=True)
+    # Suggestions row
+    suggestions = {
+        "🛠 Skills": "Tell me about your tech stack and AI/ML skills.",
+        "🚗 SmartPark": "What is the SmartPark CV project?",
+        "🧩 RAG / VSM": "How does your local Cosine Similarity VSM model work?",
+        "📜 View CV": "How can I view your CV?",
+        "📬 Contact": "How can I contact Anis?",
+    }
+
+    # Suggestions Pills
+    st.markdown("<p style='margin-bottom:0.4rem; font-size:0.9rem; font-weight:600; color:var(--muted);'>Suggested Inquiries:</p>", unsafe_allow_html=True)
     cols = st.columns(len(suggestions))
     for idx, (label, val) in enumerate(suggestions.items()):
         with cols[idx]:
             if st.button(label, key=f"sug_{idx}", use_container_width=True):
                 st.session_state.terminal_history.append({"role": "user", "content": val})
-                response = get_ai_response(val)
+                response = get_ai_response(val, st.session_state.ai_persona)
                 st.session_state.terminal_history.append({"role": "agent", "content": response})
                 st.rerun()
 
@@ -511,7 +549,7 @@ def render_ai_console() -> None:
     with st.form("terminal_input_form", clear_on_submit=True):
         col_input, col_btn = st.columns([5, 1])
         with col_input:
-            user_query = st.text_input("Enter command or question...", placeholder="e.g., /skills or /help or your custom query...", label_visibility="collapsed")
+            user_query = st.text_input("Enter command or question...", placeholder="e.g., /status, /skills, /mode recruiter, or custom question...", label_visibility="collapsed")
         with col_btn:
             submit_btn = st.form_submit_button("💻 Send", use_container_width=True)
 
@@ -519,18 +557,24 @@ def render_ai_console() -> None:
             query_str = user_query.strip()
             if query_str.lower() == "/clear":
                 st.session_state.terminal_history = [
-                    {"role": "system", "content": "Welcome to Anis's Agentic Console [Version 1.0.4]\nConsole buffer cleared.\nSystem ready."}
+                    {"role": "system", "content": "Welcome to Anis's Agentic Console [Version 1.0.5]\nConsole buffer cleared.\nSystem ready."}
                 ]
             else:
+                # Intercept dynamic /mode console commands
+                if query_str.lower().startswith("/mode"):
+                    parts = query_str.lower().split()
+                    if len(parts) > 1 and parts[1] in ["twin", "recruiter", "tech"]:
+                        st.session_state.ai_persona = parts[1]
+                
                 st.session_state.terminal_history.append({"role": "user", "content": query_str})
-                response = get_ai_response(query_str)
+                response = get_ai_response(query_str, st.session_state.ai_persona)
                 st.session_state.terminal_history.append({"role": "agent", "content": response})
             st.rerun()
             
     # Add a Clear Console button
     if st.button("🧹 Clear Terminal Console", key="clear_terminal"):
         st.session_state.terminal_history = [
-            {"role": "system", "content": "Welcome to Anis's Agentic Console [Version 1.0.4]\nInitializing RAG semantic intent scanner...\nSystem ready. Try entering a query, choosing a prompt below, or type /help!"}
+            {"role": "system", "content": "Welcome to Anis's Agentic Console [Version 1.0.5]\nInitializing RAG semantic intent scanner...\nSystem ready. Try entering a query, choosing a prompt below, or type /help!"}
         ]
         st.rerun()
         

@@ -170,11 +170,10 @@ SKILLS_BY_CATEGORY = {
 
 PROJECTS = [
     {
-        "name": "Brewstone Coffee",
-        "desc": "A modern coffee shop application with layout consistency and professional UI.",
-        "tags": ["Web", "UI", "Design"],
-        "image": "assets/images/projects/coffee shop.webp",
-        "logo": "logo-coffee-shop.svg",
+        "name": "BurgerDash",
+        "desc": "A fast-paced 2D restaurant management game built with Pygame.",
+        "tags": ["Python", "Pygame", "Game"],
+        "image": "assets/images/projects/background.webp",
         "fit": "cover",
     },
     {
@@ -191,13 +190,6 @@ PROJECTS = [
         "tags": ["Python", "MySQL", "Management"],
         "image": "assets/images/projects/dewejen.webp",
         "logo": "logo-dewejen.svg",
-        "fit": "cover",
-    },
-    {
-        "name": "BurgerDash",
-        "desc": "A fast-paced 2D restaurant management game built with Pygame.",
-        "tags": ["Python", "Pygame", "Game"],
-        "image": "assets/images/projects/background.webp",
         "fit": "cover",
     },
 ]
