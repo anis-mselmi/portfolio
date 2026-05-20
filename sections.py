@@ -13,10 +13,10 @@ from utils import image_to_data_uri, section_title, section_start, section_end
 
 
 def render_cover_banner() -> None:
-    cover_path = Path(__file__).parent / "assets" / "images" / "profile" / "cover_banner.png"
+    cover_path = Path(__file__).parent / "assets" / "images" / "profile" / "cover_banner.webp"
     cover_data = None
     if cover_path.exists():
-        cover_data = "data:image/png;base64," + base64.b64encode(cover_path.read_bytes()).decode("utf-8")
+        cover_data = "data:image/webp;base64," + base64.b64encode(cover_path.read_bytes()).decode("utf-8")
 
     if cover_data:
         st.markdown(
@@ -71,7 +71,7 @@ def hero_section() -> None:
         )
 
     with col2:
-        icon_path = Path(__file__).parent / "assets" / "images" / "profile" / "hero.png"
+        icon_path = Path(__file__).parent / "assets" / "images" / "profile" / "hero.webp"
 
         st.write("")
         if icon_path.exists():
