@@ -11,7 +11,6 @@ from sections import (
     render_experience,
     render_projects,
     render_languages,
-    render_pacman,
     render_cv,
     render_contact,
 )
@@ -45,7 +44,6 @@ def main() -> None:
     render_experience()
     render_projects()
     render_languages()
-    render_pacman()
     render_cv()
     render_contact()
 
