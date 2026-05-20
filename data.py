@@ -222,5 +222,64 @@ LANGUAGES = [
     },
 ]
 
+NVIDIA_CERTIFICATES = [
+    {
+        "title": "Building RAG Agents with LLMs",
+        "id": "7vo8r-_oQv2bJTyHff6CDQ",
+        "url": "https://learn.nvidia.com/certificates?id=7vo8r-_oQv2bJTyHff6CDQ",
+        "date": "Sep 2025",
+        "skills": ["RAG", "LLM Agents", "Vector Databases", "LangChain"],
+    },
+    {
+        "title": "Introduction to Transformer-Based Natural Language Processing",
+        "id": "Yy6SLV7eT4eN7LI-txHLBQ",
+        "url": "https://learn.nvidia.com/certificates?id=Yy6SLV7eT4eN7LI-txHLBQ",
+        "date": "Sep 2025",
+        "skills": ["Transformers", "NLP", "BERT", "GPT Architecture"],
+    },
+    {
+        "title": "Building LLM Applications With Prompt Engineering",
+        "id": "iagFYqO4QJmdv4JJU6g_sw",
+        "url": "https://learn.nvidia.com/certificates?id=iagFYqO4QJmdv4JJU6g_sw",
+        "date": "Sep 2025",
+        "skills": ["Prompt Engineering", "LLM Integration", "System Prompts"],
+    },
+    {
+        "title": "Building AI-Based Cybersecurity Pipelines",
+        "id": "As48ycFRRMqT0VKVb4PbtA",
+        "url": "https://learn.nvidia.com/certificates?id=As48ycFRRMqT0VKVb4PbtA",
+        "date": "Apr 2025",
+        "skills": ["Cybersecurity", "AI Pipelines", "Anomaly Detection"],
+    },
+    {
+        "title": "Fundamentals of Deep Learning",
+        "id": "4C-6f4fjSHK2HcgQfx6_ZA",
+        "url": "https://learn.nvidia.com/certificates?id=4C-6f4fjSHK2HcgQfx6_ZA",
+        "date": "Sep 2025",
+        "skills": ["Deep Learning", "Neural Networks", "Computer Vision", "PyTorch"],
+    },
+    {
+        "title": "Generative AI with Diffusion Models",
+        "id": "fn3bEZHDTHCZATWKG-svvg",
+        "url": "https://learn.nvidia.com/certificates?id=fn3bEZHDTHCZATWKG-svvg",
+        "date": "Nov 2025",
+        "skills": ["Diffusion Models", "Generative AI", "Denoising", "Image Generation"],
+    },
+    {
+        "title": "Building Real-Time Video AI Applications",
+        "id": "DttLN2ikRJeNMkkh7euKHA",
+        "url": "https://learn.nvidia.com/certificates?id=DttLN2ikRJeNMkkh7euKHA",
+        "date": "Dec 2025",
+        "skills": ["DeepStream", "Video AI", "Intelligent Video Analytics", "IVA"],
+    },
+    {
+        "title": "Fundamentals of Accelerated Computing with CUDA Python",
+        "id": "t-mYwSVhRC2Ve6K0z1qflQ",
+        "url": "https://learn.nvidia.com/certificates?id=t-mYwSVhRC2Ve6K0z1qflQ",
+        "date": "Dec 2025",
+        "skills": ["CUDA Python", "GPU Acceleration", "Numba", "Parallel Computing"],
+    },
+]
+
 SOFT_SKILLS = ["Communication", "Teamwork", "Project Management", "Organization"]
 INTERESTS = ["Travelling", "Sports", "Reading"]

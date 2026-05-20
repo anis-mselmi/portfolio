@@ -8,7 +8,7 @@ import streamlit as st
 
 from data import (
     PROFILE, ABOUT, EDUCATION, SKILLS_BY_CATEGORY,
-    PROJECTS, LANGUAGES,
+    PROJECTS, LANGUAGES, NVIDIA_CERTIFICATES,
 )
 from utils import image_to_data_uri, section_title, section_start, section_end
 from ai_agent import get_ai_response
@@ -39,6 +39,7 @@ def render_navbar() -> None:
                 <a href="#ai-agent" class="nav-link" data-target="ai-agent"><span class="nav-link-inner">🤖 Ask AI</span></a>
                 <a href="#skills" class="nav-link" data-target="skills"><span class="nav-link-inner">🛠 Skills</span></a>
                 <a href="#education" class="nav-link" data-target="education"><span class="nav-link-inner">🎓 Education</span></a>
+                <a href="#certificates" class="nav-link" data-target="certificates"><span class="nav-link-inner">📜 Certs</span></a>
                 <a href="#projects" class="nav-link" data-target="projects"><span class="nav-link-inner">🚀 Projects</span></a>
             </div>
         </div>
@@ -160,6 +161,52 @@ def render_education() -> None:
             """,
             unsafe_allow_html=True
         )
+    section_end()
+
+
+def render_certificates() -> None:
+    section_start("certificates")
+    section_title("NVIDIA Certifications", "🎖")
+    st.caption("Verified professional credentials in advanced Deep Learning, LLM, and RAG architectures.")
+
+    st.markdown(
+        "<div class='skills-grid-kicker'>Deep Learning & Generative AI Registry</div>",
+        unsafe_allow_html=True,
+    )
+
+    cards_html = []
+    for index, item in enumerate(NVIDIA_CERTIFICATES):
+        delay_ms = min(index * 90, 250)
+        chips_html = "".join([f"<span class='cert-chip'>{skill}</span>" for skill in item["skills"]])
+
+        card_html = f"""
+        <div class="cert-card cert-fade-in" style="--delay:{delay_ms}ms;">
+            <div class="cert-card-inner">
+                <div class="cert-head">
+                    <svg class="cert-logo" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M12 2L2 7V12C2 17 6 21 12 22C18 21 22 17 22 12V7L12 2Z" fill="#76b900" fill-opacity="0.15" stroke="#76b900" stroke-width="2"/>
+                        <path d="M9 12L11 14L15 10" stroke="#76b900" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                    </svg>
+                    <span class="cert-badge">Verified</span>
+                </div>
+                <div class="cert-title">{item['title']}</div>
+                <div class="cert-meta">
+                    <span><strong>Issuer:</strong> NVIDIA</span>
+                    <span><strong>Completed:</strong> {item['date']}</span>
+                    <span><strong>Credential ID:</strong> <code style="color: var(--accent-2); font-size: 0.82rem;">{item['id']}</code></span>
+                </div>
+                <div class="cert-chips">{chips_html}</div>
+                <a class="cert-btn" href="{item['url']}" target="_blank">🔗 Verify Credential</a>
+            </div>
+        </div>
+        """
+        cards_html.append(card_html)
+
+    grid_html = f"<div class='cert-grid'>{''.join(cards_html)}</div>"
+    # Remove newlines and collapse multiple spaces to prevent Streamlit/Markdown parser from rendering it as a code block
+    grid_html = re.sub(r'\s*\n\s*', ' ', grid_html)
+    st.markdown(grid_html, unsafe_allow_html=True)
+
     section_end()
 
 
@@ -356,7 +403,7 @@ def mount_scroll_behavior() -> None:
 
                 const observeSkillCards = () => {
                     const revealCards = Array.from(
-                        document.querySelectorAll('.skill-fade-in, .lang-fade-in')
+                        document.querySelectorAll('.skill-fade-in, .lang-fade-in, .cert-fade-in')
                     );
                     if (!revealCards.length) return;
 
@@ -528,7 +575,6 @@ def render_ai_console() -> None:
     # Suggestions row
     suggestions = {
         "🛠 Skills": "Tell me about your tech stack and AI/ML skills.",
-        "🚗 SmartPark": "What is the SmartPark CV project?",
         "🧩 RAG / VSM": "How does your local Cosine Similarity VSM model work?",
         "📜 View CV": "How can I view your CV?",
         "📬 Contact": "How can I contact Anis?",

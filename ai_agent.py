@@ -92,6 +92,14 @@ KNOWLEDGE_CHUNKS = [
         "twin": "🤖 **[Anis-AI]:** Anis is extremely active in the community! He is the **Web Master for IEEE SIGHT EPS SB** and an Ambassador for huge events like **NPC PolyRobots** and **IEEE Smart Cities**. He loves organizing hackathons and tech events!",
         "recruiter": "💼 **[Anis-Recruiter]:** Leadership profile: Anis demonstrates excellent teamwork, communication, and organizational skills. Serving as Web Master and organizing major collegiate tech events like **Twise Night** are indicators of his strong work ethic and proactive nature.",
         "tech": "💻 **[Anis-Tech]:** Volunteer Network: Webmaster responsibilities include administrating domain zones, writing deployment shell scripts, managing branch assets, and ensuring general frontend compliance across club portals."
+    },
+    {
+        "id": "certificates",
+        "keywords": ["certificate", "certificates", "certification", "certifications", "nvidia", "deep learning", "rag", "transformers", "nlp", "cybersecurity", "prompt engineering", "credentials", "credential"],
+        "text": "NVIDIA Certificates of Competency achieved by Anis Mselmi: Building RAG Agents with LLMs, Introduction to Transformer-Based Natural Language Processing, Building LLM Applications With Prompt Engineering, Building AI-Based Cybersecurity Pipelines, Fundamentals of Deep Learning, Generative AI with Diffusion Models, Building Real-Time Video AI Applications, and Fundamentals of Accelerated Computing with CUDA Python.",
+        "twin": "🤖 **[Anis-AI]:** Anis has earned **8 outstanding NVIDIA Certificates of Competency**! They include:\n\n1. 🧠 **Building RAG Agents with LLMs**\n2. 📝 **Introduction to Transformer-Based Natural Language Processing**\n3. ⚙️ **Building LLM Applications With Prompt Engineering**\n4. 🛡️ **Building AI-Based Cybersecurity Pipelines**\n5. 🚀 **Fundamentals of Deep Learning**\n6. 🎨 **Generative AI with Diffusion Models**\n7. 📹 **Building Real-Time Video AI Applications**\n8. 🐍 **Fundamentals of Accelerated Computing with CUDA Python**\n\nYou can view and verify all of them in the Certificates section on this site!",
+        "recruiter": "💼 **[Anis-Recruiter]:** Anis holds **8 professional Certificates of Competency from NVIDIA**, verifying his hands-on expertise in Deep Learning, NLP, Prompt Engineering, Cybersecurity pipelines, RAG architectures, Diffusion Models, Real-Time Video AI, and GPU acceleration with CUDA Python. These credentials demonstrate rigorous, industry-recognized competence in deploying modern AI workflows.",
+        "tech": "💻 **[Anis-Tech]:** NVIDIA Credentials Registry:\n- **Building RAG Agents with LLMs** (ID: `7vo8r-_oQv2bJTyHff6CDQ`)\n- **Introduction to Transformer-Based Natural Language Processing** (ID: `Yy6SLV7eT4eN7LI-txHLBQ`)\n- **Building LLM Applications With Prompt Engineering** (ID: `iagFYqO4QJmdv4JJU6g_sw`)\n- **Building AI-Based Cybersecurity Pipelines** (ID: `As48ycFRRMqT0VKVb4PbtA`)\n- **Fundamentals of Deep Learning** (ID: `4C-6f4fjSHK2HcgQfx6_ZA`)\n- **Generative AI with Diffusion Models** (ID: `fn3bEZHDTHCZATWKG-svvg`)\n- **Building Real-Time Video AI Applications** (ID: `DttLN2ikRJeNMkkh7euKHA`)\n- **Fundamentals of Accelerated Computing with CUDA Python** (ID: `t-mYwSVhRC2Ve6K0z1qflQ`)\nAll certificates are fully verified, completed in 2025."
     }
 ]
 
@@ -206,6 +214,7 @@ def get_ai_response(query: str, persona: str = "twin") -> str:
                 "🤖 **[Console Help Menu]:** Recognized terminal system shell commands:\n\n"
                 "▪ `/skills` - Output technical stack inventory\n"
                 "▪ `/projects` - Output list of core engineered systems\n"
+                "▪ `/certificates` - Output verified credentials index\n"
                 "▪ `/cv` - Retrieve direct Canva resume link\n"
                 "▪ `/contact` - Output communication channels\n"
                 "▪ `/about` - Introduce profile & objectives\n"
@@ -225,6 +234,9 @@ def get_ai_response(query: str, persona: str = "twin") -> str:
             return f"🤖 **[Anis-AI] Systems Catalog:**\n\n{proj_desc}"
         elif cmd == "/cv":
             chunk = next(c for c in KNOWLEDGE_CHUNKS if c["id"] == "cv")
+            return chunk.get(persona, chunk["twin"])
+        elif cmd == "/certificates" or cmd == "/certs":
+            chunk = next(c for c in KNOWLEDGE_CHUNKS if c["id"] == "certificates")
             return chunk.get(persona, chunk["twin"])
         elif cmd == "/contact":
             chunk = next(c for c in KNOWLEDGE_CHUNKS if c["id"] == "contact")
@@ -291,7 +303,7 @@ def get_ai_response(query: str, persona: str = "twin") -> str:
     fallback_msgs = {
         "twin": (
             "🤖 **[Anis-AI]:** That's a fascinating question! I didn't locate a precise match for that specific topic inside my local TF-IDF semantic chunks. "
-            "Ask me about **SmartPark**, **skills**, **projects**, or **community activities**!"
+            "Ask me about my **NVIDIA certificates**, **skills**, **projects**, or **community activities**!"
         ),
         "recruiter": (
             "💼 **[Anis-Recruiter]:** I appreciate your question. While that specific inquiry isn't indexed in my local database, Anis would be glad to address it in detail. "

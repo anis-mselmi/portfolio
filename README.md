@@ -18,6 +18,7 @@ An interactive developer-themed terminal mimicking a live **Retrieval-Augmented 
   * `/about` — Introduce Anis's professional objective
   * `/skills` — Print technical stack inventory
   * `/projects` — List engineered software systems
+  * `/certificates` (or `/certs`) — Output verified NVIDIA certificates registry
   * `/cv` — Print direct resume Canva URL
   * `/contact` — Display communications channels
   * `/clear` — Flush console buffer
@@ -33,6 +34,13 @@ A modern grid displaying specialized computer engineering and software skills.
 ### 🎓 Structured Education Timeline
 Detailed display of academic paths, preparator schools, and certifications.
 * Fully styled list items utilizing custom typography and high contrast details.
+
+### 🎖️ Verified NVIDIA Certifications & Registry
+A premium, highly interactive dashboard registry showcasing Anis's professional credentials from NVIDIA.
+* **Compact CSS Grid Layout:** Displays 8 professional Certificates of Competency in an elegant, responsive 4-column glassmorphic grid with custom technology tags.
+* **Perfect Equal-Sizing Alignment:** Designed using CSS Grid stretch properties and flex-direction models, ensuring all certificate cards and "Verify Credential" buttons align with identical dimensions across all rows.
+* **Instant Verification Redirects:** Each card features a direct, secure verify button connecting to NVIDIA's credentials verification system (`learn.nvidia.com`).
+* **Chatbot Grounding:** The AI Twin terminal console understands slash-commands (`/certificates`, `/certs`) and naturally details the verification status of all 8 certificates across different personas (Twin, Recruiter, Tech Lead).
 
 ### 🚀 Projects Grid
 Premium multi-column display of core engineering projects.

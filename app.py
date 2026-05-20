@@ -9,6 +9,7 @@ from sections import (
     render_ai_console,
     render_skills_section,
     render_education,
+    render_certificates,
     render_projects,
     render_languages,
     render_cv,
@@ -42,6 +43,7 @@ def main() -> None:
     render_ai_console()
     render_skills_section()
     render_education()
+    render_certificates()
     render_projects()
     render_languages()
     render_cv()
