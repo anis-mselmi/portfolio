@@ -1,6 +1,6 @@
 PROFILE = {
     "name": "Anis Mselmi",
-    "role": "Computer Engineering Student | AI, RAG, and LLM Enthusiast",
+    "role": "Computer Engineering Student | AI, DevOps, RAG & LLM Enthusiast",
     "location": "Khzema Ouest, Sousse, Tunisia",
     "email": "anismselmi490@gmail.com",
     "phone": "+216 25 141 636",
@@ -10,12 +10,12 @@ PROFILE = {
 
 ABOUT = (
     "🧠 Computer Engineering student at École Polytechnique de Sousse, focused on AI, "
-    "machine learning, and LLMs. I love turning complex ideas into reliable AI systems "
+    "DevOps, machine learning, and LLMs. I love turning complex ideas into reliable AI systems "
     "by building intelligent Python models, RAG pipelines, and conversational agents. "
     "⚡ I am hands-on with Jupyter/Colab workflows, data visualization, and rapid "
     "experimentation, and I bring a builder's mindset to every project. 🌍 Curious, "
     "driven, and always learning, I am open to internships and part-time roles where "
-    "I can contribute to impactful AI, RAG, and LLM products."
+    "I can contribute to impactful AI, DevOps, RAG, and LLM products."
 )
 
 EDUCATION = [

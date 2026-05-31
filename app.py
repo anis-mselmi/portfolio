@@ -12,8 +12,7 @@ from sections import (
     render_certificates,
     render_projects,
     render_languages,
-    render_cv,
-    render_contact,
+    render_visitor_badge,
 )
 
 # -----------------------------
@@ -37,6 +36,7 @@ inject_styles()
 # -----------------------------
 def main() -> None:
     mount_scroll_behavior()
+    render_visitor_badge()
     render_navbar()
 
     hero_section()
@@ -46,9 +46,8 @@ def main() -> None:
     render_certificates()
     render_projects()
     render_languages()
-    render_cv()
-    render_contact()
 
 
 if __name__ == "__main__":
     main()
+

@@ -47,12 +47,9 @@ Premium multi-column display of core engineering projects.
 * Features project cards with fully optimized images and tag badges.
 * Connects directly to external repositories.
 
-### 🌍 Languages & CV Preview
+### 🌍 Languages
 * **Languages Showcase:** Display of linguistic capabilities utilizing glassmorphic card layouts, flag graphics, and custom proficiency badges.
-* **Interactive Canva Resume:** A professional dual-column view rendering an embedded live preview of the CV alongside a direct instant-access CTA.
 
-### 📬 Smart Mailto Form
-* A fully styled form block that validates inputs and automatically generates a pre-filled, one-click `mailto:` string, launching your native mail client instantly.
 
 ---
 

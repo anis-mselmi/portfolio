@@ -36,8 +36,6 @@ def render_navbar() -> None:
         """
         <div class="sticky-navbar">
             <div class="sidebar-nav">
-                <a href="#ai-agent" class="nav-link" data-target="ai-agent"><span class="nav-link-inner">🤖 Ask AI</span></a>
-                <a href="#skills" class="nav-link" data-target="skills"><span class="nav-link-inner">🛠 Skills</span></a>
                 <a href="#education" class="nav-link" data-target="education"><span class="nav-link-inner">🎓 Education</span></a>
                 <a href="#certificates" class="nav-link" data-target="certificates"><span class="nav-link-inner">📜 Certs</span></a>
                 <a href="#projects" class="nav-link" data-target="projects"><span class="nav-link-inner">🚀 Projects</span></a>
@@ -61,12 +59,18 @@ def hero_section() -> None:
 
         st.markdown(
             f"""
-            <div style="display: flex; gap: 0.75rem; margin-top: 1rem; flex-wrap: wrap;">
+            <div style="display: flex; gap: 0.75rem; margin-top: 1rem; flex-wrap: wrap; align-items: center;">
                 <a href="{PROFILE['github']}" class="hero-social-btn btn-gh" target="_blank">
-                    🐱 GitHub
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0;"><path d="M12 0C5.37 0 0 5.37 0 12c0 5.31 3.435 9.795 8.205 11.385.6.105.825-.255.825-.57 0-.285-.015-1.23-.015-2.235-3.015.555-3.795-.735-4.035-1.41-.135-.345-.72-1.41-1.23-1.695-.42-.225-1.02-.78-.015-.795.945-.015 1.62.87 1.845 1.23 1.08 1.815 2.805 1.305 3.495.99.105-.78.42-1.305.765-1.605-2.67-.3-5.46-1.335-5.46-5.925 0-1.305.465-2.385 1.23-3.225-.12-.3-.54-1.53.12-3.18 0 0 1.005-.315 3.3 1.23.96-.27 1.98-.405 3-.405s2.04.135 3 .405c2.295-1.56 3.3-1.23 3.3-1.23.66 1.65.24 2.88.12 3.18.765.84 1.23 1.905 1.23 3.225 0 4.605-2.805 5.625-5.475 5.925.435.375.81 1.095.81 2.22 0 1.605-.015 2.895-.015 3.3 0 .315.225.69.825.57A12.02 12.02 0 0 0 24 12c0-6.63-5.37-12-12-12z"/></svg>
+                    GitHub
                 </a>
                 <a href="{PROFILE['linkedin']}" class="hero-social-btn btn-li" target="_blank">
-                    💼 LinkedIn
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0;"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
+                    LinkedIn
+                </a>
+                <a href="https://canva.link/cmn3h8sq33jeuib" class="hero-social-btn btn-cv" target="_blank">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+                    Download CV
                 </a>
             </div>
             """,
@@ -280,8 +284,6 @@ def render_languages() -> None:
     section_end()
 
 
-
-
 def render_cv() -> None:
 
     section_start("cv")
@@ -484,6 +486,23 @@ def parse_markdown_to_html(text: str) -> str:
 
 def render_ai_console() -> None:
     section_start("ai-agent")
+    # Handle streaming: if a pending stream exists, reveal one word at a time per rerun
+    import time
+    if st.session_state.get("_stream_pending"):
+        full = st.session_state["_stream_pending"]
+        if st.session_state.terminal_history and st.session_state.terminal_history[-1]["role"] == "agent":
+            current = st.session_state.terminal_history[-1]["content"]
+            words = full.split()
+            already = len(current.split()) if current.strip() else 0
+            # Reveal 6 words per rerun for smooth effect
+            next_words = words[:already + 6]
+            new_content = " ".join(next_words)
+            st.session_state.terminal_history[-1]["content"] = new_content
+            if len(next_words) < len(words):
+                time.sleep(0.04)
+                st.rerun()
+            else:
+                del st.session_state["_stream_pending"]
     section_title("Ask My AI Twin", "🤖")
     st.caption("Interact with a simulated local RAG console trained on my academic background and engineering projects.")
 
@@ -492,27 +511,8 @@ def render_ai_console() -> None:
         st.session_state.terminal_history = [
             {"role": "system", "content": "Welcome to Anis's Agentic Console [Version 1.0.5]\nInitializing RAG semantic intent scanner...\nSystem ready. Try entering a query, choosing a prompt below, or type /help!"}
         ]
-    if "ai_persona" not in st.session_state:
-        st.session_state.ai_persona = "twin"
-
-    # Add beautiful Persona Selector Buttons just above the console
-    st.markdown("<p style='margin-bottom:0.45rem; font-size:0.92rem; font-weight:700; color:var(--accent-2); text-transform: uppercase; letter-spacing:0.06em;'>Select AI Twin Persona Tone:</p>", unsafe_allow_html=True)
-    col_p1, col_p2, col_p3 = st.columns(3)
-    with col_p1:
-        if st.button("🤖 Cybernetic Twin", key="btn_twin", type="primary" if st.session_state.ai_persona == "twin" else "secondary", use_container_width=True):
-            st.session_state.ai_persona = "twin"
-            st.session_state.terminal_history.append({"role": "system", "content": "⚙️ System Persona swapped to standard AI Twin. Context set to technical, friendly developer twin."})
-            st.rerun()
-    with col_p2:
-        if st.button("💼 Tech Recruiter", key="btn_recruiter", type="primary" if st.session_state.ai_persona == "recruiter" else "secondary", use_container_width=True):
-            st.session_state.ai_persona = "recruiter"
-            st.session_state.terminal_history.append({"role": "system", "content": "⚙️ System Persona swapped to Technical Recruiter. Compiling GPA standing, soft skills, and credentials index."})
-            st.rerun()
-    with col_p3:
-        if st.button("💻 Deep Tech Lead", key="btn_tech", type="primary" if st.session_state.ai_persona == "tech" else "secondary", use_container_width=True):
-            st.session_state.ai_persona = "tech"
-            st.session_state.terminal_history.append({"role": "system", "content": "⚙️ System Persona swapped to Deep Tech Lead. Context set to database schema details and framework parameters."})
-            st.rerun()
+    # Single persona — always twin
+    st.session_state.ai_persona = "twin"
 
     # Determine API connection state
     import os
@@ -522,11 +522,12 @@ def render_ai_console() -> None:
             has_api = st.secrets.get("GEMINI_API_KEY") or st.secrets.get("gemini_api_key")
         except Exception:
             pass
-            
+
     api_status_text = "● API ONLINE" if has_api else "● COSIM LOCAL ACTIVE"
     api_status_class = "status-online" if has_api else "status-local"
+    is_streaming = bool(st.session_state.get("_stream_pending"))
 
-    # Render advanced terminal window with integrated cyber diagnostics
+    # Build terminal HTML
     terminal_html = f"""
     <div class="terminal-window">
         <div class="terminal-header">
@@ -538,64 +539,123 @@ def render_ai_console() -> None:
             <div class="terminal-title">RAG Engine: Cosine Sim Scorer</div>
             <div class="terminal-badges">
                 <span class="terminal-badge {api_status_class}">{api_status_text}</span>
-                <span class="terminal-badge badge-mode">MODE: {st.session_state.ai_persona.upper()}</span>
+                <span class="terminal-badge badge-mode">🤖 AI TWIN</span>
             </div>
         </div>
         <div class="terminal-body" id="terminal-body">
     """
-    
-    # Fill message logs
+
     for idx, msg in enumerate(st.session_state.terminal_history):
+        is_last = idx == len(st.session_state.terminal_history) - 1
         content_html = parse_markdown_to_html(msg["content"])
+        cursor = '<span class="terminal-cursor">&#x258C;</span>' if (is_streaming and is_last and msg["role"] == "agent") else ""
         if msg["role"] == "system":
             terminal_html += f'<div class="terminal-row"><span class="terminal-prompt">[sys]:</span> <span style="color:#b9cae0;">{content_html}</span></div>'
         elif msg["role"] == "user":
             terminal_html += f'<div class="terminal-row"><span class="terminal-user">[visitor@lobby]:$</span> <span style="color:#57e0ff; font-weight:bold;">{content_html}</span></div>'
         else:
-            prompt_symbol = "twin-ai" if st.session_state.ai_persona == "twin" else ("recruit-ai" if st.session_state.ai_persona == "recruiter" else "tech-ai")
-            prompt_color = "#a6e22e" if st.session_state.ai_persona == "twin" else ("#7c9cff" if st.session_state.ai_persona == "recruiter" else "#ffbd2e")
-            terminal_html += f'<div class="terminal-row"><span class="terminal-prompt" style="color:{prompt_color};">[{prompt_symbol}]:$</span> <span class="terminal-output">{content_html}</span></div>'
-            
+            terminal_html += f'<div class="terminal-row"><span class="terminal-prompt" style="color:#a6e22e;">[anis-ai]:$</span> <span class="terminal-output">{content_html}{cursor}</span></div>'
+
     terminal_html += """
         </div>
     </div>
     <script>
-        // Auto-scroll the terminal body to the bottom when logs append
         setTimeout(() => {
             const body = document.getElementById("terminal-body");
-            if (body) {
-                body.scrollTop = body.scrollHeight;
-            }
+            if (body) body.scrollTop = body.scrollHeight;
         }, 80);
+
+        // Enter key to submit the terminal form
+        (function attachEnterKey() {
+            const tryAttach = () => {
+                const form = document.querySelector('[data-testid="stForm"]');
+                if (!form) { setTimeout(tryAttach, 300); return; }
+                const input = form.querySelector('input[type="text"]');
+                if (!input || input._enterBound) return;
+                input._enterBound = true;
+                input.addEventListener("keydown", (e) => {
+                    if (e.key === "Enter" && !e.shiftKey) {
+                        e.preventDefault();
+                        const btn = form.querySelector('button[type="submit"]');
+                        if (btn) btn.click();
+                    }
+                });
+            };
+            tryAttach();
+        })();
+
+        // Mechanical keyclick sound via Web Audio API
+        (function attachSound() {
+            const tryAttach = () => {
+                const form = document.querySelector('[data-testid="stForm"]');
+                if (!form) { setTimeout(tryAttach, 300); return; }
+                const btn = form.querySelector('button[type="submit"]');
+                if (!btn || btn._soundBound) return;
+                btn._soundBound = true;
+                btn.addEventListener("click", () => {
+                    try {
+                        const ctx = new (window.AudioContext || window.webkitAudioContext)();
+                        const buf = ctx.createBuffer(1, ctx.sampleRate * 0.04, ctx.sampleRate);
+                        const data = buf.getChannelData(0);
+                        for (let i = 0; i < data.length; i++) {
+                            data[i] = (Math.random() * 2 - 1) * Math.exp(-i / (ctx.sampleRate * 0.005));
+                        }
+                        const src = ctx.createBufferSource();
+                        src.buffer = buf;
+                        const gain = ctx.createGain();
+                        gain.gain.setValueAtTime(0.18, ctx.currentTime);
+                        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.04);
+                        src.connect(gain);
+                        gain.connect(ctx.destination);
+                        src.start();
+                    } catch(e) {}
+                });
+            };
+            tryAttach();
+        })();
     </script>
     """
-    
+
     st.markdown(terminal_html, unsafe_allow_html=True)
 
-    # Suggestions row
+    # /help quick-reply chips — detect if last agent message is the help response
+    last_agent = next((m for m in reversed(st.session_state.terminal_history) if m["role"] == "agent"), None)
+    if last_agent and "/skills" in last_agent.get("content", "") and "▪" in last_agent.get("content", ""):
+        help_commands = ["/skills", "/projects", "/certificates", "/cv", "/contact", "/about", "/status", "/clear"]
+        st.markdown("<p style='margin:0.5rem 0 0.35rem; font-size:0.82rem; font-weight:700; color:var(--accent-2); text-transform:uppercase; letter-spacing:0.07em;'>Quick Commands:</p>", unsafe_allow_html=True)
+        chip_cols = st.columns(len(help_commands))
+        for i, cmd in enumerate(help_commands):
+            with chip_cols[i]:
+                if st.button(cmd, key=f"help_chip_{i}", use_container_width=True):
+                    st.session_state.terminal_history.append({"role": "user", "content": cmd})
+                    response = get_ai_response(cmd, "twin")
+                    st.session_state.terminal_history.append({"role": "agent", "content": ""})
+                    st.session_state["_stream_pending"] = response
+                    st.rerun()
+
+    # Suggested inquiry pills
     suggestions = {
         "🛠 Skills": "Tell me about your tech stack and AI/ML skills.",
         "🧩 RAG / VSM": "How does your local Cosine Similarity VSM model work?",
         "📜 View CV": "How can I view your CV?",
         "📬 Contact": "How can I contact Anis?",
     }
-
-    # Suggestions Pills
     st.markdown("<p style='margin-bottom:0.4rem; font-size:0.9rem; font-weight:600; color:var(--muted);'>Suggested Inquiries:</p>", unsafe_allow_html=True)
     cols = st.columns(len(suggestions))
     for idx, (label, val) in enumerate(suggestions.items()):
         with cols[idx]:
             if st.button(label, key=f"sug_{idx}", use_container_width=True):
                 st.session_state.terminal_history.append({"role": "user", "content": val})
-                response = get_ai_response(val, st.session_state.ai_persona)
-                st.session_state.terminal_history.append({"role": "agent", "content": response})
+                response = get_ai_response(val, "twin")
+                st.session_state.terminal_history.append({"role": "agent", "content": ""})
+                st.session_state["_stream_pending"] = response
                 st.rerun()
 
-    # Terminal prompt form at the bottom
+    # Terminal input form
     with st.form("terminal_input_form", clear_on_submit=True):
         col_input, col_btn = st.columns([5, 1])
         with col_input:
-            user_query = st.text_input("Enter command or question...", placeholder="e.g., /status, /skills, /mode recruiter, or custom question...", label_visibility="collapsed")
+            user_query = st.text_input("Enter command or question...", placeholder="e.g., /help, /skills, /projects, or ask anything...", label_visibility="collapsed")
         with col_btn:
             submit_btn = st.form_submit_button("💻 Send", use_container_width=True)
 
@@ -605,25 +665,48 @@ def render_ai_console() -> None:
                 st.session_state.terminal_history = [
                     {"role": "system", "content": "Welcome to Anis's Agentic Console [Version 1.0.5]\nConsole buffer cleared.\nSystem ready."}
                 ]
+                st.rerun()
             else:
-                # Intercept dynamic /mode console commands
-                if query_str.lower().startswith("/mode"):
-                    parts = query_str.lower().split()
-                    if len(parts) > 1 and parts[1] in ["twin", "recruiter", "tech"]:
-                        st.session_state.ai_persona = parts[1]
-                
                 st.session_state.terminal_history.append({"role": "user", "content": query_str})
-                response = get_ai_response(query_str, st.session_state.ai_persona)
-                st.session_state.terminal_history.append({"role": "agent", "content": response})
-            st.rerun()
-            
-    # Add a Clear Console button
+                response = get_ai_response(query_str, "twin")
+                st.session_state.terminal_history.append({"role": "agent", "content": ""})
+                st.session_state["_stream_pending"] = response
+                st.rerun()
+
+    # Clear console button
     if st.button("🧹 Clear Terminal Console", key="clear_terminal"):
         st.session_state.terminal_history = [
             {"role": "system", "content": "Welcome to Anis's Agentic Console [Version 1.0.5]\nInitializing RAG semantic intent scanner...\nSystem ready. Try entering a query, choosing a prompt below, or type /help!"}
         ]
         st.rerun()
+
         
     section_end()
 
 
+def render_visitor_badge() -> None:
+    import json
+    from pathlib import Path
+    counter_file = Path(__file__).parent / ".visitor_count.json"
+    try:
+        if counter_file.exists():
+            data = json.loads(counter_file.read_text())
+        else:
+            data = {"count": 0}
+        if not st.session_state.get("_counted"):
+            data["count"] += 1
+            counter_file.write_text(json.dumps(data))
+            st.session_state["_counted"] = True
+        count = data["count"]
+    except Exception:
+        count = "—"
+
+    st.markdown(
+        f"""
+        <div class="visitor-badge">
+            <span class="visitor-dot"></span>
+            <span class="visitor-label">👁 <strong>{count}</strong> visitors</span>
+        </div>
+        """,
+        unsafe_allow_html=True,
+    )

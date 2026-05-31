@@ -81,7 +81,7 @@ def inject_styles() -> None:
 
             .block-container {
                 max-width: 1200px;
-                padding-top: 2.25rem;
+                padding-top: 1rem;
                 padding-bottom: 3.5rem;
             }
 
@@ -128,11 +128,93 @@ def inject_styles() -> None:
             }
 
             .hero-card {
-                background: linear-gradient(135deg, rgba(124,156,255,0.12), rgba(87,224,255,0.05));
-                border: 1px solid var(--border);
-                border-radius: 22px;
-                padding: 1.75rem 2rem;
-                box-shadow: 0 16px 40px rgba(3, 9, 20, 0.45);
+                position: relative;
+                background:
+                    radial-gradient(ellipse 80% 60% at 70% 0%, rgba(87,224,255,0.07) 0%, transparent 60%),
+                    radial-gradient(ellipse 60% 80% at 0% 100%, rgba(124,156,255,0.09) 0%, transparent 55%),
+                    linear-gradient(160deg, rgba(124,156,255,0.10) 0%, rgba(87,224,255,0.04) 100%);
+                border: 1px solid rgba(124,156,255,0.18);
+                border-radius: 28px;
+                padding: 2.5rem 2.5rem 2.2rem;
+                box-shadow:
+                    0 24px 60px rgba(3, 9, 20, 0.55),
+                    0 0 0 1px rgba(87,224,255,0.06) inset;
+                animation: heroFadeUp 0.7s cubic-bezier(0.2,0.8,0.2,1) both;
+            }
+
+            @keyframes heroFadeUp {
+                from { opacity: 0; transform: translateY(22px); }
+                to   { opacity: 1; transform: translateY(0); }
+            }
+
+            .hero-name {
+                font-size: 3.2rem;
+                font-weight: 800;
+                letter-spacing: -0.03em;
+                line-height: 1.1;
+                margin-bottom: 0.6rem;
+                background: linear-gradient(110deg, #ffffff 30%, #57e0ff 65%, #7c9cff 100%);
+                -webkit-background-clip: text;
+                -webkit-text-fill-color: transparent;
+                background-clip: text;
+            }
+
+            .hero-role-row {
+                margin-bottom: 0.55rem;
+            }
+
+            .hero-role-badge {
+                display: inline-flex;
+                align-items: center;
+                gap: 0.45rem;
+                padding: 0.3rem 0.9rem 0.3rem 0.65rem;
+                border-radius: 999px;
+                background: rgba(87, 224, 255, 0.07);
+                border: 1px solid rgba(87, 224, 255, 0.22);
+                font-size: 0.88rem;
+                font-weight: 600;
+                color: var(--accent-2);
+                letter-spacing: 0.01em;
+            }
+
+            .hero-role-dot {
+                display: inline-block;
+                width: 7px;
+                height: 7px;
+                border-radius: 50%;
+                background: #57e0ff;
+                box-shadow: 0 0 8px #57e0ff;
+                animation: visitorPulse 2s ease-in-out infinite;
+                flex-shrink: 0;
+            }
+
+            .hero-location {
+                font-size: 0.88rem;
+                color: var(--muted);
+                margin-bottom: 1rem;
+            }
+
+            .hero-about {
+                font-size: 0.95rem;
+                color: #c8d8ea;
+                line-height: 1.72;
+                margin-bottom: 0;
+            }
+
+            .hero-actions {
+                display: flex;
+                gap: 0.75rem;
+                margin-top: 1.5rem;
+                flex-wrap: wrap;
+                align-items: center;
+            }
+
+            .hero-photo-wrap {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                height: 100%;
+                padding-top: 0.5rem;
             }
 
             .glass-card {
@@ -187,26 +269,24 @@ def inject_styles() -> None:
                 border: none !important;
             }
 
-            /* Custom Hero Social Action Buttons */
             .hero-social-btn {
                 display: inline-flex;
                 align-items: center;
                 justify-content: center;
-                gap: 0.35rem;
-                padding: 0.35rem 0.9rem;
-                border-radius: 10px;
+                gap: 0.45rem;
+                padding: 0.55rem 1.15rem;
+                border-radius: 12px;
                 font-weight: 600;
-                font-size: 0.82rem;
+                font-size: 0.85rem;
                 text-decoration: none !important;
                 transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
                 color: #ffffff !important;
-                box-shadow: 0 4px 15px rgba(3, 9, 20, 0.35);
-                text-align: center;
                 width: fit-content;
+                letter-spacing: 0.01em;
             }
 
             .hero-social-btn:hover {
-                transform: translateY(-3px) scale(1.03);
+                transform: translateY(-3px) scale(1.04);
             }
 
             .btn-gh {
@@ -231,6 +311,130 @@ def inject_styles() -> None:
                 box-shadow: 0 10px 24px rgba(10, 102, 194, 0.6);
                 border-color: rgba(87, 224, 255, 0.6);
                 background: linear-gradient(135deg, #0d73d9 0%, #00509e 100%);
+            }
+
+            .btn-cv {
+                background: linear-gradient(135deg, #7c3aed 0%, #4f1fc8 100%);
+                border: 1px solid rgba(124, 58, 237, 0.5);
+                box-shadow: 0 6px 18px rgba(124, 58, 237, 0.35);
+            }
+
+            .btn-cv:hover {
+                box-shadow: 0 10px 24px rgba(124, 58, 237, 0.6);
+                border-color: rgba(167, 139, 250, 0.7);
+                background: linear-gradient(135deg, #8b5cf6 0%, #6d28d9 100%);
+            }
+
+            /* ── Visitor Badge ── */
+            .visitor-badge {
+                display: inline-flex;
+                align-items: center;
+                gap: 0.5rem;
+                padding: 0.28rem 0.9rem 0.28rem 0.65rem;
+                border-radius: 999px;
+                background: rgba(34, 197, 94, 0.07);
+                border: 1px solid rgba(34, 197, 94, 0.22);
+                font-size: 0.8rem;
+                color: var(--muted);
+                margin-bottom: 0.75rem;
+                width: fit-content;
+            }
+
+            .visitor-dot {
+                display: inline-block;
+                width: 8px;
+                height: 8px;
+                border-radius: 50%;
+                background: #22c55e;
+                box-shadow: 0 0 6px #22c55e;
+                animation: visitorPulse 2s ease-in-out infinite;
+            }
+
+            .visitor-label {
+                color: var(--text);
+            }
+
+            @keyframes visitorPulse {
+                0%, 100% { opacity: 1; transform: scale(1); }
+                50% { opacity: 0.6; transform: scale(0.85); }
+            }
+
+            /* ── GitHub Activity Feed ── */
+            .gh-feed {
+                display: flex;
+                flex-direction: column;
+                gap: 0.55rem;
+                margin-top: 0.75rem;
+            }
+
+            .gh-event-card {
+                display: flex;
+                align-items: flex-start;
+                gap: 0.85rem;
+                padding: 0.75rem 1rem;
+                border-radius: 14px;
+                background: linear-gradient(180deg, var(--panel) 0%, var(--panel-2) 100%);
+                border: 1px solid var(--border);
+                transition: transform 0.25s ease, box-shadow 0.25s ease;
+            }
+
+            .gh-event-card:hover {
+                transform: translateX(4px);
+                box-shadow: 0 4px 18px rgba(87, 224, 255, 0.1);
+                border-color: rgba(87, 224, 255, 0.2);
+            }
+
+            .gh-event-icon {
+                font-size: 1.3rem;
+                flex-shrink: 0;
+                margin-top: 0.1rem;
+            }
+
+            .gh-event-body {
+                flex: 1;
+                min-width: 0;
+            }
+
+            .gh-event-type {
+                font-size: 0.78rem;
+                font-weight: 700;
+                text-transform: uppercase;
+                letter-spacing: 0.08em;
+                color: var(--accent-2);
+                margin-bottom: 0.15rem;
+            }
+
+            .gh-repo-link {
+                font-size: 0.88rem;
+                font-weight: 600;
+                color: var(--text) !important;
+                text-decoration: none !important;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                display: block;
+            }
+
+            .gh-repo-link:hover {
+                color: var(--accent-2) !important;
+                text-decoration: underline !important;
+            }
+
+            .gh-commit-msg {
+                font-size: 0.78rem;
+                color: var(--muted);
+                margin-top: 0.2rem;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+            .gh-event-date {
+                font-size: 0.75rem;
+                color: var(--muted);
+                white-space: nowrap;
+                flex-shrink: 0;
+                margin-top: 0.15rem;
             }
 
             .stProgress > div > div {
@@ -263,7 +467,7 @@ def inject_styles() -> None:
 
             .sidebar-nav {
                 display: grid;
-                grid-template-columns: repeat(5, minmax(0, 1fr));
+                grid-template-columns: repeat(3, minmax(0, 1fr));
                 gap: 0.55rem;
             }
 
@@ -319,41 +523,34 @@ def inject_styles() -> None:
             }
 
             .cover-banner-wrap {
-                margin: 0 0 1.35rem;
-                border-radius: 24px;
-                padding: 0;
-                background: transparent;
-                box-shadow: none;
+                margin: 0 0 1.75rem;
+                border-radius: 28px;
+                overflow: hidden;
+                box-shadow: 0 20px 50px rgba(3, 9, 20, 0.5);
                 transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-                position: relative;
-                box-sizing: border-box;
             }
 
             .cover-banner-wrap:hover {
-                transform: translateY(-4px);
+                transform: translateY(-4px) scale(1.005);
             }
 
             .cover-banner {
                 width: 100%;
                 display: block;
-                border-radius: 24px;
-                border: none;
-                height: 260px;
-                max-height: 260px;
+                height: 240px;
+                max-height: 240px;
                 object-fit: cover;
                 object-position: center;
-                background: transparent;
-                filter: drop-shadow(0 0 2px rgba(87, 224, 255, 0.9)) drop-shadow(0 0 6px rgba(124, 156, 255, 0.6)) drop-shadow(0 12px 30px rgba(3, 9, 20, 0.4));
-                transition: transform 0.5s ease, filter 0.5s ease;
+                transition: filter 0.5s ease;
+                filter: brightness(0.92) saturate(1.1);
             }
 
             .cover-banner-wrap:hover .cover-banner {
-                filter: brightness(1.05) drop-shadow(0 0 4px rgba(87, 224, 255, 1)) drop-shadow(0 0 12px rgba(124, 156, 255, 0.85)) drop-shadow(0 20px 42px rgba(3, 9, 20, 0.55));
+                filter: brightness(1.05) saturate(1.15);
             }
 
-
             .hero-frame {
-                margin: 2.2rem auto 0;
+                margin: 0 auto;
                 width: 290px;
                 max-width: 100%;
                 aspect-ratio: 1 / 1;
@@ -361,15 +558,16 @@ def inject_styles() -> None:
                 border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%;
                 background: linear-gradient(120deg, rgba(124, 156, 255, 0.95), rgba(87, 224, 255, 0.6), rgba(124, 156, 255, 0.95));
                 background-size: 200% 200%;
-                animation: 
+                animation:
                     heroBorderShift 8s ease-in-out infinite,
                     heroMorph 12s ease-in-out infinite;
-                box-shadow: 
+                box-shadow:
                     0 16px 38px rgba(3, 9, 20, 0.5),
                     0 0 25px rgba(87, 224, 255, 0.25),
                     inset 0 0 12px rgba(255, 255, 255, 0.2);
                 transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.5s ease;
             }
+
 
             .hero-frame:hover {
                 transform: scale(1.05) rotate(1.5deg);
@@ -1215,7 +1413,7 @@ def inject_styles() -> None:
                 }
 
                 .sidebar-nav {
-                    grid-template-columns: repeat(5, minmax(0, 1fr));
+                    grid-template-columns: repeat(3, minmax(0, 1fr));
                 }
             }
 
@@ -1225,7 +1423,7 @@ def inject_styles() -> None:
                 }
 
                 .sidebar-nav {
-                    grid-template-columns: repeat(5, minmax(0, 1fr));
+                    grid-template-columns: repeat(3, minmax(0, 1fr));
                     gap: 0.25rem;
                 }
 
@@ -1627,6 +1825,19 @@ def inject_styles() -> None:
             .terminal-output a {
                 color: var(--accent-2) !important;
                 text-decoration: underline !important;
+            }
+
+            .terminal-cursor {
+                display: inline-block;
+                color: #a6e22e;
+                font-weight: 400;
+                margin-left: 1px;
+                animation: cursorBlink 0.75s step-start infinite;
+            }
+
+            @keyframes cursorBlink {
+                0%, 100% { opacity: 1; }
+                50% { opacity: 0; }
             }
 
             /* NVIDIA Certifications Section Styling */
