@@ -5,6 +5,10 @@
 [![Google Gemini](https://img.shields.io/badge/Google%20Gemini-8E75C2?style=for-the-badge&logo=googlegemini&logoColor=white)](https://deepmind.google/technologies/gemini/)
 [![Vector Search & RAG](https://img.shields.io/badge/RAG-Agentic-008080?style=for-the-badge&logo=vector&logoColor=white)](#-ask-my-ai-twin-console)
 
+<p align="center">
+  <img src="assets/images/profile/hero.webp" alt="Anis Mselmi Profile" width="200" style="border-radius: 24px; border: 3px solid #7c9cff; box-shadow: 0 4px 25px rgba(124, 156, 255, 0.45); object-fit: cover;" />
+</p>
+
 A premium, highly interactive personal portfolio application showcasing a futuristic cyber-console design. Built with **Streamlit** and optimized with professional vanilla CSS styles, fluid scroll behaviors, intersection observers, and a custom **AI Twin RAG Terminal Console**!
 
 ---
