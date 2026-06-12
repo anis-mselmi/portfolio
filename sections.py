@@ -1,10 +1,27 @@
 import base64
 import re
+import smtplib
+import ssl
+from email.mime.multipart import MIMEMultipart
+from email.mime.text import MIMEText
 from pathlib import Path
 from urllib.parse import quote
 from datetime import datetime
 
 import streamlit as st
+
+try:
+    import requests as _req
+    from streamlit_lottie import st_lottie
+    _LOTTIE_OK = True
+except ImportError:
+    _LOTTIE_OK = False
+
+try:
+    import plotly.graph_objects as go
+    _PLOTLY_OK = True
+except ImportError:
+    _PLOTLY_OK = False
 
 from data import (
     PROFILE, ABOUT, EDUCATION, SKILLS_BY_CATEGORY,
@@ -13,6 +30,233 @@ from data import (
 from utils import image_to_data_uri, section_title, section_start, section_end
 from ai_agent import get_ai_response
 
+
+# ─── Lottie Animation URLs ────────────────────────────────────────────────────
+_LOTTIE_HERO_URL   = "https://assets10.lottiefiles.com/packages/lf20_w51pcehl.json"
+_LOTTIE_SKILLS_URL = "https://assets5.lottiefiles.com/packages/lf20_fcfjwiyb.json"
+
+
+# ─── Helpers ──────────────────────────────────────────────────────────────────
+
+def _load_lottie(url: str):
+    """Fetch a Lottie JSON animation from *url*.
+
+    Caches in session_state to avoid re-fetching on every rerun.
+    Returns the animation dict, or None on error.
+    """
+    if not _LOTTIE_OK:
+        return None
+    cache_key = f"_lottie_{url}"
+    if cache_key in st.session_state:
+        return st.session_state[cache_key]
+    try:
+        r = _req.get(url, timeout=6)
+        if r.status_code == 200:
+            data = r.json()
+            st.session_state[cache_key] = data
+            return data
+    except Exception:
+        pass
+    st.session_state[cache_key] = None
+    return None
+
+
+def _send_email_smtp(name: str, sender_email: str, subject: str, message: str):
+    """Send a contact form email via Gmail SMTP (port 465, SSL).
+
+    Reads SMTP_EMAIL and SMTP_PASSWORD from st.secrets.
+    Returns (True, "ok") on success, or (False, reason_str) on failure.
+    Returns (False, "no_credentials") when secrets are not configured.
+    """
+    smtp_email = smtp_password = ""
+    try:
+        smtp_email    = st.secrets.get("SMTP_EMAIL", "")
+        smtp_password = st.secrets.get("SMTP_PASSWORD", "")
+    except Exception:
+        pass
+
+    if not smtp_email or not smtp_password:
+        return False, "no_credentials"
+
+    recipient = PROFILE["email"]
+    msg               = MIMEMultipart("alternative")
+    msg["Subject"]    = f"[Portfolio Contact] {subject or 'New Message'}"
+    msg["From"]       = smtp_email
+    msg["To"]         = recipient
+    msg["Reply-To"]   = sender_email
+
+    plain = (
+        f"Name: {name}\nEmail: {sender_email}\nSubject: {subject or 'N/A'}\n\n"
+        f"Message:\n{message}"
+    )
+    html = f"""
+<html><body style="font-family:sans-serif;color:#333;max-width:600px;margin:0 auto;">
+  <h2 style="color:#7c9cff;">&#128236; New Portfolio Contact</h2>
+  <table style="width:100%;border-collapse:collapse;">
+    <tr><td style="padding:8px;font-weight:bold;color:#555;">Name</td>
+        <td style="padding:8px;">{name}</td></tr>
+    <tr><td style="padding:8px;font-weight:bold;color:#555;">Email</td>
+        <td style="padding:8px;"><a href="mailto:{sender_email}">{sender_email}</a></td></tr>
+    <tr><td style="padding:8px;font-weight:bold;color:#555;">Subject</td>
+        <td style="padding:8px;">{subject or 'N/A'}</td></tr>
+  </table>
+  <hr style="border:1px solid #eee;margin:16px 0;">
+  <h3 style="color:#555;">Message</h3>
+  <p style="line-height:1.6;background:#f9f9f9;padding:16px;border-radius:8px;">
+    {message.replace(chr(10), "<br>")}
+  </p>
+</body></html>"""
+
+    msg.attach(MIMEText(plain, "plain"))
+    msg.attach(MIMEText(html,  "html"))
+
+    try:
+        ctx = ssl.create_default_context()
+        with smtplib.SMTP_SSL("smtp.gmail.com", 465, context=ctx) as server:
+            server.login(smtp_email, smtp_password)
+            server.sendmail(smtp_email, recipient, msg.as_string())
+        return True, "ok"
+    except smtplib.SMTPAuthenticationError:
+        return False, "Gmail authentication failed — check your App Password."
+    except smtplib.SMTPException as exc:
+        return False, f"SMTP error: {exc}"
+    except Exception as exc:
+        return False, str(exc)
+
+
+def _render_three_skill_charts() -> None:
+    """Render 3 compact Plotly charts side by side showcasing competences."""
+
+    _TRANSPARENT = "rgba(0,0,0,0)"
+    _PANEL       = "rgba(15,22,36,0.85)"
+    _GRID        = "rgba(31,42,59,0.55)"
+    _FONT_COLOR  = "#c8d8e8"
+    _HOVER       = dict(bgcolor="#121826", bordercolor="#1f2a3b",
+                        font=dict(color="#e6ecf2", family="Inter", size=12))
+    _MARGIN      = dict(l=10, r=10, t=40, b=10)
+
+    level_map = {"Expert": 95, "Advanced": 80, "Intermediate": 60, "Beginner": 35}
+
+    # ── Data prep ──────────────────────────────────────────────────────────────
+    # All skills flat list
+    all_skills = [
+        (item["name"], level_map.get(item["level"], 60))
+        for items in SKILLS_BY_CATEGORY.values()
+        for item in items
+    ]
+    # Sort by score, pick top 8
+    top = sorted(all_skills, key=lambda x: x[1], reverse=True)[:8]
+    top_names  = [t[0] for t in reversed(top)]
+    top_scores = [t[1] for t in reversed(top)]
+
+    # Category averages for donut
+    cat_labels, cat_sizes = [], []
+    for cat, items in SKILLS_BY_CATEGORY.items():
+        avg = sum(level_map.get(i["level"], 60) for i in items) / max(len(items), 1)
+        short = cat.split(" & ")[0] if " & " in cat else cat
+        cat_labels.append(short)
+        cat_sizes.append(round(avg))
+
+    # Programming languages specifically
+    prog_names  = ["Python", "C++", "Jupyter"]
+    prog_scores = [95, 60, 80]
+    prog_colors = ["#57e0ff", "#ff6b8a", "#a78bfa"]
+
+    # ── Bar colors gradient (cyan → purple) ────────────────────────────────────
+    bar_palette = [
+        "#57e0ff", "#6dd5ff", "#7ec8ff", "#8fbcff",
+        "#9daeff", "#aca0ff", "#bb92ff", "#c882ff",
+    ]
+
+    # ── Chart 1: Top Skills — horizontal bar ──────────────────────────────────
+    fig1 = go.Figure()
+    fig1.add_trace(go.Bar(
+        x=top_scores,
+        y=top_names,
+        orientation="h",
+        marker=dict(
+            color=bar_palette[:len(top_names)],
+            line=dict(width=0),
+        ),
+        text=[f"{s}%" for s in top_scores],
+        textposition="outside",
+        textfont=dict(color=_FONT_COLOR, size=10, family="Inter"),
+        hovertemplate="<b>%{y}</b><br>Score: %{x}%<extra></extra>",
+        cliponaxis=False,
+    ))
+    fig1.update_layout(
+        title=dict(text="🏆 Top Skills", font=dict(color="#e6ecf2", size=13, family="Inter"), x=0.5, xanchor="center"),
+        xaxis=dict(range=[0, 115], showgrid=True, gridcolor=_GRID, zeroline=False,
+                   tickfont=dict(color=_FONT_COLOR, size=9), showticklabels=False),
+        yaxis=dict(showgrid=False, tickfont=dict(color="#e6ecf2", size=10, family="Inter")),
+        paper_bgcolor=_TRANSPARENT, plot_bgcolor=_TRANSPARENT,
+        showlegend=False, margin=_MARGIN, height=300,
+        hoverlabel=_HOVER,
+    )
+
+    # ── Chart 2: Category breakdown — donut ───────────────────────────────────
+    donut_colors = ["#57e0ff", "#7c9cff", "#a78bfa", "#f472b6"]
+    fig2 = go.Figure()
+    fig2.add_trace(go.Pie(
+        labels=cat_labels,
+        values=cat_sizes,
+        hole=0.58,
+        marker=dict(colors=donut_colors, line=dict(color="#0d1523", width=3)),
+        textfont=dict(color="#e6ecf2", size=10, family="Inter"),
+        textinfo="label",
+        hovertemplate="<b>%{label}</b><br>Avg score: %{value}%<extra></extra>",
+        pull=[0.04, 0, 0, 0],
+    ))
+    fig2.update_layout(
+        title=dict(text="🗂 Domain Mix", font=dict(color="#e6ecf2", size=13, family="Inter"), x=0.5, xanchor="center"),
+        paper_bgcolor=_TRANSPARENT, plot_bgcolor=_TRANSPARENT,
+        showlegend=False, margin=dict(l=10, r=10, t=40, b=10), height=300,
+        hoverlabel=_HOVER,
+        annotations=[dict(text="Skills", x=0.5, y=0.5, showarrow=False,
+                          font=dict(color="#7c9cff", size=11, family="Inter"))],
+    )
+
+    # ── Chart 3: Languages — vertical bar ─────────────────────────────────────
+    fig3 = go.Figure()
+    for i, (name, score, color) in enumerate(zip(prog_names, prog_scores, prog_colors)):
+        fig3.add_trace(go.Bar(
+            x=[name], y=[score],
+            name=name,
+            marker=dict(
+                color=color,
+                opacity=0.88,
+                line=dict(width=0),
+                pattern_shape="",
+            ),
+            text=[f"{score}%"],
+            textposition="outside",
+            textfont=dict(color=_FONT_COLOR, size=11, family="Inter"),
+            hovertemplate=f"<b>{name}</b><br>%{{y}}%<extra></extra>",
+            width=0.5,
+        ))
+    fig3.update_layout(
+        title=dict(text="💻 Languages", font=dict(color="#e6ecf2", size=13, family="Inter"), x=0.5, xanchor="center"),
+        xaxis=dict(showgrid=False, tickfont=dict(color="#e6ecf2", size=11, family="Inter")),
+        yaxis=dict(range=[0, 120], showgrid=True, gridcolor=_GRID, zeroline=False,
+                   tickfont=dict(color=_FONT_COLOR, size=9), showticklabels=False),
+        paper_bgcolor=_TRANSPARENT, plot_bgcolor=_TRANSPARENT,
+        showlegend=False, margin=_MARGIN, height=300,
+        hoverlabel=_HOVER,
+        bargap=0.35,
+    )
+
+    # ── Render side by side ───────────────────────────────────────────────────
+    c1, c2, c3 = st.columns(3, gap="medium")
+    cfg = {"displayModeBar": False, "responsive": True}
+    with c1:
+        st.plotly_chart(fig1, use_container_width=True, config=cfg)
+    with c2:
+        st.plotly_chart(fig2, use_container_width=True, config=cfg)
+    with c3:
+        st.plotly_chart(fig3, use_container_width=True, config=cfg)
+
+
+# ─── Section Renderers ────────────────────────────────────────────────────────
 
 def render_cover_banner() -> None:
     cover_path = Path(__file__).parent / "assets" / "images" / "profile" / "cover_banner.webp"
@@ -36,14 +280,32 @@ def render_navbar() -> None:
         """
         <div class="sticky-navbar">
             <div class="sidebar-nav">
-                <a href="#education" class="nav-link" data-target="education"><span class="nav-link-inner">🎓 Education</span></a>
+                <a href="#skills"       class="nav-link" data-target="skills"      ><span class="nav-link-inner">🛠 Skills</span></a>
+                <a href="#education"    class="nav-link" data-target="education"   ><span class="nav-link-inner">🎓 Education</span></a>
                 <a href="#certificates" class="nav-link" data-target="certificates"><span class="nav-link-inner">📜 Certs</span></a>
-                <a href="#projects" class="nav-link" data-target="projects"><span class="nav-link-inner">🚀 Projects</span></a>
+                <a href="#projects"     class="nav-link" data-target="projects"    ><span class="nav-link-inner">🚀 Projects</span></a>
+                <a href="#contact"      class="nav-link" data-target="contact"     ><span class="nav-link-inner">📬 Contact</span></a>
             </div>
         </div>
         """,
         unsafe_allow_html=True,
     )
+
+
+# PDF export URL: Load local PDF as Base64 Data URL, fallback to Canva URL if not found
+def get_local_pdf_base64(filename: str) -> str:
+    try:
+        pdf_path = Path(__file__).parent / filename
+        if pdf_path.exists():
+            with open(pdf_path, "rb") as f:
+                pdf_bytes = f.read()
+            return f"data:application/pdf;base64,{base64.b64encode(pdf_bytes).decode('utf-8')}"
+    except Exception:
+        pass
+    return "https://www.canva.com/design/DAGzcHTtmzQ/uGneX3fzgU2Q1zRfhlCTRA/view?dl=1"
+
+
+CV_PDF_EXPORT_URL = get_local_pdf_base64("assets/CV de Anis Mselmi (1) (1).pdf")
 
 
 def hero_section() -> None:
@@ -68,7 +330,7 @@ def hero_section() -> None:
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="currentColor" style="flex-shrink:0;"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 0 1-2.063-2.065 2.064 2.064 0 1 1 2.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
                     LinkedIn
                 </a>
-                <a href="https://canva.link/cmn3h8sq33jeuib" class="hero-social-btn btn-cv" target="_blank">
+                <a href="{CV_PDF_EXPORT_URL}" class="hero-social-btn btn-cv" download="Anis_Mselmi_CV.pdf">
                     <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="flex-shrink:0;"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
                     Download CV
                 </a>
@@ -76,6 +338,13 @@ def hero_section() -> None:
             """,
             unsafe_allow_html=True
         )
+
+        # ── Lottie coding animation ──────────────────────────────────────────
+        lottie_hero = _load_lottie(_LOTTIE_HERO_URL)
+        if lottie_hero and _LOTTIE_OK:
+            st.markdown("<div style='margin-top:1.1rem;'>", unsafe_allow_html=True)
+            st_lottie(lottie_hero, height=130, key="lottie_hero", speed=0.85, loop=True)
+            st.markdown("</div>", unsafe_allow_html=True)
 
     with col2:
         icon_path = Path(__file__).parent / "assets" / "images" / "profile" / "hero.webp"
@@ -144,27 +413,50 @@ def render_skills_section() -> None:
                         """,
                         unsafe_allow_html=True,
                     )
+
+    # ── Competence Charts ─────────────────────────────────────────────────────
+    st.markdown("<div style='margin-top:2rem;'></div>", unsafe_allow_html=True)
+    st.markdown(
+        "<div class='section-kicker' style='text-align:center; margin-bottom:0.15rem;'>COMPETENCE OVERVIEW</div>",
+        unsafe_allow_html=True,
+    )
+    st.markdown(
+        "<p style='text-align:center; color:var(--muted); font-size:0.85rem; margin-bottom:1rem;'>"
+        "A snapshot of skill scores, domain mix, and language proficiency."
+        "</p>",
+        unsafe_allow_html=True,
+    )
+    if _PLOTLY_OK:
+        _render_three_skill_charts()
+    else:
+        st.info("Install `plotly` to enable the skill charts.")
+
     section_end()
+
 
 
 def render_education() -> None:
     section_start("education")
     section_title("Education", "🎓")
-    for item in EDUCATION:
-        st.markdown(
-            f"""
-            <div class="education-card">
-                <div class="education-card-inner">
-                    <div class="education-emoji">{item.get('emoji', '')}</div>
-                    <div class="education-years">{item['years']}</div>
-                    <div class="education-title">{item['title']}</div>
-                    <div class="education-school">{item['school']}</div>
-                    <div class="education-detail">{item.get('detail', '')}</div>
+    cols = st.columns(3, gap="medium")
+    for idx, item in enumerate(EDUCATION):
+        with cols[idx % 3]:
+            st.markdown(
+                f"""
+                <div class="education-card">
+                    <div class="education-card-inner">
+                        <div class="education-card-header">
+                            <div class="education-emoji-wrapper">{item.get('emoji', '')}</div>
+                            <span class="education-years-badge">{item['years']}</span>
+                        </div>
+                        <div class="education-title">{item['title']}</div>
+                        <div class="education-school">{item['school']}</div>
+                        <div class="education-detail">{item.get('detail', '')}</div>
+                    </div>
                 </div>
-            </div>
-            """,
-            unsafe_allow_html=True
-        )
+                """,
+                unsafe_allow_html=True
+            )
     section_end()
 
 
@@ -174,7 +466,7 @@ def render_certificates() -> None:
     st.caption("Verified professional credentials in advanced Deep Learning, LLM, and RAG architectures.")
 
     st.markdown(
-        "<div class='skills-grid-kicker'>Deep Learning & Generative AI Registry</div>",
+        "<div class='skills-grid-kicker'>Deep Learning &amp; Generative AI Registry</div>",
         unsafe_allow_html=True,
     )
 
@@ -290,7 +582,6 @@ def render_cv() -> None:
     section_title("My CV", "📜")
     st.caption("A glance at my professional background and skills available for direct access.")
 
-    cv_link = "https://canva.link/cmn3h8sq33jeuib"
     preview_url = "https://www.canva.com/design/DAGzcHTtmzQ/uGneX3fzgU2Q1zRfhlCTRA/view?embed"
 
     col1, col2 = st.columns([1.1, 1], gap="large")
@@ -301,10 +592,15 @@ def render_cv() -> None:
                 <div class="experience-card-inner" style="justify-content: center; padding: 2.2rem;">
                     <h3 style="margin-top: 0; margin-bottom: 0.5rem; color: var(--accent-2);">📄 Instant Access to Resume</h3>
                     <p style="margin-bottom: 1.5rem; color: var(--muted); line-height: 1.6; font-size: 0.98rem;">
-                        View my updated CV on Canva. Inside, you'll find a detailed listing of my academic computer engineering background, complete technical experiences and project snapshots.
+                        Download my CV as a PDF directly to your device, or preview it in the interactive viewer on the right.
                     </p>
                     <div style="display: flex; flex-direction: column; gap: 0.82rem; width: 100%; margin-top: auto;">
-                        <a class="st-link-button" href="{cv_link}" target="_blank" style="text-decoration: none !important;">🎨 View CV on Canva</a>
+                        <a class="st-link-button" href="{CV_PDF_EXPORT_URL}" download="Anis_Mselmi_CV.pdf" style="text-decoration: none !important;">
+                            ⬇️ Download CV as PDF
+                        </a>
+                        <a class="st-link-button" href="https://www.canva.com/design/DAGzcHTtmzQ/uGneX3fzgU2Q1zRfhlCTRA/view" target="_blank" style="text-decoration: none !important; opacity: 0.75; font-size: 0.9rem;">
+                            🎨 View on Canva
+                        </a>
                     </div>
                 </div>
             </div>
@@ -327,22 +623,92 @@ def render_cv() -> None:
 
 def render_contact() -> None:
     section_start("contact")
-    section_title("Contact", "📬")
-    st.caption("Send a direct message — it opens your email client with everything pre‑filled.")
-    with st.form("contact_form", clear_on_submit=True):
-        name = st.text_input("Your Name")
-        sender_email = st.text_input("Your Email")
-        subject = st.text_input("Subject")
-        message = st.text_area("Message", height=160)
-        submitted = st.form_submit_button("📨 Send Message")
+    section_title("Get in Touch", "📬")
+    st.caption("Send a direct message — I'll reply as soon as possible.")
 
-    if submitted:
-        body = f"Name: {name}\nEmail: {sender_email}\n\n{message}"
-        mailto = (
-            f"mailto:{PROFILE['email']}?subject={quote(subject)}"
-            f"&body={quote(body)}"
+    col_form, col_info = st.columns([3, 2], gap="large")
+
+    with col_form:
+        with st.form("contact_form", clear_on_submit=True):
+            name         = st.text_input("Your Name",  placeholder="Jane Doe")
+            sender_email = st.text_input("Your Email", placeholder="jane@example.com")
+            subject      = st.text_input("Subject",    placeholder="Let's collaborate!")
+            message      = st.text_area("Message",     placeholder="I'd love to discuss...", height=160)
+            submitted    = st.form_submit_button("📨 Send Message", use_container_width=True)
+
+        if submitted:
+            if not name.strip() or not sender_email.strip() or not message.strip():
+                st.error("⚠️ Please fill in Name, Email, and Message before sending.")
+            else:
+                success, result = _send_email_smtp(
+                    name.strip(), sender_email.strip(), subject.strip(), message.strip()
+                )
+                if success:
+                    st.markdown(
+                        """
+                        <div class="contact-success">
+                            <span style="font-size:1.5rem;">✅</span>
+                            <div>
+                                <strong style="color:#22c55e;">Message sent!</strong><br>
+                                <span style="font-size:0.9rem;color:var(--muted);">
+                                    Thanks for reaching out — I'll reply soon.
+                                </span>
+                            </div>
+                        </div>
+                        """,
+                        unsafe_allow_html=True,
+                    )
+                elif result == "no_credentials":
+                    body   = f"Name: {name}\nEmail: {sender_email}\n\nMessage:\n{message}"
+                    mailto = (
+                        f"mailto:{PROFILE['email']}"
+                        f"?subject={quote(subject or 'Portfolio Contact')}"
+                        f"&body={quote(body)}"
+                    )
+                    st.markdown(
+                        f"""<div class="contact-fallback">
+                            ℹ️ Direct SMTP is not configured yet.
+                            <a href="{mailto}" style="color:var(--accent-2);text-decoration:underline;">
+                            Open your email client</a> with everything pre-filled.
+                        </div>""",
+                        unsafe_allow_html=True,
+                    )
+                else:
+                    st.error(
+                        f"❌ Could not send: {result}. "
+                        f"Email me directly at **{PROFILE['email']}**"
+                    )
+
+    with col_info:
+        st.markdown(
+            f"""
+            <div class="contact-info-card">
+                <div class="contact-info-title">Contact Details</div>
+                <div class="contact-info-item">
+                    <span class="contact-info-icon">📧</span>
+                    <a href="mailto:{PROFILE['email']}" class="contact-info-link">{PROFILE['email']}</a>
+                </div>
+                <div class="contact-info-item">
+                    <span class="contact-info-icon">📱</span>
+                    <span style="color:var(--text);">{PROFILE['phone']}</span>
+                </div>
+                <div class="contact-info-item">
+                    <span class="contact-info-icon">📍</span>
+                    <span style="color:var(--text);">{PROFILE['location']}</span>
+                </div>
+                <div class="contact-info-divider"></div>
+                <div class="contact-info-item">
+                    <span class="contact-info-icon">💼</span>
+                    <a href="{PROFILE['linkedin']}" target="_blank" class="contact-info-link">LinkedIn Profile</a>
+                </div>
+                <div class="contact-info-item">
+                    <span class="contact-info-icon">🐙</span>
+                    <a href="{PROFILE['github']}" target="_blank" class="contact-info-link">GitHub Profile</a>
+                </div>
+            </div>
+            """,
+            unsafe_allow_html=True,
         )
-        st.markdown(f"[Click here to send your email]({mailto})")
 
     st.markdown("---")
     st.caption(f"© {datetime.now().year} {PROFILE['name']} · Built with Streamlit")
@@ -617,39 +983,6 @@ def render_ai_console() -> None:
     """
 
     st.markdown(terminal_html, unsafe_allow_html=True)
-
-    # /help quick-reply chips — detect if last agent message is the help response
-    last_agent = next((m for m in reversed(st.session_state.terminal_history) if m["role"] == "agent"), None)
-    if last_agent and "/skills" in last_agent.get("content", "") and "▪" in last_agent.get("content", ""):
-        help_commands = ["/skills", "/projects", "/certificates", "/cv", "/contact", "/about", "/status", "/clear"]
-        st.markdown("<p style='margin:0.5rem 0 0.35rem; font-size:0.82rem; font-weight:700; color:var(--accent-2); text-transform:uppercase; letter-spacing:0.07em;'>Quick Commands:</p>", unsafe_allow_html=True)
-        chip_cols = st.columns(len(help_commands))
-        for i, cmd in enumerate(help_commands):
-            with chip_cols[i]:
-                if st.button(cmd, key=f"help_chip_{i}", use_container_width=True):
-                    st.session_state.terminal_history.append({"role": "user", "content": cmd})
-                    response = get_ai_response(cmd, "twin")
-                    st.session_state.terminal_history.append({"role": "agent", "content": ""})
-                    st.session_state["_stream_pending"] = response
-                    st.rerun()
-
-    # Suggested inquiry pills
-    suggestions = {
-        "🛠 Skills": "Tell me about your tech stack and AI/ML skills.",
-        "🧩 RAG / VSM": "How does your local Cosine Similarity VSM model work?",
-        "📜 View CV": "How can I view your CV?",
-        "📬 Contact": "How can I contact Anis?",
-    }
-    st.markdown("<p style='margin-bottom:0.4rem; font-size:0.9rem; font-weight:600; color:var(--muted);'>Suggested Inquiries:</p>", unsafe_allow_html=True)
-    cols = st.columns(len(suggestions))
-    for idx, (label, val) in enumerate(suggestions.items()):
-        with cols[idx]:
-            if st.button(label, key=f"sug_{idx}", use_container_width=True):
-                st.session_state.terminal_history.append({"role": "user", "content": val})
-                response = get_ai_response(val, "twin")
-                st.session_state.terminal_history.append({"role": "agent", "content": ""})
-                st.session_state["_stream_pending"] = response
-                st.rerun()
 
     # Terminal input form
     with st.form("terminal_input_form", clear_on_submit=True):

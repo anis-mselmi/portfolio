@@ -26,14 +26,23 @@ An interactive developer-themed terminal mimicking a live **Retrieval-Augmented 
 * **Gemini LLM Failover:** Connects dynamically with **Google Gemini 1.5 Flash** if a `GEMINI_API_KEY` is provided, answering arbitrary technical questions with real-time semantic grounding.
 * **Suggested Prompts:** Includes fast-access click triggers to run prompt queries instantly.
 
-### 🛠️ Interactive Skills Showcase
+### 🛠️ Interactive Skills Showcase & Competence Charts
 A modern grid displaying specialized computer engineering and software skills.
-* Dynamic hover interactions with active glowing highlights.
-* Skill chip categorization and animated chips.
+* **Skill Categories:** Structured grid with interactive hover animations, custom tags, and categories.
+* **Interactive Competence Charts:** Integrates 3 custom dark-themed interactive Plotly charts side-by-side showing:
+  1. *Top Skills:* A horizontal bar chart of top skills with a cyan-to-purple gradient.
+  2. *Domain Mix:* A donut chart representing skill category distribution.
+  3. *Languages:* A vertical bar chart indicating programming language proficiencies.
 
 ### 🎓 Structured Education Timeline
-Detailed display of academic paths, preparator schools, and certifications.
-* Fully styled list items utilizing custom typography and high contrast details.
+A responsive, side-by-side 3-column education timeline detailing academic path milestones.
+* **Glassmorphic Cards:** Transformed into beautiful 3-column glassmorphism cards with 12px backdrop-blur and a glowing border gradient that turns into a bright neon purple-to-cyan border on hover.
+* **Header Badges:** Includes circular floating emoji badges with hover rotation and modern pill date badges.
+* **Direct PDF Resume Download:** Integrates a local PDF CV (`assets/CV de Anis Mselmi (1) (1).pdf`) which is automatically encoded in base64 on startup and served directly to the user's browser for download.
+
+### 🧭 Sticky Centered Navbar
+* A sticky 5-button top navigation bar allowing users to jump directly to sections: **🛠 Skills**, **🎓 Education**, **📜 Certs**, **🚀 Projects**, and **📬 Contact**.
+* Styled with flexbox to group all 5 buttons next to each other in the center with a tight fit, wrapping responsively on mobile.
 
 ### 🎖️ Verified NVIDIA Certifications & Registry
 A premium, highly interactive dashboard registry showcasing Anis's professional credentials from NVIDIA.
@@ -63,6 +72,7 @@ Premium multi-column display of core engineering projects.
 ├── data.py          # Centralized configuration data (profile, academic, lists)
 ├── utils.py         # Image optimization pipelines, circular masks & element wrappers
 └── assets/
+    ├── CV de Anis Mselmi (1) (1).pdf  # Local PDF CV / Resume file
     └── images/
         └── profile/ # Optimized profile images, web banners & project assets
 ```

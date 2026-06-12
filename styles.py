@@ -466,14 +466,19 @@ def inject_styles() -> None:
             }
 
             .sidebar-nav {
-                display: grid;
-                grid-template-columns: repeat(3, minmax(0, 1fr));
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-wrap: wrap;
                 gap: 0.55rem;
+                max-width: fit-content;
+                margin: 0 auto;
             }
 
             .nav-link {
                 display: block;
-                width: 100%;
+                width: auto;
+                min-width: 140px;
                 text-decoration: none !important;
                 border-radius: 16px;
                 padding: 1px;
@@ -1405,6 +1410,7 @@ def inject_styles() -> None:
 
                 .nav-link {
                     padding: 1px;
+                    min-width: 110px;
                 }
 
                 .nav-link-inner {
@@ -1413,7 +1419,7 @@ def inject_styles() -> None:
                 }
 
                 .sidebar-nav {
-                    grid-template-columns: repeat(3, minmax(0, 1fr));
+                    max-width: 100%;
                 }
             }
 
@@ -1423,8 +1429,13 @@ def inject_styles() -> None:
                 }
 
                 .sidebar-nav {
-                    grid-template-columns: repeat(3, minmax(0, 1fr));
                     gap: 0.25rem;
+                    max-width: 100%;
+                }
+
+                .nav-link {
+                    min-width: 80px;
+                    flex-grow: 1;
                 }
 
                 .nav-link-inner {
@@ -1586,69 +1597,107 @@ def inject_styles() -> None:
             /* Education Cards */
             .education-card {
                 position: relative;
-                border-radius: 20px;
-                padding: 1px 1px 12px 1px;
+                border-radius: 16px;
+                padding: 1.5px;
                 overflow: hidden;
-                background: linear-gradient(130deg, rgba(82, 165, 255, 0.75), rgba(124, 156, 255, 0.4), rgba(87, 224, 255, 0.65));
-                box-shadow: 0 12px 32px rgba(3, 9, 20, 0.38);
+                background: linear-gradient(135deg, rgba(124, 156, 255, 0.2), rgba(87, 224, 255, 0.2));
+                box-shadow: 0 10px 30px rgba(3, 9, 20, 0.25);
                 transform: translateY(0);
-                transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease, border-color 0.4s ease;
+                transition: transform 0.4s cubic-bezier(0.165, 0.84, 0.44, 1), box-shadow 0.4s ease, background 0.4s ease;
                 height: 100%;
-                margin-bottom: 1.5rem;
+                min-height: 280px;
                 display: flex;
                 flex-direction: column;
+                margin-bottom: 1rem;
             }
 
             .education-card:hover {
-                transform: translateY(-6px) scale(1.02);
-                box-shadow: 0 18px 42px rgba(3, 9, 20, 0.5), 0 0 20px rgba(87, 224, 255, 0.18);
+                transform: translateY(-8px);
+                background: linear-gradient(135deg, var(--accent) 0%, var(--accent-2) 100%);
+                box-shadow: 0 15px 35px rgba(3, 9, 20, 0.45), 0 0 25px rgba(87, 224, 255, 0.2);
             }
 
             .education-card-inner {
-                border-radius: 19px;
-                background: linear-gradient(180deg, var(--panel) 0%, var(--panel-2) 100%);
-                padding: 1.5rem 1.75rem;
+                border-radius: 15px;
+                background: rgba(18, 24, 38, 0.82);
+                backdrop-filter: blur(12px);
+                -webkit-backdrop-filter: blur(12px);
+                padding: 1.5rem;
                 flex-grow: 1;
                 width: 100%;
                 display: flex;
                 flex-direction: column;
-                gap: 0.3rem;
+                gap: 0.75rem;
+                height: 100%;
             }
 
-            .education-card .education-years {
-                font-size: 0.88rem;
+            .education-card-header {
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                width: 100%;
+                margin-bottom: 0.25rem;
+            }
+
+            .education-emoji-wrapper {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 46px;
+                height: 46px;
+                border-radius: 50%;
+                background: rgba(124, 156, 255, 0.08);
+                border: 1px solid rgba(124, 156, 255, 0.15);
+                font-size: 1.35rem;
+                box-shadow: inset 0 2px 6px rgba(124, 156, 255, 0.1);
+                transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), background 0.4s ease, border-color 0.4s ease;
+            }
+
+            .education-card:hover .education-emoji-wrapper {
+                transform: scale(1.1) rotate(5deg);
+                background: rgba(87, 224, 255, 0.15);
+                border-color: rgba(87, 224, 255, 0.3);
+            }
+
+            .education-years-badge {
+                background: rgba(87, 224, 255, 0.08);
                 color: var(--accent-2);
-                font-weight: 700;
+                font-size: 0.75rem;
+                font-weight: 600;
+                padding: 0.3rem 0.75rem;
+                border-radius: 20px;
+                border: 1px solid rgba(87, 224, 255, 0.15);
                 letter-spacing: 0.05em;
-                text-transform: uppercase;
-                margin-bottom: 0.2rem;
+                transition: background 0.3s ease, border-color 0.3s ease;
+            }
+
+            .education-card:hover .education-years-badge {
+                background: rgba(87, 224, 255, 0.15);
+                border-color: rgba(87, 224, 255, 0.35);
             }
 
             .education-card .education-title {
-                font-size: 1.35rem;
+                font-size: 1.15rem;
                 font-weight: 700;
                 color: #ffffff;
-                line-height: 1.3;
+                line-height: 1.35;
+                margin: 0;
             }
 
             .education-card .education-school {
-                color: #f1f6fb;
-                font-size: 1.05rem;
-                line-height: 1.45;
-                margin-top: 0.15rem;
-                opacity: 0.95;
+                color: var(--accent);
+                font-size: 0.92rem;
+                font-weight: 500;
+                line-height: 1.4;
+                margin-top: -0.25rem;
             }
 
             .education-card .education-detail {
                 color: var(--muted);
-                font-size: 1rem;
-                line-height: 1.55;
-                margin-top: 0.45rem;
-            }
-
-            .education-card .education-emoji {
-                font-size: 1.85rem;
-                margin-bottom: 0.35rem;
+                font-size: 0.85rem;
+                line-height: 1.5;
+                margin: 0;
+                margin-top: auto;
             }
 
             .sticky-navbar {
@@ -1781,7 +1830,7 @@ def inject_styles() -> None:
             }
 
             .terminal-body {
-                max-height: 380px;
+                max-height: 580px;
                 overflow-y: auto;
                 display: flex;
                 flex-direction: column;
@@ -1996,6 +2045,86 @@ def inject_styles() -> None:
                     opacity: 1;
                     transform: translateY(0);
                 }
+            }
+
+            /* ── Contact Section ── */
+            .contact-success {
+                display: flex;
+                align-items: flex-start;
+                gap: 0.85rem;
+                padding: 1rem 1.25rem;
+                border-radius: 14px;
+                background: rgba(34, 197, 94, 0.08);
+                border: 1px solid rgba(34, 197, 94, 0.25);
+                margin-top: 0.75rem;
+                animation: heroFadeUp 0.4s ease both;
+            }
+
+            .contact-fallback {
+                padding: 0.85rem 1.1rem;
+                border-radius: 12px;
+                background: rgba(124, 156, 255, 0.07);
+                border: 1px solid rgba(124, 156, 255, 0.22);
+                color: var(--muted);
+                font-size: 0.9rem;
+                margin-top: 0.75rem;
+                line-height: 1.6;
+            }
+
+            .contact-info-card {
+                background: linear-gradient(180deg, var(--panel) 0%, var(--panel-2) 100%);
+                border: 1px solid var(--border);
+                border-radius: 20px;
+                padding: 1.5rem 1.75rem;
+                box-shadow: 0 10px 28px rgba(3, 9, 20, 0.35);
+                height: 100%;
+            }
+
+            .contact-info-title {
+                font-size: 0.78rem;
+                font-weight: 700;
+                color: var(--accent-2);
+                letter-spacing: 0.14em;
+                text-transform: uppercase;
+                margin-bottom: 1.25rem;
+            }
+
+            .contact-info-item {
+                display: flex;
+                align-items: center;
+                gap: 0.75rem;
+                padding: 0.6rem 0;
+                border-bottom: 1px solid rgba(31, 42, 59, 0.5);
+                font-size: 0.88rem;
+            }
+
+            .contact-info-item:last-child {
+                border-bottom: none;
+            }
+
+            .contact-info-icon {
+                font-size: 1.1rem;
+                flex-shrink: 0;
+                width: 28px;
+                text-align: center;
+            }
+
+            .contact-info-link {
+                color: var(--accent) !important;
+                text-decoration: none !important;
+                transition: color 0.2s ease;
+                word-break: break-all;
+            }
+
+            .contact-info-link:hover {
+                color: var(--accent-2) !important;
+                text-decoration: underline !important;
+            }
+
+            .contact-info-divider {
+                height: 1px;
+                background: linear-gradient(90deg, rgba(124,156,255,0.3), transparent);
+                margin: 0.35rem 0;
             }
 
         </style>

@@ -192,6 +192,13 @@ PROJECTS = [
         "logo": "logo-dewejen.svg",
         "fit": "cover",
     },
+    {
+        "name": "NovaChess",
+        "desc": "A local 2-player Python chess game with full move validation, piece rules, and an interactive graphical board.",
+        "tags": ["Python", "Chess", "Pygame", "Game"],
+        "image": "assets/images/projects/novachess.webp",
+        "fit": "cover",
+    },
 ]
 
 LANGUAGES = [
