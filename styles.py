@@ -24,6 +24,7 @@ def inject_styles() -> None:
 
             html, body, [class*="css"] {
                 font-family: 'Inter', system-ui, -apple-system, sans-serif;
+                cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='32' height='32' style='font-size:24px'><text y='24'>🍰</text></svg>"), auto !important;
             }
 
             .stApp {
@@ -127,7 +128,8 @@ def inject_styles() -> None:
                 margin: 0.85rem 0 1.5rem;
             }
 
-            .hero-card {
+            /* Hero Card wrapper styled on the columns container */
+            div[data-testid="stVerticalBlock"] > div:has(#hero) + div {
                 position: relative;
                 background:
                     radial-gradient(ellipse 80% 60% at 70% 0%, rgba(87,224,255,0.07) 0%, transparent 60%),
@@ -140,6 +142,11 @@ def inject_styles() -> None:
                     0 24px 60px rgba(3, 9, 20, 0.55),
                     0 0 0 1px rgba(87,224,255,0.06) inset;
                 animation: heroFadeUp 0.7s cubic-bezier(0.2,0.8,0.2,1) both;
+            }
+
+            /* Align columns to the top */
+            div[data-testid="stVerticalBlock"] > div:has(#hero) + div > div[data-testid="stHorizontalBlock"] {
+                align-items: flex-start !important;
             }
 
             @keyframes heroFadeUp {
@@ -194,10 +201,22 @@ def inject_styles() -> None:
                 margin-bottom: 1rem;
             }
 
-            .hero-about {
-                font-size: 0.95rem;
+            .hero-about-list {
+                list-style-type: none;
+                padding-left: 0;
+                margin-top: 1rem;
+                margin-bottom: 0;
+                font-size: 1.14rem;
                 color: #c8d8ea;
-                line-height: 1.72;
+                line-height: 1.75;
+            }
+
+            .hero-about-list li {
+                margin-bottom: 0.85rem;
+                position: relative;
+            }
+
+            .hero-about-list li:last-child {
                 margin-bottom: 0;
             }
 
@@ -527,6 +546,13 @@ def inject_styles() -> None:
                 visibility: hidden;
             }
 
+            /* Collapse spacing around scroll anchors */
+            div[data-testid="element-container"]:has(.anchor-target) {
+                height: 0px !important;
+                margin: 0px !important;
+                padding: 0px !important;
+            }
+
             .cover-banner-wrap {
                 margin: 0 0 1.75rem;
                 border-radius: 28px;
@@ -555,7 +581,7 @@ def inject_styles() -> None:
             }
 
             .hero-frame {
-                margin: 0 auto;
+                margin: 2.2rem auto 0;
                 width: 290px;
                 max-width: 100%;
                 aspect-ratio: 1 / 1;
@@ -1364,7 +1390,7 @@ def inject_styles() -> None:
                     padding-bottom: 2rem;
                 }
 
-                .hero-card {
+                div[data-testid="stVerticalBlock"] > div:has(#hero) + div {
                     padding: 1.15rem;
                     border-radius: 18px;
                 }

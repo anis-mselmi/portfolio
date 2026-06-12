@@ -310,14 +310,13 @@ CV_PDF_EXPORT_URL = get_local_pdf_base64("assets/CV de Anis Mselmi (1) (1).pdf")
 
 def hero_section() -> None:
     section_start("hero", hero=True)
-    st.markdown('<div class="hero-card">', unsafe_allow_html=True)
     col1, col2 = st.columns([2, 1], gap="large")
 
     with col1:
         st.markdown(f"# {PROFILE['name']}")
         st.markdown(f"**{PROFILE['role']}**")
         st.markdown(f"📍 {PROFILE['location']}")
-        st.markdown(ABOUT)
+        st.markdown(ABOUT, unsafe_allow_html=True)
 
         st.markdown(
             f"""
@@ -340,16 +339,56 @@ def hero_section() -> None:
         )
 
         # ── Lottie coding animation ──────────────────────────────────────────
-        lottie_hero = _load_lottie(_LOTTIE_HERO_URL)
-        if lottie_hero and _LOTTIE_OK:
-            st.markdown("<div style='margin-top:1.1rem;'>", unsafe_allow_html=True)
-            st_lottie(lottie_hero, height=130, key="lottie_hero", speed=0.85, loop=True)
-            st.markdown("</div>", unsafe_allow_html=True)
+        if _LOTTIE_OK:
+            import streamlit.components.v1 as components
+            components.html(
+                f"""
+                <!DOCTYPE html>
+                <html>
+                <head>
+                    <script src="https://unpkg.com/@lottiefiles/lottie-player@latest/dist/lottie-player.js"></script>
+                    <style>
+                        body {{
+                            margin: 0;
+                            background-color: transparent !important;
+                            display: flex;
+                            justify-content: center;
+                            align-items: center;
+                            gap: 1.5rem;
+                            overflow: hidden;
+                            font-family: system-ui, sans-serif;
+                        }}
+                        .emoji {{
+                            font-size: 2.2rem;
+                            animation: floatEmoji 3s ease-in-out infinite;
+                            user-select: none;
+                        }}
+                        .emoji-left-1 {{ animation-delay: 0s; }}
+                        .emoji-left-2 {{ animation-delay: 0.5s; }}
+                        .emoji-right-1 {{ animation-delay: 1s; }}
+                        .emoji-right-2 {{ animation-delay: 1.5s; }}
+
+                        @keyframes floatEmoji {{
+                            0%, 100% {{ transform: translateY(0) scale(1); }}
+                            50% {{ transform: translateY(-8px) scale(1.1); }}
+                        }}
+                    </style>
+                </head>
+                <body>
+                    <span class="emoji emoji-left-1">🚀</span>
+                    <span class="emoji emoji-left-2">🧠</span>
+                    <lottie-player src="{_LOTTIE_HERO_URL}" background="transparent" speed="0.85" style="width: 170px; height: 170px;" loop autoplay></lottie-player>
+                    <span class="emoji emoji-right-1">🐍</span>
+                    <span class="emoji emoji-right-2">☕</span>
+                </body>
+                </html>
+                """,
+                height=175,
+            )
 
     with col2:
         icon_path = Path(__file__).parent / "assets" / "images" / "profile" / "hero.webp"
 
-        st.write("")
         if icon_path.exists():
             hero_image = image_to_data_uri(icon_path)
             if hero_image:
@@ -365,7 +404,6 @@ def hero_section() -> None:
                 st.image(str(icon_path), width=290)
         else:
             st.info("Add hero image: Gemini_Generated_Image_vilfj9vilfj9vilf.png")
-    st.markdown("</div>", unsafe_allow_html=True)
     section_end()
 
 

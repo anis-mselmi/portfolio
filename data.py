@@ -9,13 +9,15 @@ PROFILE = {
 }
 
 ABOUT = (
-    "🧠 Computer Engineering student at École Polytechnique de Sousse, focused on AI, "
-    "DevOps, machine learning, and LLMs. I love turning complex ideas into reliable AI systems "
-    "by building intelligent Python models, RAG pipelines, and conversational agents. "
-    "⚡ I am hands-on with Jupyter/Colab workflows, data visualization, and rapid "
-    "experimentation, and I bring a builder's mindset to every project. 🌍 Curious, "
-    "driven, and always learning, I am open to internships and part-time roles where "
-    "I can contribute to impactful AI, DevOps, RAG, and LLM products."
+    "<ul class='hero-about-list'>"
+    "<li>🧠 <strong>Computer Engineering Student</strong> at École Polytechnique de Sousse, focused on AI, DevOps, machine learning, and LLMs.</li>"
+    "<li>⚡ <strong>AI Builder</strong>: Turning complex ideas into reliable AI systems by building intelligent Python models, RAG pipelines, and conversational agents.</li>"
+    "<li>🐳 <strong>DevOps & Automation</strong>: Hands-on with Docker containerization, configuring automated CI/CD pipelines, and streamlining deployment workflows.</li>"
+    "<li>🛠️ <strong>Infrastructure & Git</strong>: Proficient in Linux system administration, advanced Git collaboration workflows, and shell scripting.</li>"
+    "<li>📜 <strong>NVIDIA Certified</strong>: Specialized credentials in advanced Deep Learning, RAG Agent architectures, and Prompt Engineering.</li>"
+    "<li>🌐 <strong>IEEE Congresses</strong>: Attended multiple events including CSTAM 1.0, SDC 3.0, WIE ACT 4.0, and TSYP 13.</li>"
+    "<li>🌍 <strong>Driven & Hands-on</strong>: Experienced with Jupyter/Colab workflows, data visualization, and rapid experimentation with a builder's mindset.</li>"
+    "</ul>"
 )
 
 EDUCATION = [
@@ -239,8 +241,8 @@ NVIDIA_CERTIFICATES = [
     },
     {
         "title": "Introduction to Transformer-Based Natural Language Processing",
-        "id": "Yy6SLV7eT4eN7LI-txHLBQ",
-        "url": "https://learn.nvidia.com/certificates?id=Yy6SLV7eT4eN7LI-txHLBQ",
+        "id": "Yy6SLV7eT4eN7Ll-txHLBQ",
+        "url": "https://learn.nvidia.com/certificates?id=Yy6SLV7eT4eN7Ll-txHLBQ",
         "date": "Sep 2025",
         "skills": ["Transformers", "NLP", "BERT", "GPT Architecture"],
     },
