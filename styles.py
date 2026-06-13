@@ -2293,154 +2293,121 @@ def inject_styles() -> None:
                 margin-top: auto;
             }
 
-            /* ═══════════════════════════════════════
-               MOBILE-FIRST RESPONSIVE LAYOUT FIXES
-               Goal: Match web (desktop) visual on mobile
-               ═══════════════════════════════════════ */
+            /* ═══════════════════════════════════
+               MOBILE RESPONSIVE — clean stacked layout
+               ═══════════════════════════════════ */
 
-            /* ── Prevent Streamlit from stacking columns on small screens ── */
             @media (max-width: 768px) {
 
-                /* Keep ALL Streamlit horizontal blocks as flex-row on mobile */
-                div[data-testid="stHorizontalBlock"] {
-                    flex-direction: row !important;
-                    flex-wrap: nowrap !important;
-                    gap: 0.6rem !important;
-                    overflow-x: auto;
-                    -webkit-overflow-scrolling: touch;
-                }
-
-                /* Keep columns proportional widths instead of going full-width */
-                div[data-testid="stHorizontalBlock"] > div[data-testid="stColumn"] {
-                    flex-shrink: 0 !important;
-                    min-width: 0 !important;
-                }
-
-                /* Allow horizontal scrolling instead of wrapping */
-                .block-container {
-                    overflow-x: hidden;
-                }
-
-                /* ── Navbar: shrink buttons to fit on one scrollable line ── */
+                /* ── Navbar: 2-row wrap on tablet ── */
                 .sticky-navbar {
-                    padding: 0.3rem 0.5rem !important;
-                    overflow-x: auto !important;
-                    -webkit-overflow-scrolling: touch !important;
+                    padding: 0.35rem 0.6rem !important;
                 }
                 .sidebar-nav {
-                    flex-wrap: nowrap !important;
-                    justify-content: flex-start !important;
-                    min-width: max-content;
-                    gap: 0.25rem !important;
+                    flex-wrap: wrap !important;
+                    justify-content: center !important;
+                    gap: 0.3rem !important;
+                    max-width: 100% !important;
                 }
                 .nav-link {
-                    min-width: 90px !important;
-                    flex-shrink: 0 !important;
+                    min-width: 100px !important;
                 }
                 .nav-link-inner {
-                    padding: 0.4rem 0.35rem !important;
-                    font-size: 0.72rem !important;
-                    white-space: nowrap !important;
+                    padding: 0.42rem 0.45rem !important;
+                    font-size: 0.78rem !important;
                 }
 
-                /* ── Hero: keep photo + bio side by side ── */
-                .hero-frame {
-                    width: 140px !important;
-                    height: 140px !important;
-                }
-
-                /* ── Skills: 2-column grid on mobile ── */
-                .skill-card {
-                    border-radius: 12px !important;
-                }
-
-                /* ── Hackathon cards: maintain 3-per-row scrollable grid ── */
-                .hackathon-card {
-                    min-width: 220px !important;
-                }
-
-                /* ── Projects: 2-per-row scrollable ── */
-                .project-card {
-                    min-width: 240px !important;
-                }
-
-                /* ── Contact: form + info side by side ── */
-                .contact-info-card {
-                    padding: 1.5rem 1.25rem !important;
-                }
-                .contact-icon-box {
-                    width: 38px !important;
-                    height: 38px !important;
-                    font-size: 1rem !important;
-                }
-                .contact-info-item {
-                    padding: 0.75rem 0.85rem !important;
-                    gap: 0.9rem !important;
-                }
-
-                /* ── Language cards: 2-column grid ── */
-                .lang-cards-grid {
-                    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
-                }
-
-                /* ── Certificates: 2-column grid ── */
-                .cert-grid {
-                    grid-template-columns: repeat(2, 1fr) !important;
-                }
-
-                /* ── Education / Experience: keep full width ── */
-                .education-card,
-                .experience-card {
-                    min-width: 0 !important;
-                    width: 100% !important;
-                }
-
-                /* ── Cover Banner ── */
+                /* ── Cover banner ── */
                 .cover-banner {
                     height: 130px !important;
                     max-height: 130px !important;
                 }
+                .cover-banner-wrap {
+                    margin-top: 5rem !important;
+                }
 
-                /* ── Section spacing ── */
+                /* ── Hero frame ── */
+                .hero-frame {
+                    width: 160px !important;
+                    height: 160px !important;
+                    margin: 0 auto 1rem !important;
+                }
+
+                /* ── Project / hackathon cards: auto height on mobile ── */
+                .project-card,
+                .project-card-inner {
+                    height: auto !important;
+                }
+                .hackathon-card {
+                    height: auto !important;
+                    min-height: 260px !important;
+                }
+
+                /* ── Language cards: 1-column on mobile ── */
+                .lang-cards-grid {
+                    grid-template-columns: 1fr !important;
+                }
+
+                /* ── Certs: 1-column on mobile ── */
+                .cert-grid {
+                    grid-template-columns: 1fr !important;
+                }
+
+                /* ── Contact card padding ── */
+                .contact-info-card {
+                    padding: 1.5rem 1.25rem !important;
+                    margin-top: 1rem !important;
+                }
+                .contact-icon-box {
+                    width: 38px !important;
+                    height: 38px !important;
+                }
+                .contact-info-item {
+                    padding: 0.75rem 0.9rem !important;
+                }
+
+                /* ── Typography scale ── */
+                h1 { font-size: 1.9rem !important; }
+                h2, .section-title { font-size: 1.5rem !important; }
+                h3 { font-size: 1.1rem !important; }
                 .section-kicker {
                     font-size: 0.7rem !important;
                     letter-spacing: 0.12em !important;
                 }
-                h1 { font-size: 1.8rem !important; }
-                h2, .section-title { font-size: 1.45rem !important; }
-                h3 { font-size: 1.05rem !important; }
+
+                /* ── Block container ── */
+                .block-container {
+                    padding-left: 1rem !important;
+                    padding-right: 1rem !important;
+                }
             }
 
-            /* ── Extra small screens (< 480px): tighter layout ── */
+            /* ── Small phones (< 480px) ── */
             @media (max-width: 480px) {
                 .nav-link {
-                    min-width: 75px !important;
+                    min-width: 85px !important;
+                    flex-grow: 1 !important;
                 }
                 .nav-link-inner {
-                    font-size: 0.63rem !important;
-                    padding: 0.35rem 0.2rem !important;
+                    font-size: 0.7rem !important;
+                    padding: 0.38rem 0.3rem !important;
+                    white-space: normal !important;
+                    text-align: center !important;
                 }
                 .hero-frame {
-                    width: 115px !important;
-                    height: 115px !important;
-                }
-                .contact-icon-box {
-                    width: 34px !important;
-                    height: 34px !important;
-                    font-size: 0.9rem !important;
-                }
-                .lang-cards-grid {
-                    grid-template-columns: 1fr !important;
-                }
-                .cert-grid {
-                    grid-template-columns: 1fr !important;
+                    width: 130px !important;
+                    height: 130px !important;
                 }
                 .block-container {
-                    padding-left: 0.75rem !important;
-                    padding-right: 0.75rem !important;
+                    padding-left: 0.7rem !important;
+                    padding-right: 0.7rem !important;
                 }
-                h1 { font-size: 1.5rem !important; }
-                h2, .section-title { font-size: 1.25rem !important; }
+                h1 { font-size: 1.6rem !important; }
+                h2, .section-title { font-size: 1.3rem !important; }
+                .cover-banner {
+                    height: 100px !important;
+                    max-height: 100px !important;
+                }
             }
 
         </style>

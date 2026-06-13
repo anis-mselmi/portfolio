@@ -30,7 +30,7 @@ st.set_page_config(
 # -----------------------------
 # Inject Styles
 # -----------------------------
-# Trigger reload: mobile responsive CSS + contact card redesign
+# Trigger reload: clean mobile CSS (removed forced flex-row)
 inject_styles()
 
 
