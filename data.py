@@ -198,7 +198,7 @@ PROJECTS = [
         "name": "NovaChess",
         "desc": "A local 2-player Python chess game with full move validation, piece rules, and an interactive graphical board.",
         "tags": ["Python", "Chess", "Pygame", "Game"],
-        "image": "assets/images/projects/novachess.webp",
+        "image": "assets/images/projects/chess.png",
         "fit": "cover",
     },
 ]
@@ -287,6 +287,68 @@ NVIDIA_CERTIFICATES = [
         "url": "https://learn.nvidia.com/certificates?id=t-mYwSVhRC2Ve6K0z1qflQ",
         "date": "Dec 2025",
         "skills": ["CUDA Python", "GPU Acceleration", "Numba", "Parallel Computing"],
+    },
+]
+
+DATACAMP_CERTIFICATES = [
+    {
+        "title": "Data Analyst Associate",
+        "id": "DAA0017212894806",
+        "url": "https://www.datacamp.com/certificate/DAA0017212894806",
+        "date": "Jan 2026",
+        "skills": ["Data Management", "Exploratory Analysis", "Data Visualization", "SQL", "Python"],
+    },
+    {
+        "title": "Data Engineer Associate",
+        "id": "DEA0011654537731",
+        "url": "https://www.datacamp.com/certificate/DEA0011654537731",
+        "date": "Feb 2026",
+        "skills": ["Data Engineering", "Data Pipelines", "SQL", "Database Design", "ETL"],
+    },
+    {
+        "title": "Data Literacy",
+        "id": "DL0035526229636",
+        "url": "https://www.datacamp.com/skill-verification/DL0035526229636",
+        "date": "Jan 2026",
+        "skills": ["Data Literacy", "Data Interpretation", "Data Communication"],
+    },
+]
+
+HACKATHONS = [
+    {
+        "title": "AURA 1.0 congress",
+        "image": "assets/images/hackathons/1762176420191.jpg",
+        "badge": "1st Place",
+        "desc": "Designed and programmed an autonomous robot to navigate complex mazes under tight time constraints.",
+        "tags": ["C++", "Robotics", "Arduino", "Embedded Systems"]
+    },
+    {
+        "title": "𝐀𝐈 𝐂𝐚𝐦𝐞𝐫𝐚 𝐂𝐡𝐚𝐥𝐥𝐞𝐧𝐠𝐞 𝟐𝟎𝟐𝟓",
+        "image": "assets/images/hackathons/1765102509130.jpg",
+        "badge": "Best Innovation",
+        "desc": "Built a real-time smart parking locator app to reduce traffic congestion in urban areas.",
+        "tags": ["Python", "Computer Vision", "IoT", "Flask"]
+    },
+    {
+        "title": "Space Hack competetion",
+        "image": "assets/images/hackathons/1765725484606.jpg",
+        "badge": "Winner",
+        "desc": "Developed a predictive model to forecast energy consumption using historical weather data.",
+        "tags": ["Machine Learning", "PyTorch", "Pandas", "scikit-learn"]
+    },
+    {
+        "title": "IEEE Congress Challenge",
+        "image": "assets/images/hackathons/1765748484658.jpg",
+        "badge": "Special Prize",
+        "desc": "Pioneered a decentralized voting system prototype during the IEEE WIE ACT 4.0.",
+        "tags": ["Blockchain", "Solidity", "React", "Node.js"]
+    },
+    {
+        "title": "ideathon 4.0",
+        "image": "assets/images/hackathons/IMG_1453 (1).jpg",
+        "badge": "Top 6",
+        "desc": "Led a team of 4 to build an automated sorting machine prototype, winning the overall competition.",
+        "tags": ["Python", "Computer Vision", "Hardware", "Team Lead"]
     },
 ]
 

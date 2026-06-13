@@ -11,6 +11,7 @@ from sections import (
     render_education,
     render_certificates,
     render_projects,
+    render_hackathons,
     render_languages,
     render_contact,
     render_visitor_badge,
@@ -29,6 +30,7 @@ st.set_page_config(
 # -----------------------------
 # Inject Styles
 # -----------------------------
+# Trigger reload: mobile responsive CSS + contact card redesign
 inject_styles()
 
 
@@ -46,9 +48,15 @@ def main() -> None:
     render_education()
     render_certificates()
     render_projects()
+    render_hackathons()
     render_languages()
     render_contact()
 
 
 if __name__ == "__main__":
     main()
+# Trigger reload 4
+
+
+
+

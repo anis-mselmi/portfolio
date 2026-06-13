@@ -497,7 +497,7 @@ def inject_styles() -> None:
             .nav-link {
                 display: block;
                 width: auto;
-                min-width: 140px;
+                min-width: 125px;
                 text-decoration: none !important;
                 border-radius: 16px;
                 padding: 1px;
@@ -1121,46 +1121,54 @@ def inject_styles() -> None:
                 border-radius: 22px;
                 padding: 1px;
                 overflow: hidden;
-                background: linear-gradient(130deg, rgba(82, 165, 255, 0.95), rgba(124, 156, 255, 0.62), rgba(87, 224, 255, 0.92));
-                box-shadow: 0 14px 32px rgba(3, 9, 22, 0.42);
                 transform: translateY(0) scale(1);
-                transition: transform 0.3s ease, box-shadow 0.3s ease, filter 0.3s ease;
-                animation: none;
+                transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease;
+                height: 100%;
             }
 
-            .lang-glass-card::before {
-                content: "";
-                position: absolute;
-                inset: -115% -35%;
-                transform: translateX(-45%) rotate(14deg);
-                background: linear-gradient(120deg, transparent 30%, rgba(255, 255, 255, 0.33) 50%, transparent 70%);
-                opacity: 0;
-                transition: opacity 0.35s ease, transform 0.55s ease;
-                pointer-events: none;
+            .lang-tone-arabic {
+                background: linear-gradient(130deg, rgba(34, 197, 94, 0.4), rgba(12, 18, 32, 0.1), rgba(16, 185, 129, 0.4)) !important;
+                box-shadow: 0 10px 25px rgba(2, 28, 12, 0.3) !important;
+            }
+            .lang-tone-english {
+                background: linear-gradient(130deg, rgba(59, 130, 246, 0.4), rgba(12, 18, 32, 0.1), rgba(87, 224, 255, 0.4)) !important;
+                box-shadow: 0 10px 25px rgba(2, 12, 28, 0.3) !important;
+            }
+            .lang-tone-french {
+                background: linear-gradient(130deg, rgba(239, 68, 68, 0.4), rgba(12, 18, 32, 0.1), rgba(59, 130, 246, 0.4)) !important;
+                box-shadow: 0 10px 25px rgba(28, 2, 2, 0.3) !important;
             }
 
-            .lang-glass-card:hover::before {
-                opacity: 1;
-                transform: translateX(28%) rotate(14deg);
-            }
-
-            .lang-glass-card:hover {
-                transform: translateY(-4px) scale(1.03);
-                box-shadow: 0 0 0 1px rgba(159, 227, 255, 0.42), 0 18px 38px rgba(21, 189, 255, 0.3);
-                filter: saturate(1.06);
+            @media (hover: hover) {
+                .lang-glass-card:hover {
+                    transform: translateY(-8px) scale(1.03) !important;
+                }
+                .lang-tone-arabic:hover {
+                    box-shadow: 0 18px 38px rgba(2, 28, 12, 0.45), 0 0 20px rgba(34, 197, 94, 0.25) !important;
+                    background: linear-gradient(130deg, rgba(34, 197, 94, 0.8), rgba(12, 18, 32, 0.3), rgba(16, 185, 129, 0.8)) !important;
+                }
+                .lang-tone-english:hover {
+                    box-shadow: 0 18px 38px rgba(2, 12, 28, 0.45), 0 0 20px rgba(59, 130, 246, 0.25) !important;
+                    background: linear-gradient(130deg, rgba(59, 130, 246, 0.8), rgba(12, 18, 32, 0.3), rgba(87, 224, 255, 0.8)) !important;
+                }
+                .lang-tone-french:hover {
+                    box-shadow: 0 18px 38px rgba(28, 2, 2, 0.45), 0 0 20px rgba(239, 68, 68, 0.25) !important;
+                    background: linear-gradient(130deg, rgba(239, 68, 68, 0.8), rgba(12, 18, 32, 0.3), rgba(59, 130, 246, 0.8)) !important;
+                }
             }
 
             .lang-glass-card-inner {
                 position: relative;
                 border-radius: 21px;
                 height: 100%;
-                min-height: 220px;
-                padding: 1rem 1rem 0.95rem;
+                min-height: 165px;
+                padding: 1rem;
                 display: flex;
                 flex-direction: column;
-                gap: 0.72rem;
-                background: linear-gradient(145deg, rgba(9, 18, 34, 0.76), rgba(11, 21, 39, 0.68));
-                border: 1px solid rgba(165, 205, 255, 0.22);
+                justify-content: space-between;
+                gap: 0.5rem;
+                background: linear-gradient(180deg, var(--panel) 0%, var(--panel-2) 100%);
+                border: 1px solid rgba(255, 255, 255, 0.05);
                 backdrop-filter: blur(12px);
                 -webkit-backdrop-filter: blur(12px);
             }
@@ -1176,77 +1184,78 @@ def inject_styles() -> None:
                 display: inline-flex;
                 align-items: center;
                 justify-content: center;
-                width: 54px;
-                height: 54px;
-                border-radius: 16px;
-                font-size: 1.9rem;
-                background: rgba(255, 255, 255, 0.08);
-                border: 1px solid rgba(203, 227, 255, 0.33);
-                box-shadow: 0 8px 20px rgba(3, 9, 20, 0.28);
+                width: 44px;
+                height: 44px;
+                border-radius: 50%;
+                background: rgba(255, 255, 255, 0.05);
+                border: 1px solid rgba(255, 255, 255, 0.15);
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);
+                overflow: hidden;
             }
 
             .lang-flag-img {
-                width: 34px;
-                height: 24px;
-                border-radius: 6px;
-                object-fit: cover;
-                border: 1px solid rgba(255, 255, 255, 0.45);
-                box-shadow: 0 3px 8px rgba(3, 9, 20, 0.28);
+                width: 100% !important;
+                height: 100% !important;
+                object-fit: cover !important;
+                transition: transform 0.35s ease;
+            }
+
+            .lang-glass-card:hover .lang-flag-img {
+                transform: scale(1.15);
             }
 
             .lang-flag-img--us {
-                object-fit: fill !important;
+                object-fit: cover !important;
             }
 
             .lang-badge {
                 display: inline-flex;
                 align-items: center;
                 justify-content: center;
-                padding: 0.32rem 0.72rem;
+                padding: 0.22rem 0.65rem;
                 border-radius: 999px;
-                font-size: 0.72rem;
-                letter-spacing: 0.08em;
+                font-size: 0.68rem;
+                letter-spacing: 0.06em;
                 text-transform: uppercase;
                 font-weight: 800;
-                color: #f4fbff;
-                border: 1px solid rgba(198, 231, 255, 0.5);
-                background: linear-gradient(90deg, rgba(82, 165, 255, 0.28), rgba(87, 224, 255, 0.24));
+            }
+
+            .lang-tone-arabic .lang-badge {
+                background: rgba(34, 197, 94, 0.12);
+                border: 1px solid rgba(34, 197, 94, 0.35);
+                color: #4ade80;
+            }
+
+            .lang-tone-english .lang-badge {
+                background: rgba(59, 130, 246, 0.12);
+                border: 1px solid rgba(59, 130, 246, 0.35);
+                color: #60a5fa;
+            }
+
+            .lang-tone-french .lang-badge {
+                background: rgba(239, 68, 68, 0.12);
+                border: 1px solid rgba(239, 68, 68, 0.35);
+                color: #f87171;
             }
 
             .lang-name {
-                font-size: 1.5rem;
+                font-size: 1.15rem;
                 font-weight: 800;
-                color: #f5fbff;
+                color: #ffffff;
                 letter-spacing: -0.01em;
                 line-height: 1.1;
+                margin-top: 0.1rem;
             }
 
             .lang-note {
-                font-size: 0.95rem;
-                color: #bcd1ea;
-                line-height: 1.45;
+                font-size: 0.84rem;
+                color: var(--muted);
+                line-height: 1.4;
+                margin-top: 0.05rem;
             }
 
             .lang-accent {
-                margin-top: auto;
-                width: 100%;
-                height: 8px;
-                border-radius: 999px;
-                background: linear-gradient(90deg, rgba(82, 165, 255, 0.78), rgba(87, 224, 255, 0.62));
-                box-shadow: 0 0 16px rgba(87, 224, 255, 0.26);
-                opacity: 0.88;
-            }
-
-            .lang-tone-arabic {
-                background: linear-gradient(130deg, rgba(22, 176, 129, 0.95), rgba(26, 155, 117, 0.7), rgba(78, 215, 171, 0.88));
-            }
-
-            .lang-tone-english {
-                background: linear-gradient(130deg, rgba(69, 123, 255, 0.95), rgba(102, 136, 255, 0.72), rgba(89, 205, 255, 0.86));
-            }
-
-            .lang-tone-french {
-                background: linear-gradient(130deg, rgba(56, 112, 255, 0.95), rgba(255, 255, 255, 0.76), rgba(255, 95, 95, 0.92));
+                display: none;
             }
 
             .lang-fade-in {
@@ -1743,7 +1752,7 @@ def inject_styles() -> None:
             }
 
             .sticky-navbar .sidebar-nav {
-                max-width: 950px;
+                max-width: 1100px;
                 margin: 0 auto;
             }
 
@@ -1940,12 +1949,24 @@ def inject_styles() -> None:
             }
 
             .cert-card {
+                --brand-color: #76b900;
+                --brand-chip-color: #b3ea5c;
+                --brand-bg-glow: rgba(118, 185, 0, 0.35);
+                --brand-gradient-start: rgba(118, 185, 0, 0.55);
+                --brand-gradient-hover-start: rgba(118, 185, 0, 1);
+                --brand-btn-gradient: linear-gradient(90deg, #76b900 0%, #a6e22e 100%);
+                --brand-badge-bg: rgba(118, 185, 0, 0.1);
+                --brand-chip-bg: rgba(118, 185, 0, 0.08);
+                --brand-chip-border: rgba(118, 185, 0, 0.15);
+                --brand-badge-border: rgba(118, 185, 0, 0.25);
+                --brand-logo-glow: rgba(118, 185, 0, 0.4);
+
                 position: relative;
                 margin-bottom: 0;
                 border-radius: 20px;
                 padding: 1px;
                 overflow: hidden;
-                background: linear-gradient(130deg, rgba(118, 185, 0, 0.55), rgba(124, 156, 255, 0.2), rgba(87, 224, 255, 0.45));
+                background: linear-gradient(130deg, var(--brand-gradient-start), rgba(124, 156, 255, 0.2), rgba(87, 224, 255, 0.45));
                 box-shadow: 0 12px 32px rgba(3, 9, 20, 0.38);
                 transform: translateY(0) scale(1);
                 transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease, filter 0.4s ease;
@@ -1954,11 +1975,25 @@ def inject_styles() -> None:
                 flex-direction: column;
             }
 
+            .cert-card.brand-datacamp {
+                --brand-color: #03ef90;
+                --brand-chip-color: #03ef90;
+                --brand-bg-glow: rgba(3, 239, 144, 0.35);
+                --brand-gradient-start: rgba(3, 239, 144, 0.55);
+                --brand-gradient-hover-start: rgba(3, 239, 144, 1);
+                --brand-btn-gradient: linear-gradient(90deg, #03ef90 0%, #02965b 100%);
+                --brand-badge-bg: rgba(3, 239, 144, 0.1);
+                --brand-chip-bg: rgba(3, 239, 144, 0.08);
+                --brand-chip-border: rgba(3, 239, 144, 0.15);
+                --brand-badge-border: rgba(3, 239, 144, 0.25);
+                --brand-logo-glow: rgba(3, 239, 144, 0.4);
+            }
+
             @media (hover: hover) {
                 .cert-card:hover {
                     transform: translateY(-8px) scale(1.02);
-                    box-shadow: 0 18px 42px rgba(3, 9, 20, 0.5), 0 0 25px rgba(118, 185, 0, 0.35);
-                    background: linear-gradient(130deg, rgba(118, 185, 0, 1), rgba(124, 156, 255, 0.5), rgba(87, 224, 255, 0.8));
+                    box-shadow: 0 18px 42px rgba(3, 9, 20, 0.5), 0 0 25px var(--brand-bg-glow);
+                    background: linear-gradient(130deg, var(--brand-gradient-hover-start), rgba(124, 156, 255, 0.5), rgba(87, 224, 255, 0.8));
                     filter: saturate(1.05);
                 }
             }
@@ -1986,7 +2021,7 @@ def inject_styles() -> None:
                 width: 26px;
                 height: 26px;
                 object-fit: contain;
-                filter: drop-shadow(0 0 8px rgba(118, 185, 0, 0.4));
+                filter: drop-shadow(0 0 8px var(--brand-logo-glow));
             }
 
             .cert-badge {
@@ -1998,9 +2033,9 @@ def inject_styles() -> None:
                 font-weight: 700;
                 letter-spacing: 0.05em;
                 text-transform: uppercase;
-                color: #76b900;
-                background: rgba(118, 185, 0, 0.1);
-                border: 1px solid rgba(118, 185, 0, 0.25);
+                color: var(--brand-color);
+                background: var(--brand-badge-bg);
+                border: 1px solid var(--brand-badge-border);
             }
 
             .cert-title {
@@ -2029,9 +2064,9 @@ def inject_styles() -> None:
                 display: inline-block;
                 padding: 0.15rem 0.4rem;
                 border-radius: 999px;
-                background: rgba(118, 185, 0, 0.08);
-                border: 1px solid rgba(118, 185, 0, 0.15);
-                color: #b3ea5c;
+                background: var(--brand-chip-bg);
+                border: 1px solid var(--brand-chip-border);
+                color: var(--brand-chip-color);
                 font-size: 0.68rem;
             }
 
@@ -2046,16 +2081,16 @@ def inject_styles() -> None:
                 font-weight: 700;
                 font-size: 0.78rem;
                 text-decoration: none !important;
-                background: linear-gradient(90deg, #76b900 0%, #a6e22e 100%);
+                background: var(--brand-btn-gradient);
                 color: #0b0f17 !important;
                 border: 1px solid rgba(255, 255, 255, 0.2);
-                box-shadow: 0 4px 14px rgba(118, 185, 0, 0.2);
+                box-shadow: 0 4px 14px var(--brand-bg-glow);
                 transition: transform 0.25s ease, box-shadow 0.25s ease, color 0.25s ease;
             }
 
             .cert-btn:hover {
                 transform: translateY(-2px);
-                box-shadow: 0 8px 20px rgba(118, 185, 0, 0.45);
+                box-shadow: 0 8px 20px var(--brand-bg-glow);
                 color: #0b0f17 !important;
             }
 
@@ -2151,6 +2186,261 @@ def inject_styles() -> None:
                 height: 1px;
                 background: linear-gradient(90deg, rgba(124,156,255,0.3), transparent);
                 margin: 0.35rem 0;
+            }
+
+            /* Hackathon Wins Styling */
+            .hackathon-card {
+                background: linear-gradient(130deg, rgba(255, 215, 0, 0.45), rgba(124, 156, 255, 0.2), rgba(87, 224, 255, 0.45)) !important;
+                box-shadow: 0 12px 32px rgba(3, 9, 20, 0.38) !important;
+                margin-bottom: 1.5rem;
+                position: relative;
+                border-radius: 20px;
+                padding: 1px;
+                overflow: hidden;
+                height: 325px !important;
+                display: flex;
+                flex-direction: column;
+            }
+
+            @media (hover: hover) {
+                .hackathon-card:hover {
+                    transform: translateY(-8px) scale(1.02) !important;
+                    box-shadow: 0 18px 42px rgba(3, 9, 20, 0.5), 0 0 25px rgba(255, 215, 0, 0.25) !important;
+                    background: linear-gradient(130deg, rgba(255, 215, 0, 0.85), rgba(124, 156, 255, 0.5), rgba(87, 224, 255, 0.8)) !important;
+                }
+            }
+
+            .hackathon-card-inner {
+                border-radius: 19px;
+                background: linear-gradient(180deg, var(--panel) 0%, var(--panel-2) 100%);
+                padding: 0.65rem;
+                height: 100%;
+                flex-grow: 1;
+                display: flex;
+                flex-direction: column;
+                gap: 0.3rem;
+            }
+
+            .hackathon-badge-container {
+                position: absolute;
+                top: 0.95rem;
+                right: 0.95rem;
+                z-index: 10;
+            }
+
+            .hackathon-award-badge {
+                display: inline-flex;
+                align-items: center;
+                border-radius: 999px;
+                padding: 0.2rem 0.5rem;
+                font-size: 0.65rem;
+                font-weight: 800;
+                letter-spacing: 0.05em;
+                text-transform: uppercase;
+                color: #ffd700;
+                background: rgba(0, 0, 0, 0.65);
+                border: 1px solid rgba(255, 215, 0, 0.5);
+                backdrop-filter: blur(8px);
+                -webkit-backdrop-filter: blur(8px);
+                box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+            }
+
+            .hackathon-image {
+                height: 160px !important;
+                aspect-ratio: auto !important;
+                border-radius: 13px;
+                object-fit: cover;
+                width: 100%;
+                flex-shrink: 0;
+            }
+
+            .hackathon-body {
+                padding: 0.2rem 0.15rem 0.1rem 0.15rem;
+                display: flex;
+                flex-direction: column;
+                flex-grow: 1;
+                justify-content: space-between;
+                gap: 0.25rem !important;
+            }
+
+            .hackathon-title {
+                font-size: 0.98rem;
+                font-weight: 700;
+                color: #ffffff;
+                margin-bottom: 0.05rem;
+                white-space: nowrap;
+                overflow: hidden;
+                text-overflow: ellipsis;
+            }
+
+            .hackathon-desc {
+                font-size: 0.82rem;
+                color: var(--muted);
+                line-height: 1.35;
+                margin-bottom: 0.15rem;
+                display: -webkit-box;
+                -webkit-line-clamp: 1;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                height: 1.35em;
+            }
+
+            .hackathon-tags {
+                display: flex;
+                flex-wrap: wrap;
+                gap: 0.25rem;
+                margin-top: auto;
+            }
+
+            /* ═══════════════════════════════════════
+               MOBILE-FIRST RESPONSIVE LAYOUT FIXES
+               Goal: Match web (desktop) visual on mobile
+               ═══════════════════════════════════════ */
+
+            /* ── Prevent Streamlit from stacking columns on small screens ── */
+            @media (max-width: 768px) {
+
+                /* Keep ALL Streamlit horizontal blocks as flex-row on mobile */
+                div[data-testid="stHorizontalBlock"] {
+                    flex-direction: row !important;
+                    flex-wrap: nowrap !important;
+                    gap: 0.6rem !important;
+                    overflow-x: auto;
+                    -webkit-overflow-scrolling: touch;
+                }
+
+                /* Keep columns proportional widths instead of going full-width */
+                div[data-testid="stHorizontalBlock"] > div[data-testid="stColumn"] {
+                    flex-shrink: 0 !important;
+                    min-width: 0 !important;
+                }
+
+                /* Allow horizontal scrolling instead of wrapping */
+                .block-container {
+                    overflow-x: hidden;
+                }
+
+                /* ── Navbar: shrink buttons to fit on one scrollable line ── */
+                .sticky-navbar {
+                    padding: 0.3rem 0.5rem !important;
+                    overflow-x: auto !important;
+                    -webkit-overflow-scrolling: touch !important;
+                }
+                .sidebar-nav {
+                    flex-wrap: nowrap !important;
+                    justify-content: flex-start !important;
+                    min-width: max-content;
+                    gap: 0.25rem !important;
+                }
+                .nav-link {
+                    min-width: 90px !important;
+                    flex-shrink: 0 !important;
+                }
+                .nav-link-inner {
+                    padding: 0.4rem 0.35rem !important;
+                    font-size: 0.72rem !important;
+                    white-space: nowrap !important;
+                }
+
+                /* ── Hero: keep photo + bio side by side ── */
+                .hero-frame {
+                    width: 140px !important;
+                    height: 140px !important;
+                }
+
+                /* ── Skills: 2-column grid on mobile ── */
+                .skill-card {
+                    border-radius: 12px !important;
+                }
+
+                /* ── Hackathon cards: maintain 3-per-row scrollable grid ── */
+                .hackathon-card {
+                    min-width: 220px !important;
+                }
+
+                /* ── Projects: 2-per-row scrollable ── */
+                .project-card {
+                    min-width: 240px !important;
+                }
+
+                /* ── Contact: form + info side by side ── */
+                .contact-info-card {
+                    padding: 1.5rem 1.25rem !important;
+                }
+                .contact-icon-box {
+                    width: 38px !important;
+                    height: 38px !important;
+                    font-size: 1rem !important;
+                }
+                .contact-info-item {
+                    padding: 0.75rem 0.85rem !important;
+                    gap: 0.9rem !important;
+                }
+
+                /* ── Language cards: 2-column grid ── */
+                .lang-cards-grid {
+                    grid-template-columns: repeat(2, minmax(0, 1fr)) !important;
+                }
+
+                /* ── Certificates: 2-column grid ── */
+                .cert-grid {
+                    grid-template-columns: repeat(2, 1fr) !important;
+                }
+
+                /* ── Education / Experience: keep full width ── */
+                .education-card,
+                .experience-card {
+                    min-width: 0 !important;
+                    width: 100% !important;
+                }
+
+                /* ── Cover Banner ── */
+                .cover-banner {
+                    height: 130px !important;
+                    max-height: 130px !important;
+                }
+
+                /* ── Section spacing ── */
+                .section-kicker {
+                    font-size: 0.7rem !important;
+                    letter-spacing: 0.12em !important;
+                }
+                h1 { font-size: 1.8rem !important; }
+                h2, .section-title { font-size: 1.45rem !important; }
+                h3 { font-size: 1.05rem !important; }
+            }
+
+            /* ── Extra small screens (< 480px): tighter layout ── */
+            @media (max-width: 480px) {
+                .nav-link {
+                    min-width: 75px !important;
+                }
+                .nav-link-inner {
+                    font-size: 0.63rem !important;
+                    padding: 0.35rem 0.2rem !important;
+                }
+                .hero-frame {
+                    width: 115px !important;
+                    height: 115px !important;
+                }
+                .contact-icon-box {
+                    width: 34px !important;
+                    height: 34px !important;
+                    font-size: 0.9rem !important;
+                }
+                .lang-cards-grid {
+                    grid-template-columns: 1fr !important;
+                }
+                .cert-grid {
+                    grid-template-columns: 1fr !important;
+                }
+                .block-container {
+                    padding-left: 0.75rem !important;
+                    padding-right: 0.75rem !important;
+                }
+                h1 { font-size: 1.5rem !important; }
+                h2, .section-title { font-size: 1.25rem !important; }
             }
 
         </style>

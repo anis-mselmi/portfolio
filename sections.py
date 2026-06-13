@@ -25,7 +25,8 @@ except ImportError:
 
 from data import (
     PROFILE, ABOUT, EDUCATION, SKILLS_BY_CATEGORY,
-    PROJECTS, LANGUAGES, NVIDIA_CERTIFICATES,
+    PROJECTS, LANGUAGES, NVIDIA_CERTIFICATES, DATACAMP_CERTIFICATES,
+    HACKATHONS,
 )
 from utils import image_to_data_uri, section_title, section_start, section_end
 from ai_agent import get_ai_response
@@ -284,6 +285,8 @@ def render_navbar() -> None:
                 <a href="#education"    class="nav-link" data-target="education"   ><span class="nav-link-inner">🎓 Education</span></a>
                 <a href="#certificates" class="nav-link" data-target="certificates"><span class="nav-link-inner">📜 Certs</span></a>
                 <a href="#projects"     class="nav-link" data-target="projects"    ><span class="nav-link-inner">🚀 Projects</span></a>
+                <a href="#hackathons"   class="nav-link" data-target="hackathons"  ><span class="nav-link-inner">🏆 Hackathons</span></a>
+                <a href="#languages"    class="nav-link" data-target="languages"   ><span class="nav-link-inner">🌍 Languages</span></a>
                 <a href="#contact"      class="nav-link" data-target="contact"     ><span class="nav-link-inner">📬 Contact</span></a>
             </div>
         </div>
@@ -500,46 +503,88 @@ def render_education() -> None:
 
 def render_certificates() -> None:
     section_start("certificates")
-    section_title("NVIDIA Certifications", "🎖")
-    st.caption("Verified professional credentials in advanced Deep Learning, LLM, and RAG architectures.")
+    section_title("Certifications", "🎖")
+    st.caption("Verified professional credentials and specialized training milestones.")
 
-    st.markdown(
-        "<div class='skills-grid-kicker'>Deep Learning &amp; Generative AI Registry</div>",
-        unsafe_allow_html=True,
-    )
+    tab_nv, tab_dc = st.tabs(["NVIDIA Certifications", "DataCamp Certifications"])
 
-    cards_html = []
-    for index, item in enumerate(NVIDIA_CERTIFICATES):
-        delay_ms = min(index * 90, 250)
-        chips_html = "".join([f"<span class='cert-chip'>{skill}</span>" for skill in item["skills"]])
+    with tab_nv:
+        st.markdown(
+            "<div class='skills-grid-kicker'>Deep Learning &amp; Generative AI Registry</div>",
+            unsafe_allow_html=True,
+        )
 
-        card_html = f"""
-        <div class="cert-card cert-fade-in" style="--delay:{delay_ms}ms;">
-            <div class="cert-card-inner">
-                <div class="cert-head">
-                    <svg class="cert-logo" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-                        <path d="M12 2L2 7V12C2 17 6 21 12 22C18 21 22 17 22 12V7L12 2Z" fill="#76b900" fill-opacity="0.15" stroke="#76b900" stroke-width="2"/>
-                        <path d="M9 12L11 14L15 10" stroke="#76b900" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
-                    </svg>
-                    <span class="cert-badge">Verified</span>
+        cards_html = []
+        for index, item in enumerate(NVIDIA_CERTIFICATES):
+            delay_ms = min(index * 90, 250)
+            chips_html = "".join([f"<span class='cert-chip'>{skill}</span>" for skill in item["skills"]])
+
+            card_html = f"""
+            <div class="cert-card cert-fade-in" style="--delay:{delay_ms}ms;">
+                <div class="cert-card-inner">
+                    <div class="cert-head">
+                        <svg class="cert-logo" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2L2 7V12C2 17 6 21 12 22C18 21 22 17 22 12V7L12 2Z" fill="#76b900" fill-opacity="0.15" stroke="#76b900" stroke-width="2"/>
+                            <path d="M9 12L11 14L15 10" stroke="#76b900" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <span class="cert-badge">Verified</span>
+                    </div>
+                    <div class="cert-title">{item['title']}</div>
+                    <div class="cert-meta">
+                        <span><strong>Issuer:</strong> NVIDIA</span>
+                        <span><strong>Completed:</strong> {item['date']}</span>
+                        <span><strong>Credential ID:</strong> <code style="color: var(--accent-2); font-size: 0.82rem;">{item['id']}</code></span>
+                    </div>
+                    <div class="cert-chips">{chips_html}</div>
+                    <a class="cert-btn" href="{item['url']}" target="_blank">🔗 Verify Credential</a>
                 </div>
-                <div class="cert-title">{item['title']}</div>
-                <div class="cert-meta">
-                    <span><strong>Issuer:</strong> NVIDIA</span>
-                    <span><strong>Completed:</strong> {item['date']}</span>
-                    <span><strong>Credential ID:</strong> <code style="color: var(--accent-2); font-size: 0.82rem;">{item['id']}</code></span>
-                </div>
-                <div class="cert-chips">{chips_html}</div>
-                <a class="cert-btn" href="{item['url']}" target="_blank">🔗 Verify Credential</a>
             </div>
-        </div>
-        """
-        cards_html.append(card_html)
+            """
+            cards_html.append(card_html)
 
-    grid_html = f"<div class='cert-grid'>{''.join(cards_html)}</div>"
-    # Remove newlines and collapse multiple spaces to prevent Streamlit/Markdown parser from rendering it as a code block
-    grid_html = re.sub(r'\s*\n\s*', ' ', grid_html)
-    st.markdown(grid_html, unsafe_allow_html=True)
+        grid_html = f"<div class='cert-grid'>{''.join(cards_html)}</div>"
+        # Remove newlines and collapse multiple spaces to prevent Streamlit/Markdown parser from rendering it as a code block
+        grid_html = re.sub(r'\s*\n\s*', ' ', grid_html)
+        st.markdown(grid_html, unsafe_allow_html=True)
+
+    with tab_dc:
+        st.markdown(
+            "<div class='skills-grid-kicker'>Data Science &amp; Engineering Associate Registry</div>",
+            unsafe_allow_html=True,
+        )
+
+        cards_html = []
+        for index, item in enumerate(DATACAMP_CERTIFICATES):
+            delay_ms = min(index * 90, 250)
+            chips_html = "".join([f"<span class='cert-chip'>{skill}</span>" for skill in item["skills"]])
+
+            card_html = f"""
+            <div class="cert-card cert-fade-in brand-datacamp" style="--delay:{delay_ms}ms;">
+                <div class="cert-card-inner">
+                    <div class="cert-head">
+                        <svg class="cert-logo" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2L2 7V12C2 17 6 21 12 22C18 21 22 17 22 12V7L12 2Z" fill="#03ef90" fill-opacity="0.15" stroke="#03ef90" stroke-width="2"/>
+                            <path d="M9 12L11 14L15 10" stroke="#03ef90" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <span class="cert-badge">Verified</span>
+                    </div>
+                    <div class="cert-title">{item['title']}</div>
+                    <div class="cert-meta">
+                        <span><strong>Issuer:</strong> DataCamp</span>
+                        <span><strong>Completed:</strong> {item['date']}</span>
+                        <span><strong>Credential ID:</strong> <code style="color: var(--accent-2); font-size: 0.82rem;">{item['id']}</code></span>
+                    </div>
+                    <div class="cert-chips">{chips_html}</div>
+                    <a class="cert-btn" href="{item['url']}" target="_blank">🔗 Verify Credential</a>
+                </div>
+            </div>
+            """
+            cards_html.append(card_html)
+
+        grid_html = f"<div class='cert-grid'>{''.join(cards_html)}</div>"
+        # Remove newlines and collapse multiple spaces to prevent Streamlit/Markdown parser from rendering it as a code block
+        grid_html = re.sub(r'\s*\n\s*', ' ', grid_html)
+        st.markdown(grid_html, unsafe_allow_html=True)
 
     section_end()
 
@@ -576,6 +621,42 @@ def render_projects() -> None:
                         </div>
                     </div>
                 {end_tag}
+            """
+            st.markdown(card_html, unsafe_allow_html=True)
+    section_end()
+
+
+def render_hackathons() -> None:
+    section_start("hackathons")
+    section_title("Hackathon Wins", "🏆")
+    st.caption("Competitive team achievements, robotics events, and innovative prototypes.")
+
+    import data
+    import importlib
+    importlib.reload(data)
+
+    cols = st.columns(3, gap="large")
+    for idx, item in enumerate(data.HACKATHONS):
+        with cols[idx % 3]:
+            image_path = Path(__file__).parent / item.get("image", "")
+            image_data = image_to_data_uri(image_path)
+            
+            tags_html = "".join([f"<span class='tag'>#{t}</span>" for t in item.get("tags", [])])
+            
+            card_html = f"""
+                <div class="project-card hackathon-card">
+                    <div class="project-card-inner hackathon-card-inner">
+                        <div class="hackathon-badge-container">
+                            <span class="hackathon-award-badge">{item['badge']}</span>
+                        </div>
+                        <img src="{image_data}" alt="{item['title']}" class="project-image hackathon-image" style="object-fit:cover;" />
+                        <div class="project-body hackathon-body">
+                            <div class="project-title hackathon-title">{item['title']}</div>
+                            <div class="project-desc hackathon-desc">{item['desc']}</div>
+                            <div class="project-tags hackathon-tags">{tags_html}</div>
+                        </div>
+                    </div>
+                </div>
             """
             st.markdown(card_html, unsafe_allow_html=True)
     section_end()
@@ -723,25 +804,40 @@ def render_contact() -> None:
             <div class="contact-info-card">
                 <div class="contact-info-title">Contact Details</div>
                 <div class="contact-info-item">
-                    <span class="contact-info-icon">📧</span>
-                    <a href="mailto:{PROFILE['email']}" class="contact-info-link">{PROFILE['email']}</a>
+                    <div class="contact-icon-box email-box"><span>📧</span></div>
+                    <div class="contact-content">
+                        <div class="contact-label">Email</div>
+                        <a href="mailto:{PROFILE['email']}" class="contact-info-link">{PROFILE['email']}</a>
+                    </div>
                 </div>
                 <div class="contact-info-item">
-                    <span class="contact-info-icon">📱</span>
-                    <span style="color:var(--text);">{PROFILE['phone']}</span>
+                    <div class="contact-icon-box phone-box"><span>📱</span></div>
+                    <div class="contact-content">
+                        <div class="contact-label">Phone</div>
+                        <span class="contact-value">{PROFILE['phone']}</span>
+                    </div>
                 </div>
                 <div class="contact-info-item">
-                    <span class="contact-info-icon">📍</span>
-                    <span style="color:var(--text);">{PROFILE['location']}</span>
+                    <div class="contact-icon-box location-box"><span>📍</span></div>
+                    <div class="contact-content">
+                        <div class="contact-label">Location</div>
+                        <span class="contact-value">{PROFILE['location']}</span>
+                    </div>
                 </div>
                 <div class="contact-info-divider"></div>
                 <div class="contact-info-item">
-                    <span class="contact-info-icon">💼</span>
-                    <a href="{PROFILE['linkedin']}" target="_blank" class="contact-info-link">LinkedIn Profile</a>
+                    <div class="contact-icon-box linkedin-box"><span>💼</span></div>
+                    <div class="contact-content">
+                        <div class="contact-label">LinkedIn</div>
+                        <a href="{PROFILE['linkedin']}" target="_blank" class="contact-info-link">Anis Mselmi</a>
+                    </div>
                 </div>
                 <div class="contact-info-item">
-                    <span class="contact-info-icon">🐙</span>
-                    <a href="{PROFILE['github']}" target="_blank" class="contact-info-link">GitHub Profile</a>
+                    <div class="contact-icon-box github-box"><span>🐙</span></div>
+                    <div class="contact-content">
+                        <div class="contact-label">GitHub</div>
+                        <a href="{PROFILE['github']}" target="_blank" class="contact-info-link">@anis-mselmi</a>
+                    </div>
                 </div>
             </div>
             """,
