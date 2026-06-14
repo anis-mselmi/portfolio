@@ -4,3 +4,7 @@ services:
     env: python
     buildCommand: "pip install -r requirements.txt"
     startCommand: "streamlit run app.py --server.port $PORT --server.address 0.0.0.0"
+    domains:
+      - anismselmi.me
+      - www.anismselmi.me
+
