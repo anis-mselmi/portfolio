@@ -6,6 +6,14 @@
 [![RAG Agent](https://img.shields.io/badge/RAG-Agentic-008080?style=for-the-badge&logoColor=white)](#-ask-my-ai-twin-console)
 [![Mobile Ready](https://img.shields.io/badge/Mobile-Responsive-57e0ff?style=for-the-badge&logoColor=white)](#-mobile-responsive-design)
 
+> [!NOTE]
+> ### 🌐 Deployment & Hosting Details
+> * **Domain Name:** [https://anismselmi.me](https://anismselmi.me)
+> * **Render Host:** [https://anismselmi.onrender.com](https://anismselmi.onrender.com)
+> * **Streamlit Host:** [https://streamlit.io](https://streamlit.io)
+
+
+
 <p align="center">
   <img src="assets/images/profile/hero.webp" alt="Anis Mselmi Profile" width="200" style="border-radius: 24px; border: 3px solid #7c9cff; box-shadow: 0 4px 25px rgba(124, 156, 255, 0.45); object-fit: cover;" />
 </p>
