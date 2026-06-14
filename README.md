@@ -10,7 +10,7 @@
 > ### 🌐 Deployment & Hosting Details
 > * **Domain Name:** [https://anismselmi.me](https://anismselmi.me)
 > * **Render Host:** [https://anismselmi.onrender.com](https://anismselmi.onrender.com)
-> * **Streamlit Host:** [https://streamlit.io](https://streamlit.io)
+> * **Streamlit Host:** [https://anis-mselmi-portfolio.streamlit.app/](https://anis-mselmi-portfolio.streamlit.app/)
 
 
 
