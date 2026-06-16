@@ -1989,6 +1989,20 @@ def inject_styles() -> None:
                 --brand-logo-glow: rgba(3, 239, 144, 0.4);
             }
 
+            .cert-card.brand-kaggle {
+                --brand-color: #20beff;
+                --brand-chip-color: #20beff;
+                --brand-bg-glow: rgba(32, 190, 255, 0.35);
+                --brand-gradient-start: rgba(32, 190, 255, 0.55);
+                --brand-gradient-hover-start: rgba(32, 190, 255, 1);
+                --brand-btn-gradient: linear-gradient(90deg, #20beff 0%, #008abc 100%);
+                --brand-badge-bg: rgba(32, 190, 255, 0.1);
+                --brand-chip-bg: rgba(32, 190, 255, 0.08);
+                --brand-chip-border: rgba(32, 190, 255, 0.15);
+                --brand-badge-border: rgba(32, 190, 255, 0.25);
+                --brand-logo-glow: rgba(32, 190, 255, 0.4);
+            }
+
             @media (hover: hover) {
                 .cert-card:hover {
                     transform: translateY(-8px) scale(1.02);

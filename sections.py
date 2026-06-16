@@ -26,7 +26,7 @@ except ImportError:
 from data import (
     PROFILE, ABOUT, EDUCATION, SKILLS_BY_CATEGORY,
     PROJECTS, LANGUAGES, NVIDIA_CERTIFICATES, DATACAMP_CERTIFICATES,
-    HACKATHONS,
+    KAGGLE_CERTIFICATES, HACKATHONS,
 )
 from utils import image_to_data_uri, section_title, section_start, section_end
 from ai_agent import get_ai_response
@@ -506,7 +506,7 @@ def render_certificates() -> None:
     section_title("Certifications", "🎖")
     st.caption("Verified professional credentials and specialized training milestones.")
 
-    tab_nv, tab_dc = st.tabs(["NVIDIA Certifications", "DataCamp Certifications"])
+    tab_nv, tab_dc, tab_kg = st.tabs(["NVIDIA Certifications", "DataCamp Certifications", "Kaggle Certifications"])
 
     with tab_nv:
         st.markdown(
@@ -571,6 +571,45 @@ def render_certificates() -> None:
                     <div class="cert-title">{item['title']}</div>
                     <div class="cert-meta">
                         <span><strong>Issuer:</strong> DataCamp</span>
+                        <span><strong>Completed:</strong> {item['date']}</span>
+                        <span><strong>Credential ID:</strong> <code style="color: var(--accent-2); font-size: 0.82rem;">{item['id']}</code></span>
+                    </div>
+                    <div class="cert-chips">{chips_html}</div>
+                    <a class="cert-btn" href="{item['url']}" target="_blank">🔗 Verify Credential</a>
+                </div>
+            </div>
+            """
+            cards_html.append(card_html)
+
+        grid_html = f"<div class='cert-grid'>{''.join(cards_html)}</div>"
+        # Remove newlines and collapse multiple spaces to prevent Streamlit/Markdown parser from rendering it as a code block
+        grid_html = re.sub(r'\s*\n\s*', ' ', grid_html)
+        st.markdown(grid_html, unsafe_allow_html=True)
+
+    with tab_kg:
+        st.markdown(
+            "<div class='skills-grid-kicker'>Kaggle Machine Learning &amp; AI Registry</div>",
+            unsafe_allow_html=True,
+        )
+
+        cards_html = []
+        for index, item in enumerate(KAGGLE_CERTIFICATES):
+            delay_ms = min(index * 90, 250)
+            chips_html = "".join([f"<span class='cert-chip'>{skill}</span>" for skill in item["skills"]])
+
+            card_html = f"""
+            <div class="cert-card cert-fade-in brand-kaggle" style="--delay:{delay_ms}ms;">
+                <div class="cert-card-inner">
+                    <div class="cert-head">
+                        <svg class="cert-logo" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 2L2 7V12C2 17 6 21 12 22C18 21 22 17 22 12V7L12 2Z" fill="#20beff" fill-opacity="0.15" stroke="#20beff" stroke-width="2"/>
+                            <path d="M9 12L11 14L15 10" stroke="#20beff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        <span class="cert-badge">Verified</span>
+                    </div>
+                    <div class="cert-title">{item['title']}</div>
+                    <div class="cert-meta">
+                        <span><strong>Issuer:</strong> Kaggle</span>
                         <span><strong>Completed:</strong> {item['date']}</span>
                         <span><strong>Credential ID:</strong> <code style="color: var(--accent-2); font-size: 0.82rem;">{item['id']}</code></span>
                     </div>

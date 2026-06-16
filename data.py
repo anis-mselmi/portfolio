@@ -314,6 +314,30 @@ DATACAMP_CERTIFICATES = [
     },
 ]
 
+KAGGLE_CERTIFICATES = [
+    {
+        "title": "Python",
+        "id": "32235257/2535d6015646ff813956ccffb920b1dd",
+        "url": "https://www.kaggle.com/learn/certification/mselmianis/python",
+        "date": "Feb 2026",
+        "skills": ["Python", "Control Flow", "Functions", "Lists & Loops", "Dictionaries"],
+    },
+    {
+        "title": "Computer Vision",
+        "id": "32235257/f6ad7699c537e94ae518e6e7ed1b656c",
+        "url": "https://www.kaggle.com/learn/certification/mselmianis/computer-vision",
+        "date": "Feb 2026",
+        "skills": ["Computer Vision", "Convolutional Neural Networks", "TensorFlow", "Keras", "Feature Extraction"],
+    },
+    {
+        "title": "Intro to Game AI and Reinforcement Learning",
+        "id": "32235257/d4740126f90b7511b24d6d496b686d75",
+        "url": "https://www.kaggle.com/learn/certification/mselmianis/intro-to-game-ai-and-reinforcement-learning",
+        "date": "Feb 2026",
+        "skills": ["Reinforcement Learning", "Game AI", "Minimax", "Heuristics", "Deep Q-Learning"],
+    },
+]
+
 HACKATHONS = [
     {
         "title": "AURA 1.0 congress",
