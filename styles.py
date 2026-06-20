@@ -1932,6 +1932,11 @@ def inject_styles() -> None:
                 margin-bottom: 2rem;
                 width: 100%;
             }
+
+            .cert-provider-grid {
+                grid-template-columns: repeat(3, minmax(0, 1fr));
+            }
+
             @media (max-width: 1400px) {
                 .cert-grid {
                     grid-template-columns: repeat(3, 1fr);
@@ -1970,9 +1975,39 @@ def inject_styles() -> None:
                 box-shadow: 0 12px 32px rgba(3, 9, 20, 0.38);
                 transform: translateY(0) scale(1);
                 transition: transform 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.4s ease, filter 0.4s ease;
-                height: 100%;
+                min-height: 16.5rem;
                 display: flex;
                 flex-direction: column;
+            }
+
+            .cert-provider-card {
+                min-height: 14.5rem;
+            }
+
+            .cert-provider-card .cert-card-inner {
+                padding: 0.75rem 0.85rem;
+                gap: 0.35rem;
+            }
+
+            .cert-provider-card .cert-title {
+                font-size: 0.92rem;
+                min-height: 2.5rem;
+                -webkit-line-clamp: 2;
+            }
+
+            .cert-provider-card .cert-meta {
+                font-size: 0.75rem;
+                gap: 0.05rem;
+            }
+
+            .cert-provider-card .cert-chip {
+                font-size: 0.65rem;
+                padding: 0.12rem 0.35rem;
+            }
+
+            .cert-provider-card .cert-btn {
+                padding: 0.42rem 0.7rem;
+                font-size: 0.74rem;
             }
 
             .cert-card.brand-datacamp {
@@ -2018,6 +2053,8 @@ def inject_styles() -> None:
                 background: linear-gradient(180deg, var(--panel) 0%, var(--panel-2) 100%);
                 padding: 1rem;
                 height: 100%;
+                min-height: inherit;
+                overflow: hidden;
                 flex-grow: 1;
                 display: flex;
                 flex-direction: column;
@@ -2057,6 +2094,16 @@ def inject_styles() -> None:
                 font-weight: 700;
                 color: #ffffff;
                 line-height: 1.3;
+                min-height: 3.85rem;
+                display: -webkit-box;
+                -webkit-line-clamp: 3;
+                -webkit-box-orient: vertical;
+                overflow: hidden;
+            }
+
+            .cert-provider-card .cert-title {
+                min-height: 2.55rem;
+                -webkit-line-clamp: 2;
             }
 
             .cert-meta {
@@ -2067,11 +2114,22 @@ def inject_styles() -> None:
                 gap: 0.1rem;
             }
 
+            .cert-meta code {
+                display: inline-block;
+                max-width: 100%;
+                overflow: hidden;
+                text-overflow: ellipsis;
+                vertical-align: bottom;
+                white-space: nowrap;
+            }
+
             .cert-chips {
                 display: flex;
                 flex-wrap: wrap;
                 gap: 0.25rem;
                 margin-top: 0.1rem;
+                max-height: 3.6rem;
+                overflow: hidden;
             }
 
             .cert-chip {
@@ -2082,6 +2140,13 @@ def inject_styles() -> None:
                 border: 1px solid var(--brand-chip-border);
                 color: var(--brand-chip-color);
                 font-size: 0.68rem;
+                white-space: nowrap;
+            }
+
+            .cert-provider-card .cert-chip {
+                max-width: 100%;
+                overflow: hidden;
+                text-overflow: ellipsis;
             }
 
             .cert-btn {

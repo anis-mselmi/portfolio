@@ -1,6 +1,6 @@
 PROFILE = {
     "name": "Anis Mselmi",
-    "role": "Computer Engineering Student | AI, DevOps, RAG & LLM Enthusiast",
+    "role": "Java Developer | Computer Engineering Student | AI, DevOps, RAG & LLM Enthusiast",
     "location": "Khzema Ouest, Sousse, Tunisia",
     "email": "anismselmi490@gmail.com",
     "phone": "+216 25 141 636",
@@ -10,6 +10,7 @@ PROFILE = {
 
 ABOUT = (
     "<ul class='hero-about-list'>"
+    "<li>☕ <strong>Java Developer</strong>: Passionate about building robust backend services, scalable applications, and object-oriented solutions.</li>"
     "<li>🧠 <strong>Computer Engineering Student</strong> at École Polytechnique de Sousse, focused on AI, DevOps, machine learning, and LLMs.</li>"
     "<li>⚡ <strong>AI Builder</strong>: Turning complex ideas into reliable AI systems by building intelligent Python models, RAG pipelines, and conversational agents.</li>"
     "<li>🐳 <strong>DevOps & Automation</strong>: Hands-on with Docker containerization, configuring automated CI/CD pipelines, and streamlining deployment workflows.</li>"
@@ -92,12 +93,12 @@ SKILLS_BY_CATEGORY = {
             "tone": "blue",
         },
         {
-            "icon": "⚙️",
-            "name": "C++",
-            "level": "Intermediate",
-            "subtitle": "Performance-focused systems concepts",
-            "tags": ["OOP", "memory", "algorithms"],
-            "details": "Solid foundation for low-level optimization and logic design.",
+            "icon": "☕",
+            "name": "Java",
+            "level": "Advanced",
+            "subtitle": "Robust backend & OOP concepts",
+            "tags": ["OOP", "Spring Boot", "multi-threading"],
+            "details": "Proficient in building secure, scalable applications and microservices using Java.",
             "tone": "red",
         },
         {
@@ -320,21 +321,21 @@ KAGGLE_CERTIFICATES = [
         "id": "32235257/2535d6015646ff813956ccffb920b1dd",
         "url": "https://www.kaggle.com/learn/certification/mselmianis/python",
         "date": "Feb 2026",
-        "skills": ["Python", "Control Flow", "Functions", "Lists & Loops", "Dictionaries"],
+        "skills": ["Python", "Functions", "Data Structures"],
     },
     {
         "title": "Computer Vision",
         "id": "32235257/f6ad7699c537e94ae518e6e7ed1b656c",
         "url": "https://www.kaggle.com/learn/certification/mselmianis/computer-vision",
         "date": "Feb 2026",
-        "skills": ["Computer Vision", "Convolutional Neural Networks", "TensorFlow", "Keras", "Feature Extraction"],
+        "skills": ["Computer Vision", "TensorFlow", "Keras"],
     },
     {
         "title": "Intro to Game AI and Reinforcement Learning",
         "id": "32235257/d4740126f90b7511b24d6d496b686d75",
         "url": "https://www.kaggle.com/learn/certification/mselmianis/intro-to-game-ai-and-reinforcement-learning",
         "date": "Feb 2026",
-        "skills": ["Reinforcement Learning", "Game AI", "Minimax", "Heuristics", "Deep Q-Learning"],
+        "skills": ["Reinforcement Learning", "Game AI", "Minimax"],
     },
 ]
 
@@ -344,7 +345,7 @@ HACKATHONS = [
         "image": "assets/images/hackathons/1762176420191.jpg",
         "badge": "1st Place",
         "desc": "Designed and programmed an autonomous robot to navigate complex mazes under tight time constraints.",
-        "tags": ["C++", "Robotics", "Arduino", "Embedded Systems"]
+        "tags": ["Java", "Robotics", "Arduino", "Embedded Systems"]
     },
     {
         "title": "𝐀𝐈 𝐂𝐚𝐦𝐞𝐫𝐚 𝐂𝐡𝐚𝐥𝐥𝐞𝐧𝐠𝐞 𝟐𝟎𝟐𝟓",

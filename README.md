@@ -1,9 +1,7 @@
-# 🌌 Anis Mselmi | Futuristic Agentic Portfolio
+# 🌌 Anis Mselmi | Futuristic Portfolio
 
 [![Streamlit App](https://img.shields.io/badge/Streamlit-FF4B4B?style=for-the-badge&logo=Streamlit&logoColor=white)](https://streamlit.io)
 [![Python 3.10+](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
-[![Google Gemini](https://img.shields.io/badge/Google%20Gemini-8E75C2?style=for-the-badge&logo=googlegemini&logoColor=white)](https://deepmind.google/technologies/gemini/)
-[![RAG Agent](https://img.shields.io/badge/RAG-Agentic-008080?style=for-the-badge&logoColor=white)](#-ask-my-ai-twin-console)
 [![Mobile Ready](https://img.shields.io/badge/Mobile-Responsive-57e0ff?style=for-the-badge&logoColor=white)](#-mobile-responsive-design)
 
 > [!NOTE]
@@ -18,28 +16,11 @@
   <img src="assets/images/profile/hero.webp" alt="Anis Mselmi Profile" width="200" style="border-radius: 24px; border: 3px solid #7c9cff; box-shadow: 0 4px 25px rgba(124, 156, 255, 0.45); object-fit: cover;" />
 </p>
 
-A **premium, highly interactive personal portfolio** application showcasing a futuristic cyber-console design. Built with **Streamlit** and powered by professional vanilla CSS — featuring fluid scroll behaviors, intersection observers, glassmorphic UI components, and a custom **AI Twin RAG Terminal Console**.
+A **premium, highly interactive personal portfolio** application showcasing a futuristic cyber-console design. Built with **Streamlit** and powered by professional vanilla CSS — featuring fluid scroll behaviors, intersection observers, and glassmorphic UI components.
 
 ---
 
 ## ✨ Features
-
-### 🤖 Ask My AI Twin Console
-An interactive developer-themed terminal mimicking a live **Retrieval-Augmented Generation (RAG)** engine.
-* **Intelligent Query Parser:** Employs high-precision fuzzy keyword matching and sequence metrics to locate portfolio details instantly.
-* **Developer Shell Commands:** Fully supports Unix-style console slash-commands:
-  * `/about` — Introduce Anis's professional objective
-  * `/skills` — Print technical stack inventory
-  * `/projects` — List engineered software systems
-  * `/certificates` (or `/certs`) — Output verified NVIDIA certificates registry
-  * `/cv` — Print direct resume Canva URL
-  * `/contact` — Display communications channels
-  * `/clear` — Flush console buffer
-  * `/help` — Print command registry
-* **Gemini LLM Failover:** Connects dynamically with **Google Gemini 1.5 Flash** if a `GEMINI_API_KEY` is provided.
-* **Suggested Prompts:** Includes fast-access click triggers to run prompt queries instantly.
-
----
 
 ### 🧭 7-Button Sticky Centered Navbar
 * A sticky navigation bar with **7 section buttons** all displayed on a single centered line: **🛠 Skills · 🎓 Education · 📜 Certs · 🚀 Projects · 🏆 Hackathons · 🌍 Languages · 📬 Contact**
@@ -67,7 +48,6 @@ An interactive developer-themed terminal mimicking a live **Retrieval-Augmented 
 ### 🎖️ Verified NVIDIA Certifications Registry
 * **Responsive 4-Column CSS Grid** displaying 8 professional NVIDIA Certificates of Competency.
 * **Instant Verification Redirects** — each card links directly to `learn.nvidia.com` for credential verification.
-* **AI Terminal Integration** — The AI Twin understands `/certificates` and `/certs` commands.
 
 ---
 
@@ -121,7 +101,6 @@ portfolio/
 ├── app.py              # Entrypoint — page config & section orchestration
 ├── sections.py         # Modular component renderers (Navbar, Hero, Hackathons, Languages, Contact, etc.)
 ├── styles.py           # Complete responsive stylesheet (dark glassmorphic theme, animations, mobile CSS)
-├── ai_agent.py         # Fuzzy intent parser & Google Gemini RAG twin engine
 ├── data.py             # Centralized data (profile, education, certs, projects, hackathons, languages)
 ├── utils.py            # Image optimization pipelines, circular masks & element wrappers
 ├── requirements.txt    # Python dependencies
@@ -154,24 +133,6 @@ pip install -r requirements.txt
 streamlit run app.py
 ```
 Opens at **`http://localhost:8501`** by default.
-
----
-
-## 🔑 Activating Live AI (Gemini LLM)
-To upgrade the **AI Twin Console** from local fuzzy search to a live Gemini conversational agent:
-
-1. Get a free API key from [Google AI Studio](https://aistudio.google.com/).
-2. Create `.streamlit/secrets.toml`:
-   ```toml
-   GEMINI_API_KEY = "your_actual_api_key_here"
-   ```
-3. Or export it in your shell:
-   ```bash
-   # Windows PowerShell
-   $env:GEMINI_API_KEY="your_api_key"
-   # Linux / macOS
-   export GEMINI_API_KEY="your_api_key"
-   ```
 
 ---
 

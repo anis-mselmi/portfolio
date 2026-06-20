@@ -29,7 +29,6 @@ from data import (
     KAGGLE_CERTIFICATES, HACKATHONS,
 )
 from utils import image_to_data_uri, section_title, section_start, section_end
-from ai_agent import get_ai_response
 
 
 # ─── Lottie Animation URLs ────────────────────────────────────────────────────
@@ -159,9 +158,9 @@ def _render_three_skill_charts() -> None:
         cat_sizes.append(round(avg))
 
     # Programming languages specifically
-    prog_names  = ["Python", "C++", "Jupyter"]
-    prog_scores = [95, 60, 80]
-    prog_colors = ["#57e0ff", "#ff6b8a", "#a78bfa"]
+    prog_names  = ["Python", "Java", "Jupyter"]
+    prog_scores = [95, 80, 80]
+    prog_colors = ["#57e0ff", "#f97316", "#a78bfa"]
 
     # ── Bar colors gradient (cyan → purple) ────────────────────────────────────
     bar_palette = [
@@ -535,7 +534,6 @@ def render_certificates() -> None:
                         <span><strong>Completed:</strong> {item['date']}</span>
                         <span><strong>Credential ID:</strong> <code style="color: var(--accent-2); font-size: 0.82rem;">{item['id']}</code></span>
                     </div>
-                    <div class="cert-chips">{chips_html}</div>
                     <a class="cert-btn" href="{item['url']}" target="_blank">🔗 Verify Credential</a>
                 </div>
             </div>
@@ -559,7 +557,7 @@ def render_certificates() -> None:
             chips_html = "".join([f"<span class='cert-chip'>{skill}</span>" for skill in item["skills"]])
 
             card_html = f"""
-            <div class="cert-card cert-fade-in brand-datacamp" style="--delay:{delay_ms}ms;">
+            <div class="cert-card cert-provider-card cert-fade-in brand-datacamp" style="--delay:{delay_ms}ms;">
                 <div class="cert-card-inner">
                     <div class="cert-head">
                         <svg class="cert-logo" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -574,7 +572,6 @@ def render_certificates() -> None:
                         <span><strong>Completed:</strong> {item['date']}</span>
                         <span><strong>Credential ID:</strong> <code style="color: var(--accent-2); font-size: 0.82rem;">{item['id']}</code></span>
                     </div>
-                    <div class="cert-chips">{chips_html}</div>
                     <a class="cert-btn" href="{item['url']}" target="_blank">🔗 Verify Credential</a>
                 </div>
             </div>
@@ -598,7 +595,7 @@ def render_certificates() -> None:
             chips_html = "".join([f"<span class='cert-chip'>{skill}</span>" for skill in item["skills"]])
 
             card_html = f"""
-            <div class="cert-card cert-fade-in brand-kaggle" style="--delay:{delay_ms}ms;">
+            <div class="cert-card cert-provider-card cert-fade-in brand-kaggle" style="--delay:{delay_ms}ms;">
                 <div class="cert-card-inner">
                     <div class="cert-head">
                         <svg class="cert-logo" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
@@ -613,7 +610,6 @@ def render_certificates() -> None:
                         <span><strong>Completed:</strong> {item['date']}</span>
                         <span><strong>Credential ID:</strong> <code style="color: var(--accent-2); font-size: 0.82rem;">{item['id']}</code></span>
                     </div>
-                    <div class="cert-chips">{chips_html}</div>
                     <a class="cert-btn" href="{item['url']}" target="_blank">🔗 Verify Credential</a>
                 </div>
             </div>
@@ -1022,172 +1018,6 @@ def parse_markdown_to_html(text: str) -> str:
     html = html.replace("\n", "<br>")
     return html
 
-
-def render_ai_console() -> None:
-    section_start("ai-agent")
-    # Handle streaming: if a pending stream exists, reveal one word at a time per rerun
-    import time
-    if st.session_state.get("_stream_pending"):
-        full = st.session_state["_stream_pending"]
-        if st.session_state.terminal_history and st.session_state.terminal_history[-1]["role"] == "agent":
-            current = st.session_state.terminal_history[-1]["content"]
-            words = full.split()
-            already = len(current.split()) if current.strip() else 0
-            # Reveal 6 words per rerun for smooth effect
-            next_words = words[:already + 6]
-            new_content = " ".join(next_words)
-            st.session_state.terminal_history[-1]["content"] = new_content
-            if len(next_words) < len(words):
-                time.sleep(0.04)
-                st.rerun()
-            else:
-                del st.session_state["_stream_pending"]
-    section_title("Ask My AI Twin", "🤖")
-    st.caption("Interact with a simulated local RAG console trained on my academic background and engineering projects.")
-
-    # Initialize session state variables
-    if "terminal_history" not in st.session_state:
-        st.session_state.terminal_history = [
-            {"role": "system", "content": "Welcome to Anis's Agentic Console [Version 1.0.5]\nInitializing RAG semantic intent scanner...\nSystem ready. Try entering a query, choosing a prompt below, or type /help!"}
-        ]
-    # Single persona — always twin
-    st.session_state.ai_persona = "twin"
-
-    # Determine API connection state
-    import os
-    has_api = os.environ.get("GEMINI_API_KEY")
-    if not has_api:
-        try:
-            has_api = st.secrets.get("GEMINI_API_KEY") or st.secrets.get("gemini_api_key")
-        except Exception:
-            pass
-
-    api_status_text = "● API ONLINE" if has_api else "● COSIM LOCAL ACTIVE"
-    api_status_class = "status-online" if has_api else "status-local"
-    is_streaming = bool(st.session_state.get("_stream_pending"))
-
-    # Build terminal HTML
-    terminal_html = f"""
-    <div class="terminal-window">
-        <div class="terminal-header">
-            <div class="terminal-dots">
-                <span class="terminal-dot dot-red"></span>
-                <span class="terminal-dot dot-yellow"></span>
-                <span class="terminal-dot dot-green"></span>
-            </div>
-            <div class="terminal-title">RAG Engine: Cosine Sim Scorer</div>
-            <div class="terminal-badges">
-                <span class="terminal-badge {api_status_class}">{api_status_text}</span>
-                <span class="terminal-badge badge-mode">🤖 AI TWIN</span>
-            </div>
-        </div>
-        <div class="terminal-body" id="terminal-body">
-    """
-
-    for idx, msg in enumerate(st.session_state.terminal_history):
-        is_last = idx == len(st.session_state.terminal_history) - 1
-        content_html = parse_markdown_to_html(msg["content"])
-        cursor = '<span class="terminal-cursor">&#x258C;</span>' if (is_streaming and is_last and msg["role"] == "agent") else ""
-        if msg["role"] == "system":
-            terminal_html += f'<div class="terminal-row"><span class="terminal-prompt">[sys]:</span> <span style="color:#b9cae0;">{content_html}</span></div>'
-        elif msg["role"] == "user":
-            terminal_html += f'<div class="terminal-row"><span class="terminal-user">[visitor@lobby]:$</span> <span style="color:#57e0ff; font-weight:bold;">{content_html}</span></div>'
-        else:
-            terminal_html += f'<div class="terminal-row"><span class="terminal-prompt" style="color:#a6e22e;">[anis-ai]:$</span> <span class="terminal-output">{content_html}{cursor}</span></div>'
-
-    terminal_html += """
-        </div>
-    </div>
-    <script>
-        setTimeout(() => {
-            const body = document.getElementById("terminal-body");
-            if (body) body.scrollTop = body.scrollHeight;
-        }, 80);
-
-        // Enter key to submit the terminal form
-        (function attachEnterKey() {
-            const tryAttach = () => {
-                const form = document.querySelector('[data-testid="stForm"]');
-                if (!form) { setTimeout(tryAttach, 300); return; }
-                const input = form.querySelector('input[type="text"]');
-                if (!input || input._enterBound) return;
-                input._enterBound = true;
-                input.addEventListener("keydown", (e) => {
-                    if (e.key === "Enter" && !e.shiftKey) {
-                        e.preventDefault();
-                        const btn = form.querySelector('button[type="submit"]');
-                        if (btn) btn.click();
-                    }
-                });
-            };
-            tryAttach();
-        })();
-
-        // Mechanical keyclick sound via Web Audio API
-        (function attachSound() {
-            const tryAttach = () => {
-                const form = document.querySelector('[data-testid="stForm"]');
-                if (!form) { setTimeout(tryAttach, 300); return; }
-                const btn = form.querySelector('button[type="submit"]');
-                if (!btn || btn._soundBound) return;
-                btn._soundBound = true;
-                btn.addEventListener("click", () => {
-                    try {
-                        const ctx = new (window.AudioContext || window.webkitAudioContext)();
-                        const buf = ctx.createBuffer(1, ctx.sampleRate * 0.04, ctx.sampleRate);
-                        const data = buf.getChannelData(0);
-                        for (let i = 0; i < data.length; i++) {
-                            data[i] = (Math.random() * 2 - 1) * Math.exp(-i / (ctx.sampleRate * 0.005));
-                        }
-                        const src = ctx.createBufferSource();
-                        src.buffer = buf;
-                        const gain = ctx.createGain();
-                        gain.gain.setValueAtTime(0.18, ctx.currentTime);
-                        gain.gain.exponentialRampToValueAtTime(0.001, ctx.currentTime + 0.04);
-                        src.connect(gain);
-                        gain.connect(ctx.destination);
-                        src.start();
-                    } catch(e) {}
-                });
-            };
-            tryAttach();
-        })();
-    </script>
-    """
-
-    st.markdown(terminal_html, unsafe_allow_html=True)
-
-    # Terminal input form
-    with st.form("terminal_input_form", clear_on_submit=True):
-        col_input, col_btn = st.columns([5, 1])
-        with col_input:
-            user_query = st.text_input("Enter command or question...", placeholder="e.g., /help, /skills, /projects, or ask anything...", label_visibility="collapsed")
-        with col_btn:
-            submit_btn = st.form_submit_button("💻 Send", use_container_width=True)
-
-        if submit_btn and user_query:
-            query_str = user_query.strip()
-            if query_str.lower() == "/clear":
-                st.session_state.terminal_history = [
-                    {"role": "system", "content": "Welcome to Anis's Agentic Console [Version 1.0.5]\nConsole buffer cleared.\nSystem ready."}
-                ]
-                st.rerun()
-            else:
-                st.session_state.terminal_history.append({"role": "user", "content": query_str})
-                response = get_ai_response(query_str, "twin")
-                st.session_state.terminal_history.append({"role": "agent", "content": ""})
-                st.session_state["_stream_pending"] = response
-                st.rerun()
-
-    # Clear console button
-    if st.button("🧹 Clear Terminal Console", key="clear_terminal"):
-        st.session_state.terminal_history = [
-            {"role": "system", "content": "Welcome to Anis's Agentic Console [Version 1.0.5]\nInitializing RAG semantic intent scanner...\nSystem ready. Try entering a query, choosing a prompt below, or type /help!"}
-        ]
-        st.rerun()
-
-        
-    section_end()
 
 
 def render_visitor_badge() -> None:
