@@ -41,7 +41,6 @@ A **premium, highly interactive personal portfolio** application showcasing a fu
 ### 🎓 Structured Education Timeline
 * **Glassmorphic Cards:** 3-column glassmorphism layout with `backdrop-filter: blur(12px)`, animated glowing borders on hover.
 * **Header Badges:** Circular emoji badges with hover rotation and pill date badges.
-* **Direct PDF CV Download:** Local PDF encoded in base64 and served directly to the browser.
 
 ---
 
@@ -52,8 +51,9 @@ A **premium, highly interactive personal portfolio** application showcasing a fu
 ---
 
 ### 🚀 Projects Grid
-* Multi-column display of core engineering projects with project image cards, tech-stack tags, and GitHub links.
-* **NovaChess** project features a custom chess board image (`assets/images/projects/chess.png`).
+* Multi-column display of core engineering projects with full-bleed image cards, tech-stack tags, and clickable GitHub links.
+* **Each project card is a direct link** — clicking anywhere on a card opens its repository in a new tab.
+* Featured projects: **SmartPark** (ALPR parking), **Dewejen** (stock management), **Coffee Recipe App** (brew ratio calculator), **Classificateur de type de pizza** (scikit-learn classifier), and **NexusCapteurs** (Java IoT sensor backend).
 
 ---
 
@@ -105,11 +105,9 @@ portfolio/
 ├── utils.py            # Image optimization pipelines, circular masks & element wrappers
 ├── requirements.txt    # Python dependencies
 └── assets/
-    ├── CV de Anis Mselmi.pdf          # PDF Resume (base64-served for download)
     └── images/
         ├── profile/                   # Hero photo, banner
-        ├── projects/
-        │   └── chess.png              # NovaChess project image
+        ├── projects/                  # Project card images (SmartPark, Dewejen, Coffee Recipe App, Pizza Classifier, NexusCapteurs)
         └── hackathons/                # IEEE & competition event photos
 ```
 
@@ -146,7 +144,7 @@ The codebase is **fully modular** and easy to adapt:
 | `styles.py` | Colors, glow effects, grids, animations, mobile breakpoints |
 | `sections.py` | Layout of every section, HTML structure |
 | `app.py` | Section order, page config |
-| `assets/` | Images, CV PDF |
+| `assets/` | Profile, project & hackathon images |
 
 ---
 

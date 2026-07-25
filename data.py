@@ -173,19 +173,13 @@ SKILLS_BY_CATEGORY = {
 
 PROJECTS = [
     {
-        "name": "BurgerDash",
-        "desc": "A fast-paced 2D restaurant management game built with Pygame.",
-        "tags": ["Python", "Pygame", "Game"],
-        "image": "assets/images/projects/background.webp",
-        "fit": "cover",
-    },
-    {
         "name": "SmartPark",
         "desc": "Automates parking access by scanning car license plates.",
         "tags": ["AI", "Computer Vision", "ALPR"],
         "image": "assets/images/projects/smartpark.webp",
         "logo": "logo-restaurant-sentiment.svg",
         "fit": "cover",
+        "link": "https://github.com/anis-mselmi/SmartParkTN-D-tection-automatique-des-plaques-tunisiennes-ALPR-pour-parking",
     },
     {
         "name": "Dewejen",
@@ -194,13 +188,31 @@ PROJECTS = [
         "image": "assets/images/projects/dewejen.webp",
         "logo": "logo-dewejen.svg",
         "fit": "cover",
+        "link": "https://github.com/anis-mselmi/El-Dewejen",
     },
     {
-        "name": "NovaChess",
-        "desc": "A local 2-player Python chess game with full move validation, piece rules, and an interactive graphical board.",
-        "tags": ["Python", "Chess", "Pygame", "Game"],
-        "image": "assets/images/projects/chess.png",
+        "name": "Coffee Recipe App",
+        "desc": "A simple, precise app to calculate the ideal coffee-to-water ratios for your brew.",
+        "tags": ["Java", "UI"],
+        "image": "assets/images/projects/coffee_recipe.png",
         "fit": "cover",
+        "link": "https://github.com/anis-mselmi/Coffee-Recipe-App",
+    },
+    {
+        "name": "Classificateur de type de pizza",
+        "desc": "Classifies pizza type from its features (ingredients, size, price, dough…) using scikit-learn.",
+        "tags": ["Python", "scikit-learn", "ML"],
+        "image": "assets/images/projects/pizza_classifier.png",
+        "fit": "cover",
+        "link": "https://github.com/anis-mselmi/Classificateur-de-type-de-pizza",
+    },
+    {
+        "name": "NexusCapteurs",
+        "desc": "Java backend for IoT sensor management and monitoring — data collection, anomaly detection, and a REST API.",
+        "tags": ["Java", "IoT", "REST API"],
+        "image": "assets/images/projects/nexuscapteurs.png",
+        "fit": "cover",
+        "link": "https://github.com/anis-mselmi/NexusCapteurs",
     },
 ]
 
