@@ -449,7 +449,7 @@ export const HACKATHONS: Hackathon[] = [
   },
   {
     title: 'ideathon 4.0',
-    image: '/assets/images/hackathons/IMG_1453 (1).jpg',
+    image: '/assets/images/hackathons/ideathon.jpg',
     badge: 'Top 6',
     desc: 'Led a team of 4 to build an automated sorting machine prototype, winning the overall competition.',
     tags: ['Python', 'Computer Vision', 'Hardware', 'Team Lead'],

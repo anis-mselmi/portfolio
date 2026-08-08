@@ -3,7 +3,10 @@
   "private": true,
   "version": "2.0.0",
   "type": "module",
-  "description": "Cinematic personal portfolio of Anis Mselmi — React 18 + TypeScript + Vite",
+  "description": "Personal portfolio of Anis Mselmi — The Engineering Broadsheet · React 18 + TypeScript + Vite",
+  "engines": {
+    "node": ">=18"
+  },
   "scripts": {
     "dev": "vite",
     "build": "tsc -b && vite build",

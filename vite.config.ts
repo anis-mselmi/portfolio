@@ -1,16 +1,16 @@
 import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 
-// Minimal declaration so we can read an env override without pulling in @types/node.
+// Minimal declaration so we can read an optional local override without @types/node.
 declare const process: { env: Record<string, string | undefined> };
 
 // https://vite.dev/config/
 export default defineConfig({
   plugins: [react()],
   build: {
-    // C: is space-constrained on this machine, so emit the bundle to D:.
-    // Override with VITE_OUT_DIR for normal deployments.
-    outDir: process.env.VITE_OUT_DIR || 'D:/portfolio-build/dist',
+    // Standard Vite output — Vercel serves this. Set VITE_OUT_DIR only for a
+    // local out-of-tree build (e.g. a space-constrained system drive).
+    outDir: process.env.VITE_OUT_DIR || 'dist',
     emptyOutDir: true,
     sourcemap: false,
     chunkSizeWarningLimit: 1000,
