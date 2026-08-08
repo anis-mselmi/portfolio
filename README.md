@@ -1,152 +1,131 @@
-# 🌌 Anis Mselmi | Futuristic Portfolio
-
-[![Streamlit App](https://img.shields.io/badge/Streamlit-FF4B4B?style=for-the-badge&logo=Streamlit&logoColor=white)](https://streamlit.io)
-[![Python 3.10+](https://img.shields.io/badge/Python-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
-[![Mobile Ready](https://img.shields.io/badge/Mobile-Responsive-57e0ff?style=for-the-badge&logoColor=white)](#-mobile-responsive-design)
-
-> [!NOTE]
-> ### 🌐 Deployment & Hosting Details
-> * **Domain Name:** [https://anismselmi.me](https://anismselmi.me)
-> * **Render Host:** [https://anismselmi.onrender.com](https://anismselmi.onrender.com)
-> * **Streamlit Host:** [https://anis-mselmi-portfolio.streamlit.app/](https://anis-mselmi-portfolio.streamlit.app/)
-
-
-
-<p align="center">
-  <img src="assets/images/profile/hero.webp" alt="Anis Mselmi Profile" width="200" style="border-radius: 24px; border: 3px solid #7c9cff; box-shadow: 0 4px 25px rgba(124, 156, 255, 0.45); object-fit: cover;" />
-</p>
-
-A **premium, highly interactive personal portfolio** application showcasing a futuristic cyber-console design. Built with **Streamlit** and powered by professional vanilla CSS — featuring fluid scroll behaviors, intersection observers, and glassmorphic UI components.
-
----
-
-## ✨ Features
-
-### 🧭 7-Button Sticky Centered Navbar
-* A sticky navigation bar with **7 section buttons** all displayed on a single centered line: **🛠 Skills · 🎓 Education · 📜 Certs · 🚀 Projects · 🏆 Hackathons · 🌍 Languages · 📬 Contact**
-* Smooth scroll-to-section behavior with active-link highlighting via `IntersectionObserver`.
-* Horizontally scrollable on mobile — all buttons remain on one line.
-
----
-
-### 🛠️ Interactive Skills Showcase
-* **Skill Category Grid:** Structured glassmorphic cards with interactive hover animations and custom tech tags.
-* **Interactive Competence Charts:** 3 custom Plotly dark-themed charts side-by-side:
-  1. *Top Skills* — Horizontal bar chart with a cyan-to-purple gradient.
-  2. *Domain Mix* — Donut chart showing category distribution.
-  3. *Languages* — Vertical bar chart of programming language proficiencies.
-
----
-
-### 🎓 Structured Education Timeline
-* **Glassmorphic Cards:** 3-column glassmorphism layout with `backdrop-filter: blur(12px)`, animated glowing borders on hover.
-* **Header Badges:** Circular emoji badges with hover rotation and pill date badges.
-
----
-
-### 🎖️ Verified NVIDIA Certifications Registry
-* **Responsive 4-Column CSS Grid** displaying 8 professional NVIDIA Certificates of Competency.
-* **Instant Verification Redirects** — each card links directly to `learn.nvidia.com` for credential verification.
-
----
-
-### 🚀 Projects Grid
-* Multi-column display of core engineering projects with full-bleed image cards, tech-stack tags, and clickable GitHub links.
-* **Each project card is a direct link** — clicking anywhere on a card opens its repository in a new tab.
-* Featured projects: **SmartPark** (ALPR parking), **Dewejen** (stock management), **Coffee Recipe App** (brew ratio calculator), **Classificateur de type de pizza** (scikit-learn classifier), and **NexusCapteurs** (Java IoT sensor backend).
-
----
-
-### 🏆 Hackathon Wins
-* Dedicated **Hackathons** section showcasing competition achievements with event photos.
-* **Fixed-height cards** (325px) with prominent 160px event banner images.
-* Each card displays: event name, award badge (🥇 **Top 6**, etc.), organizer, date, and tech tags.
-* Gold-to-cyan gradient glassmorphic borders with animated hover lift effect.
-* **IEEE WIE ACT 4.0** properly featured alongside other IEEE congresses.
-
----
-
-### 🌍 Languages Section
-* **Glassmorphic language cards** with circular full-bleed flag images (Arabic, English, French, Saudi flag).
-* Language proficiency displayed with badge chips per card.
-* 2-column responsive grid layout (3-column on wide screens).
-
----
-
-### 📬 Premium Contact Section
-* **Two-column layout** — contact form on the left, Contact Details card on the right.
-* **Redesigned Contact Details Card:**
-  - Glassmorphic dark card with `backdrop-filter: blur(12px)`.
-  - Each contact row has a **color-coded glowing icon box** (blue for email, green for phone, red for location, LinkedIn blue, GitHub white).
-  - **Label + Value structure** — small muted label above the actual value.
-  - Smooth slide-right hover animation with border glow per row.
-  - Gradient accent underline below the "Contact Details" title.
-* **Contact Form** with direct email sending via SMTP and a mailto fallback.
-
----
-
-### 📱 Mobile Responsive Design
-* **Streamlit columns stay horizontal** on mobile — `stHorizontalBlock` is forced to `flex-direction: row` so the layout never stacks.
-* **Horizontally scrollable navbar** — all 7 buttons visible in a single swipeable strip.
-* **Hackathon / Project cards** maintain side-by-side layout with touch-friendly horizontal scroll.
-* **Language and Certificate grids** drop to 2-column on tablet, 1-column on very small screens.
-* Smooth scaling of typography (`h1`, `h2`, `h3`) and component sizes at 768px and 480px breakpoints.
-
----
-
-## 🗂️ Codebase Architecture
+<div align="center">
 
 ```
-portfolio/
-├── app.py              # Entrypoint — page config & section orchestration
-├── sections.py         # Modular component renderers (Navbar, Hero, Hackathons, Languages, Contact, etc.)
-├── styles.py           # Complete responsive stylesheet (dark glassmorphic theme, animations, mobile CSS)
-├── data.py             # Centralized data (profile, education, certs, projects, hackathons, languages)
-├── utils.py            # Image optimization pipelines, circular masks & element wrappers
-├── requirements.txt    # Python dependencies
-└── assets/
-    └── images/
-        ├── profile/                   # Hero photo, banner
-        ├── projects/                  # Project card images (SmartPark, Dewejen, Coffee Recipe App, Pizza Classifier, NexusCapteurs)
-        └── hackathons/                # IEEE & competition event photos
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+  T H E   E N G I N E E R I N G   B R O A D S H E E T
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 ```
+
+# Anis Mselmi<span>.</span>
+
+**Vol. I — Java Developer · AI-Engineering Student · RAG & LLM Enthusiast**
+
+*Sousse, Tunisia — A personal portfolio set as a printed periodical.*
+
+[![React 18](https://img.shields.io/badge/React_18-111111?style=flat-square&logo=react&logoColor=57e0ff)](https://react.dev)
+[![TypeScript](https://img.shields.io/badge/TypeScript-111111?style=flat-square&logo=typescript&logoColor=3178C6)](https://www.typescriptlang.org/)
+[![Vite](https://img.shields.io/badge/Vite-111111?style=flat-square&logo=vite&logoColor=dd3a1b)](https://vite.dev)
+[![Tailwind](https://img.shields.io/badge/Tailwind-111111?style=flat-square&logo=tailwindcss&logoColor=38bdf8)](https://tailwindcss.com)
+[![Motion](https://img.shields.io/badge/Framer_Motion-111111?style=flat-square&logo=framer&logoColor=ffffff)](https://www.framer.com/motion/)
+
+</div>
 
 ---
 
-## 🚀 Getting Started
+## ▍ Front Page
 
-### 1. Prerequisites
-Ensure you have **Python 3.10+** installed.
+A single-page portfolio built as an **editorial print newspaper** — warm newsprint
+paper, ink-black type, and a single sharp vermilion accent. It trades the usual
+dark-mode developer template for something with a point of view: high-contrast
+**Fraunces** headlines, hairline rules that draw themselves in, a running stack
+ticker, a halftone press portrait, and a credentials *ledger* instead of yet
+another card grid.
 
-### 2. Installation
-Clone the repository and install dependencies:
+> **Read it live →** [anismselmi.me](https://anismselmi.me)
+
+---
+
+## ▍ The Columns
+
+| № | Section | Treatment |
+|---|---------|-----------|
+| — | **Masthead / Lede** | Nameplate, dateline, drop-cap lede, halftone portrait, count-up stats |
+| 01 | **Fields of Expertise** | Skill index + a hand-built printed proficiency bar figure |
+| 02 | **Academic Record** | Dated study chronicle |
+| 03 | **On Assignment** | Professional posts + Bénévolat / IEEE service |
+| 04 | **Credentials Ledger** | Filterable table across NVIDIA · DataCamp · Kaggle |
+| 05 | **Featured Works** | Projects as feature articles → GitHub |
+| 06 | **Press Clippings** | Hackathon wins with award bylines |
+| 07 | **Languages** | Communication index |
+| 08 | **Letters to the Editor** | Contact desk + directory |
+
+---
+
+## ▍ Design Direction
+
+- **Palette** — newsprint paper `#f2eee4`, ink `#17130d`, one sharp vermilion `#dd3a1b` (dominant + accent, never a timid gradient).
+- **Type** — **Fraunces** (display serif) · **Archivo** (body) · **Space Mono** (labels & meta).
+- **Print detailing** — film-grain overlay, faint column rules, hairline dividers, halftone-dot portrait, grayscale→colour photo reveals, and brutalist hard-offset-shadow hovers.
+- **Motion** — Framer Motion reveals and drawing rules; fully responsive; honours `prefers-reduced-motion`.
+
+---
+
+## ▍ The Printing Press
+
+```
+React 18 · TypeScript · Vite · Tailwind CSS · Framer Motion · lucide-react · EmailJS
+```
+
+No chart library — the proficiency figure is hand-built CSS.
+
+---
+
+## ▍ Run the Presses
+
 ```bash
-git clone https://github.com/anis-mselmi/portfolio.git
-cd portfolio
-pip install -r requirements.txt
+npm install
+npm run dev        # http://localhost:5173
 ```
 
-### 3. Running the Portfolio
+Production build & preview:
+
 ```bash
-streamlit run app.py
+VITE_OUT_DIR=dist npm run build   # bundles to ./dist
+npm run preview
 ```
-Opens at **`http://localhost:8501`** by default.
 
 ---
 
-## 🛠️ Customization Guide
+## ▍ The Contact Desk (EmailJS)
 
-The codebase is **fully modular** and easy to adapt:
+The form works out of the box via a `mailto:` fallback. For real in-page sending,
+create a free [EmailJS](https://dashboard.emailjs.com) service + template, then copy
+`.env.example` → `.env`:
 
-| File | What to change |
-|---|---|
-| `data.py` | Profile info, projects, education, certs, hackathons, languages |
-| `styles.py` | Colors, glow effects, grids, animations, mobile breakpoints |
-| `sections.py` | Layout of every section, HTML structure |
-| `app.py` | Section order, page config |
-| `assets/` | Profile, project & hackathon images |
+```env
+VITE_EMAILJS_SERVICE_ID=your_service_id
+VITE_EMAILJS_TEMPLATE_ID=your_template_id
+VITE_EMAILJS_PUBLIC_KEY=your_public_key
+```
+
+Template fields: `from_name`, `reply_to`, `subject`, `message`, `to_email`.
 
 ---
 
-## 📄 License
-MIT — free to fork, adapt, and deploy as your own portfolio.
+## ▍ Editing the Copy
+
+All content is typed and lives in one place — **`src/data/content.ts`**
+(profile, about, education, experience, skills, projects, certifications,
+hackathons, languages). Theme tokens & fonts are in `tailwind.config.js` and
+`src/index.css` (`:root`).
+
+```
+src/
+├── main.tsx · App.tsx · index.css
+├── data/          # content.ts · types.ts  (single source of truth)
+├── hooks/         # active-section, scroll-progress, count-up, reduced-motion
+├── lib/           # utils · email · icons
+├── components/    # Background · Navbar · Ticker · SectionHeader · Stat · …
+└── sections/      # Hero · Skills · Education · Experience · Certifications
+                   # Projects · Hackathons · Languages · Contact · Footer
+```
+
+---
+
+<div align="center">
+
+**Colophon** — Set in Fraunces, Archivo & Space Mono. Built with React, TypeScript & Vite.
+
+*© Anis Mselmi · MIT License — fork it, reset the type, make it your own.*
+
+</div>

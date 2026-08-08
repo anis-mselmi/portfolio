@@ -1,5 +1,0 @@
-streamlit
-pillow
-plotly
-streamlit-lottie
-requests
