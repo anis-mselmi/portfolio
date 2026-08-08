@@ -1,22 +1,19 @@
 <div align="center">
 
-```
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-  T H E   E N G I N E E R I N G   B R O A D S H E E T
-━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
-```
+# 📰 The Engineering Broadsheet
+### Anis Mselmi • Portfolio Vol. I
 
-# Anis Mselmi<span>.</span>
+*Java Developer • AI Engineering Student • RAG & LLM Enthusiast*
 
-**Vol. I — Java Developer · AI-Engineering Student · RAG & LLM Enthusiast**
+Sousse, Tunisia
 
-*Sousse, Tunisia — A personal portfolio set as a printed periodical.*
+---
 
-[![React 18](https://img.shields.io/badge/React_18-111111?style=flat-square&logo=react&logoColor=57e0ff)](https://react.dev)
-[![TypeScript](https://img.shields.io/badge/TypeScript-111111?style=flat-square&logo=typescript&logoColor=3178C6)](https://www.typescriptlang.org/)
-[![Vite](https://img.shields.io/badge/Vite-111111?style=flat-square&logo=vite&logoColor=dd3a1b)](https://vite.dev)
-[![Tailwind](https://img.shields.io/badge/Tailwind-111111?style=flat-square&logo=tailwindcss&logoColor=38bdf8)](https://tailwindcss.com)
-[![Motion](https://img.shields.io/badge/Framer_Motion-111111?style=flat-square&logo=framer&logoColor=ffffff)](https://www.framer.com/motion/)
+[![React](https://img.shields.io/badge/React-18-61DAFB?style=for-the-badge&logo=react&logoColor=black)](https://react.dev)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5.x-3178C6?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Vite](https://img.shields.io/badge/Vite-6.x-646CFF?style=for-the-badge&logo=vite&logoColor=white)](https://vite.dev)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.x-38BDF8?style=for-the-badge&logo=tailwindcss&logoColor=white)](https://tailwindcss.com)
+[![Framer Motion](https://img.shields.io/badge/Framer_Motion-11.x-F024B6?style=for-the-badge&logo=framer&logoColor=white)](https://www.framer.com/motion/)
 
 </div>
 
@@ -24,73 +21,63 @@
 
 ## ▍ Front Page
 
-A single-page portfolio built as an **editorial print newspaper** — warm newsprint
-paper, ink-black type, and a single sharp vermilion accent. It trades the usual
-dark-mode developer template for something with a point of view: high-contrast
-**Fraunces** headlines, hairline rules that draw themselves in, a running stack
-ticker, a halftone press portrait, and a credentials *ledger* instead of yet
-another card grid.
+A unique single-page portfolio designed as an **editorial print newspaper**—featuring warm newsprint paper (`#f2eee4`), ink-black typography (`#17130d`), and a striking vermilion accent (`#dd3a1b`). 
 
-> **Read it live →** [anismselmi.me](https://anismselmi.me)
+It trades the standard dark-mode developer template for a curated aesthetic: high-contrast serif headlines (**Fraunces**), elegant self-drawing rules, a live ticker, a halftone press portrait, and a structured ledger for credentials.
 
 ---
 
 ## ▍ The Columns
 
-| № | Section | Treatment |
-|---|---------|-----------|
-| — | **Masthead / Lede** | Nameplate, dateline, drop-cap lede, halftone portrait, count-up stats |
-| 01 | **Fields of Expertise** | Skill index + a hand-built printed proficiency bar figure |
-| 02 | **Academic Record** | Dated study chronicle |
-| 03 | **On Assignment** | Professional posts + Bénévolat / IEEE service |
-| 04 | **Credentials Ledger** | Filterable table across NVIDIA · DataCamp · Kaggle |
-| 05 | **Featured Works** | Projects as feature articles → GitHub |
-| 06 | **Press Clippings** | Hackathon wins with award bylines |
-| 07 | **Languages** | Communication index |
-| 08 | **Letters to the Editor** | Contact desk + directory |
+| № | Section | Aesthetic & Technical Treatment |
+| :--- | :--- | :--- |
+| — | **Masthead / Lede** | Nameplate, dateline, drop-cap lede, halftone portrait, count-up statistics |
+| 01 | **Fields of Expertise** | Skill index with a custom hand-built CSS printed proficiency bar |
+| 02 | **Academic Record** | Chronological timeline of academic studies |
+| 03 | **On Assignment** | Professional experience, volunteer history, and IEEE service records |
+| 04 | **Credentials Ledger** | Filterable table showcasing NVIDIA, DataCamp, and Kaggle certifications |
+| 05 | **Featured Works** | Project showcase structured like feature articles with direct links |
+| 06 | **Press Clippings** | Hackathon wins highlighted with award bylines and press-style photos |
+| 07 | **Languages** | Multilingual proficiency levels |
+| 08 | **Letters to the Editor** | Fully interactive contact desk with direct messaging |
 
 ---
 
-## ▍ Design Direction
+## ▍ Design Aesthetics
 
-- **Palette** — newsprint paper `#f2eee4`, ink `#17130d`, one sharp vermilion `#dd3a1b` (dominant + accent, never a timid gradient).
-- **Type** — **Fraunces** (display serif) · **Archivo** (body) · **Space Mono** (labels & meta).
-- **Print detailing** — film-grain overlay, faint column rules, hairline dividers, halftone-dot portrait, grayscale→colour photo reveals, and brutalist hard-offset-shadow hovers.
-- **Motion** — Framer Motion reveals and drawing rules; fully responsive; honours `prefers-reduced-motion`.
-
----
-
-## ▍ The Printing Press
-
-```
-React 18 · TypeScript · Vite · Tailwind CSS · Framer Motion · lucide-react · EmailJS
-```
-
-No chart library — the proficiency figure is hand-built CSS.
+* **The Palette**: A bespoke color palette featuring a warm newsprint background (`#f2eee4`), deep ink type (`#17130d`), and a bold vermilion accent (`#dd3a1b`).
+* **Typography**: Beautiful contrast between **Fraunces** (display serif), **Archivo** (body), and **Space Mono** (meta/labels).
+* **Print Detailing**: Textured film-grain overlays, fine column dividers, custom halftone-dot rendering, and brutalist hard-offset shadows.
+* **Fluid Motion**: Handcrafted Framer Motion entry animations and SVG path-drawn borders. Fully responsive and respects `prefers-reduced-motion`.
 
 ---
 
-## ▍ Run the Presses
+## ▍ Local Setup & Run
 
+### 1. Run the Development Server
+Install dependencies and launch the local environment:
 ```bash
 npm install
-npm run dev        # http://localhost:5173
+npm run dev
 ```
+The server will start at `http://localhost:5173`.
 
-Production build & preview:
-
+### 2. Build for Production
+Bundle the optimized application:
 ```bash
-VITE_OUT_DIR=dist npm run build   # bundles to ./dist
+npm run build
 npm run preview
 ```
 
 ---
 
-## ▍ The Contact Desk (EmailJS)
+## ▍ The Contact Desk (EmailJS Setup)
 
-The form works out of the box via a `mailto:` fallback. For real in-page sending,
-create a free [EmailJS](https://dashboard.emailjs.com) service + template, then copy
-`.env.example` → `.env`:
+The contact form is configured to work out-of-the-box using a standard `mailto:` fallback. To enable instant, in-app email sending:
+
+1. Create a free account at [EmailJS](https://dashboard.emailjs.com).
+2. Configure a new Email Service and Email Template.
+3. Create a `.env` file in the root directory using `.env.example` as a template:
 
 ```env
 VITE_EMAILJS_SERVICE_ID=your_service_id
@@ -98,34 +85,41 @@ VITE_EMAILJS_TEMPLATE_ID=your_template_id
 VITE_EMAILJS_PUBLIC_KEY=your_public_key
 ```
 
-Template fields: `from_name`, `reply_to`, `subject`, `message`, `to_email`.
+> [!IMPORTANT]
+> The template should expect the following parameters: `from_name`, `reply_to`, `subject`, `message`, and `to_email`.
 
 ---
 
-## ▍ Editing the Copy
-
-All content is typed and lives in one place — **`src/data/content.ts`**
-(profile, about, education, experience, skills, projects, certifications,
-hackathons, languages). Theme tokens & fonts are in `tailwind.config.js` and
-`src/index.css` (`:root`).
+## ▍ Directory Structure
 
 ```
 src/
-├── main.tsx · App.tsx · index.css
-├── data/          # content.ts · types.ts  (single source of truth)
-├── hooks/         # active-section, scroll-progress, count-up, reduced-motion
-├── lib/           # utils · email · icons
-├── components/    # Background · Navbar · Ticker · SectionHeader · Stat · …
-└── sections/      # Hero · Skills · Education · Experience · Certifications
-                   # Projects · Hackathons · Languages · Contact · Footer
+├── main.tsx             # Application entrypoint
+├── App.tsx              # Component orchestration & layout
+├── index.css            # Custom CSS & design system overrides
+├── data/
+│   ├── content.ts       # Central content data (Single Source of Truth)
+│   └── types.ts         # TypeScript definitions
+├── hooks/
+│   ├── useActiveSection.ts
+│   ├── useCountUp.ts
+│   ├── usePrefersReducedMotion.ts
+│   └── useScrollProgress.ts
+├── lib/
+│   ├── email.ts         # EmailJS client wrapper
+│   ├── icons.tsx        # Styled SVG lucide-react overrides
+│   └── utils.ts         # Class merging helpers
+├── components/          # Reusable core layouts (Background, Ticker, VisitorBadge, etc.)
+└── sections/            # Component files for each section of the broadsheet
 ```
 
 ---
 
 <div align="center">
 
-**Colophon** — Set in Fraunces, Archivo & Space Mono. Built with React, TypeScript & Vite.
+**Colophon**
+*Set in Fraunces, Archivo & Space Mono. Powered by React, TypeScript & Vite.*
 
-*© Anis Mselmi · MIT License — fork it, reset the type, make it your own.*
+© Anis Mselmi • MIT License
 
 </div>
