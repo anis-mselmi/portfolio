@@ -35,7 +35,7 @@ The paper prints in **two editions** — English and French — switchable from 
 The entire broadsheet is bilingual. An editorial **`EN / FR`** pill in the masthead switches every headline, column, label, and byline between English and French.
 
 * **Single source of copy** — all translated content and UI strings live in `src/i18n/content.ts` via a `t(en, fr)` helper; components read them through the `useContent()` hook.
-* **English by default** — first-time visitors always land on the English edition; a manual switch is remembered on return visits (`localStorage`).
+* **English by default** — every visit always opens on the English edition; the toggle switches the language for the current session only and is not persisted across reloads.
 * **Language-neutral data** stays untouched — technical tags, proper nouns, certificate titles, and skill-level logic are never mistranslated.
 * **Live résumé** — the hero's accent button links to a read-only, always-current Google Drive CV that updates in place without a redeploy.
 

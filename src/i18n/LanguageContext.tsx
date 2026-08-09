@@ -2,8 +2,6 @@ import { createContext, useContext, useEffect, useState, type ReactNode } from '
 
 export type Lang = 'en' | 'fr';
 
-const KEY = 'am_lang';
-
 interface LangCtx {
   lang: Lang;
   setLang: (l: Lang) => void;
@@ -12,26 +10,12 @@ interface LangCtx {
 
 const Ctx = createContext<LangCtx | null>(null);
 
-function initialLang(): Lang {
-  try {
-    // Remember a returning visitor's manual choice; otherwise always start in English.
-    const stored = localStorage.getItem(KEY);
-    if (stored === 'en' || stored === 'fr') return stored;
-  } catch {
-    /* ignore */
-  }
-  return 'en';
-}
-
 export function LanguageProvider({ children }: { children: ReactNode }) {
-  const [lang, setLangState] = useState<Lang>(initialLang);
+  // Always start in English on every visit; the toggle only affects the current
+  // session and is intentionally not persisted across reloads.
+  const [lang, setLangState] = useState<Lang>('en');
 
   useEffect(() => {
-    try {
-      localStorage.setItem(KEY, lang);
-    } catch {
-      /* ignore */
-    }
     document.documentElement.lang = lang;
   }, [lang]);
 
