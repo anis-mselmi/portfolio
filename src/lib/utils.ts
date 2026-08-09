@@ -21,4 +21,5 @@ export const NAV_ITEMS = [
   { id: 'hackathons', label: 'Hackathons' },
   { id: 'languages', label: 'Languages' },
   { id: 'contact', label: 'Contact' },
+  { id: 'chess', label: 'Chess', href: '/chess.html' },
 ] as const;

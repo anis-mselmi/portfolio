@@ -84,4 +84,6 @@ export interface Hackathon {
   badge: string;
   desc: string;
   tags: string[];
+  /** CSS object-position for the cover image, e.g. 'top' or 'center 30%'. Defaults to center. */
+  pos?: string;
 }

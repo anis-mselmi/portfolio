@@ -374,8 +374,8 @@ function buildBundle(lang: Lang) {
       image: '/assets/images/hackathons/1765102509130.jpg',
       badge: t('Best Innovation', 'Meilleure innovation'),
       desc: t(
-        'Built a real-time smart parking locator app to reduce traffic congestion in urban areas.',
-        "Développement d'une application de localisation de parking intelligente en temps réel pour réduire les embouteillages urbains."
+        'Built a real-time smart parking locator app to reduce traffic congestion in urban areas. Entry was selective, through a competitive acceptance process.',
+        "Développement d'une application de localisation de parking intelligente en temps réel pour réduire les embouteillages urbains. L'accès était sélectif, via un processus d'acceptation compétitif."
       ),
       tags: ['Python', 'Computer Vision', 'IoT', 'Flask'],
     },
@@ -402,6 +402,7 @@ function buildBundle(lang: Lang) {
     {
       title: 'ideathon 4.0',
       image: '/assets/images/hackathons/ideathon.jpg',
+      pos: 'center 25%',
       badge: t('Top 6', 'Top 6'),
       desc: t(
         'Led a team of 4 to build an automated sorting machine prototype, winning the overall competition.',
@@ -421,6 +422,7 @@ function buildBundle(lang: Lang) {
       hackathons: t('Hackathons', 'Hackathons'),
       languages: t('Languages', 'Langues'),
       contact: t('Contact', 'Contact'),
+      chess: t('Chess', 'Échecs'),
     } as Record<string, string>,
     sections: {
       skills: {
@@ -487,8 +489,8 @@ function buildBundle(lang: Lang) {
       kicker3: t('AI Engineering', 'Ingénierie IA'),
       dateline: t('Sousse, Tunisia — Special Report', 'Sousse, Tunisie — Reportage spécial'),
       lede: t(
-        'A Java developer and AI-engineering student building robust backend services and intelligent AI systems — from RAG pipelines and conversational agents to Dockerized, CI/CD-driven deployments.',
-        "Développeur Java et étudiant en ingénierie IA, je construis des services back-end robustes et des systèmes d'IA intelligents — des pipelines RAG et agents conversationnels aux déploiements dockerisés pilotés par CI/CD."
+        'A Java developer and AI-engineering student building robust backend services and intelligent AI systems — from RAG pipelines and conversational agents to LLM-powered apps and ML models.',
+        "Développeur Java et étudiant en ingénierie IA, je construis des services back-end robustes et des systèmes d'IA intelligents — des pipelines RAG et agents conversationnels aux applications LLM et modèles de ML."
       ),
       cv: t('Résumé', 'Mon CV'),
       statCerts: t('Certs', 'Certifs'),
@@ -543,6 +545,8 @@ function buildBundle(lang: Lang) {
       dirEmail: t('Email', 'E-mail'),
       dirPhone: t('Telephone', 'Téléphone'),
       dirOffice: t('Bureau', 'Bureau'),
+      dirChess: t('Parlour', 'Salon de jeu'),
+      chessValue: t('Play a game of chess ▸', "Jouer une partie d'échecs ▸"),
       quote: t(
         '“Turning complex ideas into reliable systems, one build at a time.”',
         '« Transformer des idées complexes en systèmes fiables, une réalisation à la fois. »'

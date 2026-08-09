@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Mail, Phone, MapPin, Linkedin, Github } from 'lucide-react';
+import { Mail, Phone, MapPin, Linkedin, Github, Crown } from 'lucide-react';
 import { PROFILE } from '../data/content';
 import { SectionHeader } from '../components/SectionHeader';
 import { sendEmail, buildMailto, emailConfigured, type ContactPayload } from '../lib/email';
@@ -21,6 +21,7 @@ export function Contact() {
     { icon: MapPin, label: ui.contact.dirOffice, value: PROFILE.location },
     { icon: Linkedin, label: 'LinkedIn', value: 'Anis Mselmi', href: PROFILE.linkedin },
     { icon: Github, label: 'GitHub', value: '@anis-mselmi', href: PROFILE.github },
+    { icon: Crown, label: ui.contact.dirChess, value: ui.contact.chessValue, href: '/chess.html' },
   ];
 
   const set = (k: keyof ContactPayload) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) =>
@@ -120,7 +121,7 @@ export function Contact() {
                   </div>
                 );
                 return row.href ? (
-                  <a key={row.label} href={row.href} target={row.href.startsWith('http') ? '_blank' : undefined} rel="noreferrer" className="block">
+                  <a key={row.label} href={row.href} target={/^https?:|\.html$/.test(row.href) ? '_blank' : undefined} rel="noreferrer" className="block">
                     {content}
                   </a>
                 ) : (

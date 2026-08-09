@@ -29,6 +29,7 @@ export function Hackathons() {
                   src={assetUrl(item.image)}
                   alt={item.title}
                   loading="lazy"
+                  style={{ objectPosition: item.pos ?? 'center' }}
                   className="h-44 w-full object-cover grayscale transition-all duration-500 group-hover:grayscale-0 group-hover:scale-105"
                 />
                 <span className="absolute left-0 top-0 bg-accent px-2.5 py-1 font-mono text-xs font-bold uppercase tracking-wider text-paper">
