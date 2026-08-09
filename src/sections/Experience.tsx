@@ -1,20 +1,21 @@
 import { motion } from 'framer-motion';
-import { WORK_EXPERIENCE, VOLUNTEERING } from '../data/content';
 import { SectionHeader } from '../components/SectionHeader';
+import { useContent } from '../i18n/content';
 
 export function Experience() {
+  const { work, volunteering, ui } = useContent();
   return (
     <section id="experience" className="section">
       <div className="shell">
         <SectionHeader
           index="03"
-          title="On Assignment"
-          standfirst="Professional posts and field service — where the engineering meets the world."
+          title={ui.sections.experience.title}
+          standfirst={ui.sections.experience.standfirst}
         />
 
         {/* Professional experience */}
         <div className="border-t-2 border-ink">
-          {WORK_EXPERIENCE.map((job, i) => (
+          {work.map((job, i) => (
             <motion.article
               key={job.org}
               initial={{ opacity: 0, y: 16 }}
@@ -25,7 +26,7 @@ export function Experience() {
             >
               <div>
                 <div className="font-mono text-sm text-accent-deep">{job.period}</div>
-                <div className="meta mt-1">Position № {String(i + 1).padStart(2, '0')}</div>
+                <div className="meta mt-1">{ui.experience.position} {String(i + 1).padStart(2, '0')}</div>
               </div>
               <div>
                 <h3 className="headline text-2xl md:text-3xl">
@@ -55,12 +56,12 @@ export function Experience() {
         <div className="mt-12">
           <div className="mb-4 flex items-baseline gap-3">
             <h3 className="font-mono text-xs uppercase tracking-widest text-accent-deep">
-              Bénévolat — Community &amp; IEEE Service
+              {ui.experience.volunteerHeader}
             </h3>
             <hr className="rule-thin flex-1" />
           </div>
           <div className="grid gap-px border border-ink bg-ink sm:grid-cols-2 lg:grid-cols-3">
-            {VOLUNTEERING.map((v, i) => (
+            {volunteering.map((v, i) => (
               <motion.div
                 key={`${v.org}-${v.role}`}
                 initial={{ opacity: 0 }}

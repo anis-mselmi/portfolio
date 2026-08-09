@@ -1,19 +1,20 @@
 import { motion } from 'framer-motion';
-import { LANGUAGES } from '../data/content';
 import { SectionHeader } from '../components/SectionHeader';
+import { useContent } from '../i18n/content';
 
 export function Languages() {
+  const { languages, ui } = useContent();
   return (
     <section id="languages" className="section">
       <div className="shell">
         <SectionHeader
           index="07"
-          title="Languages"
-          standfirst="Communication across borders — for writing, collaboration, and presentation."
+          title={ui.sections.languages.title}
+          standfirst={ui.sections.languages.standfirst}
         />
 
         <div className="grid gap-px border border-ink bg-ink md:grid-cols-3">
-          {LANGUAGES.map((lang, i) => (
+          {languages.map((lang, i) => (
             <motion.div
               key={lang.name}
               initial={{ opacity: 0, y: 16 }}

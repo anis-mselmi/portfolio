@@ -1,21 +1,22 @@
 import { motion } from 'framer-motion';
 import { ArrowUpRight } from 'lucide-react';
-import { PROJECTS } from '../data/content';
 import { SectionHeader } from '../components/SectionHeader';
 import { assetUrl } from '../lib/utils';
+import { useContent } from '../i18n/content';
 
 export function Projects() {
+  const { projects, ui } = useContent();
   return (
     <section id="projects" className="section">
       <div className="shell">
         <SectionHeader
           index="05"
-          title="Featured Works"
-          standfirst="Selected engineering builds — computer vision, backend systems, and practical tooling."
+          title={ui.sections.projects.title}
+          standfirst={ui.sections.projects.standfirst}
         />
 
         <div className="grid gap-6 md:grid-cols-3">
-          {PROJECTS.map((project, i) => (
+          {projects.map((project, i) => (
             <motion.a
               key={project.name}
               href={project.link}
@@ -40,7 +41,7 @@ export function Projects() {
                 </span>
               </div>
               <div className="flex flex-1 flex-col p-4">
-                <div className="meta text-accent-deep">Repository № {String(i + 1).padStart(2, '0')}</div>
+                <div className="meta text-accent-deep">{ui.projects.dispatch} {String(i + 1).padStart(2, '0')}</div>
                 <h3 className="headline mt-1 text-2xl leading-tight">{project.name}</h3>
                 <p className="mt-2 flex-1 text-sm text-ink-soft">{project.desc}</p>
                 <div className="mt-4 flex flex-wrap gap-1.5">

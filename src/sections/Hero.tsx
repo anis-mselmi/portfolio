@@ -1,8 +1,7 @@
 import { motion } from 'framer-motion';
-import { Github, Linkedin, Mail, MapPin } from 'lucide-react';
+import { Github, Linkedin, MapPin, FileText } from 'lucide-react';
 import {
   PROFILE,
-  ABOUT,
   HACKATHONS,
   NVIDIA_CERTIFICATES,
   DATACAMP_CERTIFICATES,
@@ -11,17 +10,12 @@ import {
 import { assetUrl } from '../lib/utils';
 import { Stat } from '../components/Stat';
 import { VisitorBadge } from '../components/VisitorBadge';
+import { useContent } from '../i18n/content';
+import { useLang } from '../i18n/LanguageContext';
 
 const HERO_IMG = assetUrl('/assets/images/profile/anis.jpg');
 const TOTAL_CERTS =
   NVIDIA_CERTIFICATES.length + DATACAMP_CERTIFICATES.length + KAGGLE_CERTIFICATES.length;
-
-const EDITION_DATE = new Date().toLocaleDateString('en-US', {
-  weekday: 'long',
-  year: 'numeric',
-  month: 'long',
-  day: 'numeric',
-});
 
 const fade = (delay: number) => ({
   initial: { opacity: 0, y: 16 },
@@ -30,13 +24,22 @@ const fade = (delay: number) => ({
 });
 
 export function Hero() {
+  const { lang } = useLang();
+  const { about, ui } = useContent();
+  const editionDate = new Date().toLocaleDateString(lang === 'fr' ? 'fr-FR' : 'en-US', {
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  });
+
   return (
     <header id="hero" className="section !pt-8">
       <div className="shell">
         {/* Folio / dateline */}
         <motion.div {...fade(0)} className="flex flex-wrap items-center justify-between gap-2 pb-2">
-          <span className="meta">Vol. I · The Engineering Broadsheet</span>
-          <span className="meta hidden sm:inline">{EDITION_DATE}</span>
+          <span className="meta">{ui.hero.folio}</span>
+          <span className="meta hidden sm:inline">{editionDate}</span>
           <VisitorBadge />
         </motion.div>
         <hr className="rule-double" />
@@ -53,11 +56,11 @@ export function Hero() {
           {...fade(0.12)}
           className="mt-4 flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-center"
         >
-          <span className="kicker">Java Developer</span>
+          <span className="kicker">{ui.hero.kicker1}</span>
           <span className="text-accent">✦</span>
-          <span className="kicker">AI · RAG · LLM Engineer</span>
+          <span className="kicker">{ui.hero.kicker2}</span>
           <span className="text-accent">✦</span>
-          <span className="kicker">AI Engineering</span>
+          <span className="kicker">{ui.hero.kicker3}</span>
         </motion.div>
 
         <hr className="rule mt-5" />
@@ -66,12 +69,8 @@ export function Hero() {
         <div className="mt-8 grid gap-8 lg:grid-cols-[1.05fr_0.95fr]">
           {/* Left: editorial lede */}
           <motion.div {...fade(0.18)}>
-            <span className="meta">Sousse, Tunisia — Special Report</span>
-            <p className="lede dropcap mt-3">
-              A Java developer and AI-engineering student building robust backend
-              services and intelligent AI systems — from RAG pipelines and conversational
-              agents to Dockerized, CI/CD-driven deployments.
-            </p>
+            <span className="meta">{ui.hero.dateline}</span>
+            <p className="lede dropcap mt-3">{ui.hero.lede}</p>
 
             <div className="mt-6 flex flex-wrap gap-3">
               <a href={PROFILE.github} target="_blank" rel="noreferrer" className="btn btn-solid">
@@ -81,22 +80,20 @@ export function Hero() {
                 <Linkedin size={16} /> LinkedIn
               </a>
               <a
-                href="#contact"
-                onClick={(e) => {
-                  e.preventDefault();
-                  document.getElementById('contact')?.scrollIntoView({ behavior: 'smooth' });
-                }}
+                href={PROFILE.cv}
+                target="_blank"
+                rel="noreferrer"
                 className="btn btn-accent"
               >
-                <Mail size={16} /> Correspond
+                <FileText size={16} /> {ui.hero.cv}
               </a>
             </div>
 
             {/* By the numbers */}
             <div className="mt-8 grid grid-cols-3 gap-4 border-t-2 border-ink pt-5">
-              <Stat end={TOTAL_CERTS} suffix="+" label="Certs" />
-              <Stat end={HACKATHONS.length} suffix="+" label="Wins" />
-              <Stat end={8} suffix="+" label="Projects" />
+              <Stat end={TOTAL_CERTS} suffix="+" label={ui.hero.statCerts} />
+              <Stat end={HACKATHONS.length} suffix="+" label={ui.hero.statWins} />
+              <Stat end={8} suffix="+" label={ui.hero.statProjects} />
             </div>
           </motion.div>
 
@@ -114,14 +111,14 @@ export function Hero() {
               <span className="flex items-center gap-1">
                 <MapPin size={11} /> {PROFILE.location.split(',')[0]}
               </span>
-              <span>Fig. 1 — The Developer</span>
+              <span>{ui.hero.figCaption}</span>
             </figcaption>
           </motion.figure>
         </div>
 
         {/* About briefs */}
         <div className="mt-12 grid gap-px border border-ink bg-ink sm:grid-cols-2 lg:grid-cols-4">
-          {ABOUT.slice(0, 8).map((item, i) => (
+          {about.slice(0, 8).map((item, i) => (
             <motion.div
               key={item.title}
               initial={{ opacity: 0 }}

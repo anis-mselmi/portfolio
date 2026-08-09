@@ -3,11 +3,14 @@ import { motion, AnimatePresence } from 'framer-motion';
 import { Menu, X } from 'lucide-react';
 import { NAV_ITEMS, cx } from '../lib/utils';
 import { useActiveSection } from '../hooks/useActiveSection';
+import { useContent } from '../i18n/content';
+import { LangToggle } from './LangToggle';
 
 const IDS = ['hero', ...NAV_ITEMS.map((i) => i.id)];
 
 /** Sticky editorial masthead bar (appears after scrolling past the nameplate). */
 export function Navbar() {
+  const { ui } = useContent();
   const active = useActiveSection(IDS);
   const [open, setOpen] = useState(false);
   const [shown, setShown] = useState(false);
@@ -21,8 +24,16 @@ export function Navbar() {
 
   const go = (id: string) => (e: React.MouseEvent) => {
     e.preventDefault();
-    document.getElementById(id)?.scrollIntoView({ behavior: 'smooth', block: 'start' });
     setOpen(false);
+    const el = document.getElementById(id);
+    if (!el) return;
+    // Land the section's heading just below the fixed navbar, accounting for
+    // both the navbar height and the section's own top padding.
+    const navH = document.querySelector('header.fixed')?.getBoundingClientRect().height ?? 0;
+    const style = getComputedStyle(el);
+    const padTop = parseFloat(style.paddingTop) || 0;
+    const top = el.getBoundingClientRect().top + window.scrollY - navH - 16 + padTop;
+    window.scrollTo({ top, behavior: 'smooth' });
   };
 
   return (
@@ -51,18 +62,22 @@ export function Navbar() {
                     active === item.id ? 'text-accent' : 'text-ink hover:text-accent'
                   )}
                 >
-                  <span className="text-muted">{String(i + 1).padStart(2, '0')}</span> {item.label}
+                  <span className="text-muted">{String(i + 1).padStart(2, '0')}</span> {ui.nav[item.id]}
                 </a>
               ))}
+              <LangToggle className="ml-1" />
             </nav>
 
-            <button
-              onClick={() => setOpen((v) => !v)}
-              className="border-1.5 border border-ink p-1.5 md:hidden"
-              aria-label="Menu"
-            >
-              {open ? <X size={18} /> : <Menu size={18} />}
-            </button>
+            <div className="flex items-center gap-2 md:hidden">
+              <LangToggle />
+              <button
+                onClick={() => setOpen((v) => !v)}
+                className="border-1.5 border border-ink p-1.5"
+                aria-label="Menu"
+              >
+                {open ? <X size={18} /> : <Menu size={18} />}
+              </button>
+            </div>
           </div>
 
           <AnimatePresence>
@@ -81,7 +96,7 @@ export function Navbar() {
                       onClick={go(item.id)}
                       className="py-2 font-mono text-xs uppercase tracking-widest"
                     >
-                      <span className="text-accent">{String(i + 1).padStart(2, '0')}</span> {item.label}
+                      <span className="text-accent">{String(i + 1).padStart(2, '0')}</span> {ui.nav[item.id]}
                     </a>
                   ))}
                 </div>

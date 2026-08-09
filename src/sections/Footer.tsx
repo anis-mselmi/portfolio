@@ -1,7 +1,9 @@
 import { Github, Linkedin, Mail, ArrowUp } from 'lucide-react';
 import { PROFILE } from '../data/content';
+import { useContent } from '../i18n/content';
 
 export function Footer() {
+  const { ui } = useContent();
   const year = new Date().getFullYear();
   return (
     <footer className="border-t-2 border-ink">
@@ -27,8 +29,7 @@ export function Footer() {
           <hr className="rule w-full" />
 
           <p className="meta">
-            Colophon — Set in Fraunces, Archivo &amp; Space Mono · Built with React, TypeScript &amp; Vite ·
-            © {year} {PROFILE.name}
+            {ui.footer.colophon} © {year} {PROFILE.name}
           </p>
         </div>
       </div>

@@ -9,6 +9,7 @@ export interface Profile {
   phone: string;
   github: string;
   linkedin: string;
+  cv: string;
 }
 
 export interface AboutItem {

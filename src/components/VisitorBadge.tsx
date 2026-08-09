@@ -1,4 +1,5 @@
 import { useEffect, useState } from 'react';
+import { useContent } from '../i18n/content';
 
 const SEED = 140;
 const KEY = 'am_visitor_count';
@@ -6,6 +7,7 @@ const SESSION_KEY = 'am_counted';
 
 /** "Circulation" counter, styled as a print run number. */
 export function VisitorBadge() {
+  const { ui } = useContent();
   const [count, setCount] = useState<number>(SEED);
 
   useEffect(() => {
@@ -25,7 +27,7 @@ export function VisitorBadge() {
 
   return (
     <span className="meta">
-      Circulation: <strong className="text-ink">{count.toLocaleString()}</strong>
+      {ui.hero.circulation} <strong className="text-ink">{count.toLocaleString()}</strong>
     </span>
   );
 }

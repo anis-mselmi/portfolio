@@ -14,6 +14,7 @@ Sousse, Tunisia
 [![Vite](https://img.shields.io/badge/Vite-6.x-646CFF?style=for-the-badge&logo=vite&logoColor=white)](https://vite.dev)
 [![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-3.x-38BDF8?style=for-the-badge&logo=tailwindcss&logoColor=white)](https://tailwindcss.com)
 [![Framer Motion](https://img.shields.io/badge/Framer_Motion-11.x-F024B6?style=for-the-badge&logo=framer&logoColor=white)](https://www.framer.com/motion/)
+[![Bilingual](https://img.shields.io/badge/Bilingual-EN_%2F_FR-dd3a1b?style=for-the-badge)](#-two-editions-enfr)
 
 </div>
 
@@ -25,17 +26,30 @@ A unique single-page portfolio designed as an **editorial print newspaper**—fe
 
 It trades the standard dark-mode developer template for a curated aesthetic: high-contrast serif headlines (**Fraunces**), elegant self-drawing rules, a live ticker, a halftone press portrait, and a structured ledger for credentials.
 
+The paper prints in **two editions** — English and French — switchable from a single masthead toggle, with a live link to the résumé.
+
+---
+
+## ▍ Two Editions (EN/FR)
+
+The entire broadsheet is bilingual. An editorial **`EN / FR`** pill in the masthead switches every headline, column, label, and byline between English and French.
+
+* **Single source of copy** — all translated content and UI strings live in `src/i18n/content.ts` via a `t(en, fr)` helper; components read them through the `useContent()` hook.
+* **English by default** — first-time visitors always land on the English edition; a manual switch is remembered on return visits (`localStorage`).
+* **Language-neutral data** stays untouched — technical tags, proper nouns, certificate titles, and skill-level logic are never mistranslated.
+* **Live résumé** — the hero's accent button links to a read-only, always-current Google Drive CV that updates in place without a redeploy.
+
 ---
 
 ## ▍ The Columns
 
 | № | Section | Aesthetic & Technical Treatment |
 | :--- | :--- | :--- |
-| — | **Masthead / Lede** | Nameplate, dateline, drop-cap lede, halftone portrait, count-up statistics |
+| — | **Masthead / Lede** | Nameplate, dateline, drop-cap lede, halftone portrait, count-up statistics, EN/FR toggle, live CV link |
 | 01 | **Fields of Expertise** | Skill index with a custom hand-built CSS printed proficiency bar |
 | 02 | **Academic Record** | Chronological timeline of academic studies |
 | 03 | **On Assignment** | Professional experience, volunteer history, and IEEE service records |
-| 04 | **Credentials Ledger** | Filterable table showcasing NVIDIA, DataCamp, and Kaggle certifications |
+| 04 | **Credentials Ledger** | Provider-tabbed table (NVIDIA · DataCamp · Kaggle) with per-issuer verification links |
 | 05 | **Featured Works** | Project showcase structured like feature articles with direct links |
 | 06 | **Press Clippings** | Hackathon wins highlighted with award bylines and press-style photos |
 | 07 | **Languages** | Multilingual proficiency levels |
@@ -98,8 +112,11 @@ src/
 ├── App.tsx              # Component orchestration & layout
 ├── index.css            # Custom CSS & design system overrides
 ├── data/
-│   ├── content.ts       # Central content data (Single Source of Truth)
+│   ├── content.ts       # Language-neutral data (profile, links, certificates)
 │   └── types.ts         # TypeScript definitions
+├── i18n/
+│   ├── LanguageContext.tsx  # EN/FR provider, persistence & default language
+│   └── content.ts           # Translated content + UI strings (useContent hook)
 ├── hooks/
 │   ├── useActiveSection.ts
 │   ├── useCountUp.ts
@@ -109,7 +126,7 @@ src/
 │   ├── email.ts         # EmailJS client wrapper
 │   ├── icons.tsx        # Styled SVG lucide-react overrides
 │   └── utils.ts         # Class merging helpers
-├── components/          # Reusable core layouts (Background, Ticker, VisitorBadge, etc.)
+├── components/          # Reusable core layouts (Navbar, LangToggle, Ticker, VisitorBadge, etc.)
 └── sections/            # Component files for each section of the broadsheet
 ```
 

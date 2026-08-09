@@ -3,6 +3,7 @@ import { motion } from 'framer-motion';
 import { CERT_PROVIDERS } from '../data/content';
 import { SectionHeader } from '../components/SectionHeader';
 import { cx } from '../lib/utils';
+import { useContent } from '../i18n/content';
 
 interface Row {
   title: string;
@@ -22,19 +23,20 @@ const ALL: Row[] = CERT_PROVIDERS.flatMap((p) =>
   }))
 );
 
-const FILTERS = ['All', ...CERT_PROVIDERS.map((p) => p.label)];
+const FILTERS = CERT_PROVIDERS.map((p) => p.label);
 
 export function Certifications() {
-  const [filter, setFilter] = useState('All');
-  const rows = filter === 'All' ? ALL : ALL.filter((r) => r.issuer === filter);
+  const { ui } = useContent();
+  const [filter, setFilter] = useState(FILTERS[0]);
+  const rows = ALL.filter((r) => r.issuer === filter);
 
   return (
     <section id="certificates" className="section">
       <div className="shell">
         <SectionHeader
           index="04"
-          title="Credentials Ledger"
-          standfirst="A verified registry of professional certifications. Every entry links to its issuer for authentication."
+          title={ui.sections.certificates.title}
+          standfirst={ui.sections.certificates.standfirst}
         />
 
         {/* Filter */}
@@ -49,7 +51,8 @@ export function Certifications() {
                 filter === f ? 'bg-ink text-paper' : 'bg-transparent hover:bg-paper-2'
               )}
             >
-              {f} <span className="opacity-60">({f === 'All' ? ALL.length : ALL.filter((r) => r.issuer === f).length})</span>
+              {f}{' '}
+              <span className="opacity-60">({ALL.filter((r) => r.issuer === f).length})</span>
             </button>
           ))}
         </div>
@@ -59,12 +62,12 @@ export function Certifications() {
           <table className="w-full min-w-[720px] border-collapse text-left">
             <thead>
               <tr className="border-b-2 border-ink bg-ink text-paper">
-                <th className="meta !text-paper px-3 py-2 w-10">№</th>
-                <th className="meta !text-paper px-3 py-2">Credential</th>
-                <th className="meta !text-paper px-3 py-2">Issuer</th>
-                <th className="meta !text-paper px-3 py-2">Focus</th>
-                <th className="meta !text-paper px-3 py-2">Date</th>
-                <th className="meta !text-paper px-3 py-2 text-right">Verify</th>
+                <th className="meta !text-paper px-3 py-2 w-10">{ui.certs.colNo}</th>
+                <th className="meta !text-paper px-3 py-2">{ui.certs.colCredential}</th>
+                <th className="meta !text-paper px-3 py-2">{ui.certs.colIssuer}</th>
+                <th className="meta !text-paper px-3 py-2">{ui.certs.colFocus}</th>
+                <th className="meta !text-paper px-3 py-2">{ui.certs.colDate}</th>
+                <th className="meta !text-paper px-3 py-2 text-right">{ui.certs.colVerify}</th>
               </tr>
             </thead>
             <tbody>
@@ -97,7 +100,7 @@ export function Certifications() {
                       rel="noreferrer"
                       className="link-underline font-mono text-xs uppercase tracking-widest text-accent-deep"
                     >
-                      Verify ▸
+                      {ui.certs.verify}
                     </a>
                   </td>
                 </motion.tr>

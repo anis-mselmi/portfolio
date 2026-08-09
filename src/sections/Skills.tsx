@@ -1,8 +1,8 @@
 import { motion } from 'framer-motion';
-import { SKILLS_BY_CATEGORY } from '../data/content';
 import type { Skill } from '../data/types';
 import { SectionHeader } from '../components/SectionHeader';
 import { Icon } from '../lib/icons';
+import { useContent } from '../i18n/content';
 
 const LEVEL_BLOCKS: Record<string, number> = {
   Expert: 4,
@@ -35,7 +35,7 @@ function Blocks({ level }: { level: string }) {
   );
 }
 
-function SkillEntry({ skill, i }: { skill: Skill; i: number }) {
+function SkillEntry({ skill, i, levelLabel }: { skill: Skill; i: number; levelLabel: string }) {
   return (
     <motion.div
       initial={{ opacity: 0, y: 14 }}
@@ -53,7 +53,7 @@ function SkillEntry({ skill, i }: { skill: Skill; i: number }) {
         </div>
         <Blocks level={skill.level} />
       </div>
-      <div className="meta mt-2">{skill.level}</div>
+      <div className="meta mt-2">{levelLabel}</div>
       <p className="mt-1 text-sm text-ink-soft">{skill.subtitle}</p>
       <div className="mt-3 flex flex-wrap gap-1.5">
         {skill.tags.slice(0, 3).map((t) => (
@@ -65,8 +65,9 @@ function SkillEntry({ skill, i }: { skill: Skill; i: number }) {
 }
 
 export function Skills() {
+  const { skillsByCategory, ui } = useContent();
   // flat top list for the proficiency figure
-  const top = Object.values(SKILLS_BY_CATEGORY)
+  const top = Object.values(skillsByCategory)
     .flat()
     .map((s) => ({ name: s.name, pct: LEVEL_PCT[s.level] ?? 60 }))
     .sort((a, b) => b.pct - a.pct)
@@ -77,14 +78,14 @@ export function Skills() {
       <div className="shell">
         <SectionHeader
           index="01"
-          title="Fields of Expertise"
-          standfirst="A working index of technical competencies, from AI systems to backend engineering."
+          title={ui.sections.skills.title}
+          standfirst={ui.sections.skills.standfirst}
         />
 
         <div className="grid gap-10 lg:grid-cols-[1.6fr_1fr]">
           {/* Skill index by category */}
           <div className="space-y-8">
-            {Object.entries(SKILLS_BY_CATEGORY).map(([category, items]) => (
+            {Object.entries(skillsByCategory).map(([category, items]) => (
               <div key={category}>
                 <div className="mb-3 flex items-baseline gap-3">
                   <h3 className="font-mono text-xs uppercase tracking-widest text-accent-deep">
@@ -94,7 +95,7 @@ export function Skills() {
                 </div>
                 <div className="grid gap-4 sm:grid-cols-2">
                   {items.map((skill, i) => (
-                    <SkillEntry key={skill.name} skill={skill} i={i} />
+                    <SkillEntry key={skill.name} skill={skill} i={i} levelLabel={ui.levels[skill.level]} />
                   ))}
                 </div>
               </div>
@@ -104,7 +105,7 @@ export function Skills() {
           {/* Proficiency figure — printed bar chart */}
           <figure className="print-card h-fit p-5 lg:sticky lg:top-24">
             <figcaption className="meta mb-4 border-b-2 border-ink pb-2">
-              Fig. 2 — Proficiency Index (%)
+              {ui.skills.fig}
             </figcaption>
             <div className="space-y-3">
               {top.map((s, i) => (

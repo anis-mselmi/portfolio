@@ -19,6 +19,8 @@ export const PROFILE: Profile = {
   phone: '+216 25 141 636',
   github: 'https://github.com/anis-mselmi',
   linkedin: 'https://www.linkedin.com/in/anis-mselmi-441b39326/',
+  // Read-only Google Drive view link. Edit the Doc in place — the link stays the same.
+  cv: 'https://docs.google.com/document/d/1xWY5GQe9aXmcVKnHEvEuuF1BacYiZBB_nB13NWiQdlg/preview',
 };
 
 export const ROLE_WORDS = [
@@ -104,7 +106,7 @@ export const EDUCATION: EducationItem[] = [
 // where marked — kept honest rather than invented.
 export const WORK_EXPERIENCE: ExperienceItem[] = [
   {
-    role: 'Summer Intern (Stagiaire Été)',
+    role: 'Summer Intern',
     org: 'Digicoser',
     period: 'Jul 2026 – Present',
     points: [
@@ -444,7 +446,7 @@ export const HACKATHONS: Hackathon[] = [
     title: 'IEEE Congress Challenge',
     image: '/assets/images/hackathons/1765748484658.jpg',
     badge: 'Special Prize',
-    desc: 'Pioneered a decentralized voting system prototype during the IEEE WIE ACT 4.0.',
+    desc: 'Built a full-stack app to help women in agriculture in Tunisia during the IEEE WIE ACT 4.0.',
     tags: ['Blockchain', 'Solidity', 'React', 'Node.js'],
   },
   {

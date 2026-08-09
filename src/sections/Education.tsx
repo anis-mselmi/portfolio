@@ -1,20 +1,21 @@
 import { motion } from 'framer-motion';
-import { EDUCATION } from '../data/content';
 import { SectionHeader } from '../components/SectionHeader';
 import { Icon } from '../lib/icons';
+import { useContent } from '../i18n/content';
 
 export function Education() {
+  const { education, ui } = useContent();
   return (
     <section id="education" className="section">
       <div className="shell">
         <SectionHeader
           index="02"
-          title="Academic Record"
-          standfirst="A dated chronicle of study — from science fundamentals to AI-focused engineering."
+          title={ui.sections.education.title}
+          standfirst={ui.sections.education.standfirst}
         />
 
         <div className="border-t-2 border-ink">
-          {EDUCATION.map((item, i) => (
+          {education.map((item, i) => (
             <motion.article
               key={item.title}
               initial={{ opacity: 0, y: 16 }}
