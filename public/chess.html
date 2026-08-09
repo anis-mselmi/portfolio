@@ -32,6 +32,11 @@
         display: flex;
         flex-direction: column;
         align-items: center;
+        /* Kill the mobile double-tap-to-zoom + 300ms tap delay so taps register
+           as moves instead of zooming the board. */
+        touch-action: manipulation;
+        -webkit-tap-highlight-color: transparent;
+        -webkit-text-size-adjust: 100%;
       }
       a { color: var(--accent-deep); }
       .mono { font-family: 'Space Mono', ui-monospace, 'Cascadia Code', monospace; }
@@ -91,10 +96,13 @@
         display: flex;
         align-items: center;
         justify-content: center;
-        font-size: min(11vw, 58px);
+        font-size: min(10vw, 58px);
         line-height: 1;
         cursor: pointer;
         transition: background 0.12s;
+        touch-action: manipulation;
+        -webkit-tap-highlight-color: transparent;
+        overflow: hidden;
       }
       .sq.light { background: var(--light); }
       .sq.dark { background: var(--dark); }
@@ -231,6 +239,23 @@
         cursor: pointer;
       }
       .promo .choices button:hover { background: var(--paper-2); }
+
+      /* ── Mobile: give the board the full width and let the panel sit
+         comfortably beneath it. ─────────────────────────────────────── */
+      @media (max-width: 640px) {
+        body { padding: 18px 10px 40px; }
+        .layout { gap: 18px; }
+        #board {
+          width: min(96vw, 460px);
+          height: min(96vw, 460px);
+          box-shadow: 5px 5px 0 rgba(23, 19, 13, 0.12);
+        }
+        .sq { font-size: min(11vw, 58px); }
+        .panel { width: min(96vw, 460px); padding: 16px; }
+        .row button.btn { padding: 11px 12px; font-size: 12px; }
+        select { font-size: 12px; padding: 8px 10px; }
+        header { margin-bottom: 16px; }
+      }
     </style>
   </head>
   <body>
