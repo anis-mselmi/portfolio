@@ -209,6 +209,55 @@
     border-color: var(--accent);
   }
 
+  /* ── Brand tiles: official logos, ink at rest → brand on hover ─ */
+  .brand-tile {
+    position: relative;
+    display: grid;
+    place-items: center;
+    width: 66px;
+    height: 66px;
+    color: var(--ink);
+    background: var(--card);
+    border: 1.5px solid var(--rule-strong);
+    transition: color 0.2s ease, border-color 0.2s ease, transform 0.2s ease,
+      box-shadow 0.2s ease;
+  }
+  .brand-tile:hover {
+    color: var(--brand, var(--accent));
+    border-color: var(--ink);
+    transform: translate(-3px, -3px);
+    box-shadow: 4px 4px 0 var(--ink);
+  }
+  .brand-tile svg {
+    width: 30px;
+    height: 30px;
+    fill: currentColor;
+    transition: transform 0.2s ease;
+  }
+  .brand-tile:hover svg {
+    transform: scale(1.08);
+  }
+  /* Skill name printed on hover, like a caption */
+  .brand-tile > .brand-name {
+    position: absolute;
+    left: 50%;
+    top: calc(100% + 6px);
+    transform: translateX(-50%);
+    white-space: nowrap;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.6rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--muted);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.2s ease;
+    z-index: 5;
+  }
+  .brand-tile:hover > .brand-name {
+    opacity: 1;
+  }
+
   /* ── Editorial link underline ──────────────────────────────── */
   .link-underline {
     background-image: linear-gradient(var(--accent), var(--accent));

@@ -1,77 +1,118 @@
 import { motion } from 'framer-motion';
-import type { Skill } from '../data/types';
+import {
+  // Languages
+  siPython,
+  siCplusplus,
+  siC,
+  siOpenjdk,
+  siJavascript,
+  siTypescript,
+  // AI / ML / DL
+  siScikitlearn,
+  siPytorch,
+  siTensorflow,
+  siKeras,
+  siOpencv,
+  siSpacy,
+  siNvidia,
+  siHuggingface,
+  siLangchain,
+  siGooglegemini,
+  siOllama,
+  siGradio,
+  siWeightsandbiases,
+  siMlflow,
+  siQdrant,
+  siSelenium,
+  // Data
+  siNumpy,
+  siPandas,
+  siPlotly,
+  siApachespark,
+  siApachehadoop,
+  siApacheairflow,
+  siDvc,
+  siKaggle,
+  // Notebooks / envs
+  siJupyter,
+  siAnaconda,
+  siGooglecolab,
+  // Backend / web
+  siSpringboot,
+  siFastapi,
+  siFlask,
+  siDjango,
+  siNodedotjs,
+  siReact,
+  siStreamlit,
+  siVite,
+  // Databases
+  siMysql,
+  siPostgresql,
+  siMongodb,
+  siRedis,
+  siSqlite,
+  // DevOps / cloud
+  siDocker,
+  siKubernetes,
+  siGit,
+  siGithub,
+  siGitlab,
+  siLinux,
+  siUbuntu,
+  siGooglecloud,
+  siFirebase,
+  siGrafana,
+  siPrometheus,
+  // Tools / IDEs
+  siPycharm,
+  siIntellijidea,
+  siPostman,
+  siJira,
+  siHtml5,
+  type SimpleIcon,
+} from 'simple-icons';
 import { SectionHeader } from '../components/SectionHeader';
-import { Icon } from '../lib/icons';
 import { useContent } from '../i18n/content';
 
-const LEVEL_BLOCKS: Record<string, number> = {
-  Expert: 4,
-  Advanced: 3,
-  Intermediate: 2,
-  Beginner: 1,
-};
-const LEVEL_PCT: Record<string, number> = {
-  Expert: 96,
-  Advanced: 80,
-  Intermediate: 60,
-  Beginner: 35,
-};
+/** Ordered set of official brand logos (Simple Icons) — only tools with a logo. */
+const TOOLS: SimpleIcon[] = [
+  siPython, siCplusplus, siC, siOpenjdk, siJavascript, siTypescript,
+  siScikitlearn, siPytorch, siTensorflow, siKeras, siOpencv, siSpacy,
+  siNvidia, siHuggingface, siLangchain, siGooglegemini, siOllama, siGradio,
+  siWeightsandbiases, siMlflow, siQdrant, siSelenium,
+  siNumpy, siPandas, siPlotly, siApachespark, siApachehadoop, siApacheairflow,
+  siDvc, siKaggle,
+  siJupyter, siAnaconda, siGooglecolab,
+  siSpringboot, siFastapi, siFlask, siDjango, siNodedotjs, siReact, siStreamlit, siVite,
+  siMysql, siPostgresql, siMongodb, siRedis, siSqlite,
+  siDocker, siKubernetes, siGit, siGithub, siGitlab, siLinux, siUbuntu,
+  siGooglecloud, siFirebase, siGrafana, siPrometheus,
+  siPycharm, siIntellijidea, siPostman, siJira, siHtml5,
+];
 
-function Blocks({ level }: { level: string }) {
-  const n = LEVEL_BLOCKS[level] ?? 2;
-  return (
-    <span className="inline-flex gap-1" aria-label={level}>
-      {[0, 1, 2, 3].map((i) => (
-        <span
-          key={i}
-          className="inline-block h-2.5 w-2.5"
-          style={{
-            background: i < n ? 'var(--accent)' : 'transparent',
-            border: '1px solid var(--ink)',
-          }}
-        />
-      ))}
-    </span>
-  );
-}
-
-function SkillEntry({ skill, i, levelLabel }: { skill: Skill; i: number; levelLabel: string }) {
+function BrandTile({ icon, delay }: { icon: SimpleIcon; delay: number }) {
   return (
     <motion.div
-      initial={{ opacity: 0, y: 14 }}
+      initial={{ opacity: 0, y: 12 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: '0px 0px -8% 0px' }}
-      transition={{ duration: 0.4, delay: (i % 3) * 0.05 }}
-      className="flat-cell flex flex-col p-4"
+      viewport={{ once: true, margin: '0px 0px -4% 0px' }}
+      transition={{ duration: 0.32, delay, ease: [0.22, 1, 0.36, 1] }}
+      className="brand-tile"
+      style={{ ['--brand' as string]: `#${icon.hex}` }}
+      title={icon.title}
+      aria-label={icon.title}
     >
-      <div className="flex items-start justify-between gap-2">
-        <div className="flex items-center gap-2.5">
-          <span className="grid h-9 w-9 shrink-0 place-items-center border border-ink bg-paper text-ink">
-            <Icon name={skill.icon} size={18} />
-          </span>
-          <span className="headline text-lg leading-tight">{skill.name}</span>
-        </div>
-        <Blocks level={skill.level} />
-      </div>
-      <div className="meta mt-2">{levelLabel}</div>
-      <p className="mt-1 text-sm text-ink-soft">{skill.subtitle}</p>
-      <div className="mt-3 flex flex-wrap gap-1.5">
-        {skill.tags.slice(0, 3).map((t) => (
-          <span key={t} className="tag">{t}</span>
-        ))}
-      </div>
+      <svg role="img" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+        <path d={icon.path} />
+      </svg>
+      <span className="brand-name">{icon.title}</span>
     </motion.div>
   );
 }
 
 export function Skills() {
-  const { skillsByCategory, ui } = useContent();
-  // flat top list for the proficiency figure
-  const top = Object.values(skillsByCategory)
-    .flat()
-    .map((s) => ({ name: s.name, pct: LEVEL_PCT[s.level] ?? 60 }))
-    .sort((a, b) => b.pct - a.pct)
-    .slice(0, 8);
+  const { ui } = useContent();
 
   return (
     <section id="skills" className="section">
@@ -82,52 +123,11 @@ export function Skills() {
           standfirst={ui.sections.skills.standfirst}
         />
 
-        <div className="grid gap-10 lg:grid-cols-[1.6fr_1fr]">
-          {/* Skill index by category */}
-          <div className="space-y-8">
-            {Object.entries(skillsByCategory).map(([category, items]) => (
-              <div key={category}>
-                <div className="mb-3 flex items-baseline gap-3">
-                  <h3 className="font-mono text-xs uppercase tracking-widest text-accent-deep">
-                    {category}
-                  </h3>
-                  <hr className="rule-thin flex-1" />
-                </div>
-                <div className="grid gap-4 sm:grid-cols-2">
-                  {items.map((skill, i) => (
-                    <SkillEntry key={skill.name} skill={skill} i={i} levelLabel={ui.levels[skill.level]} />
-                  ))}
-                </div>
-              </div>
-            ))}
-          </div>
-
-          {/* Proficiency figure — printed bar chart */}
-          <figure className="print-card h-fit p-5 lg:sticky lg:top-24">
-            <figcaption className="meta mb-4 border-b-2 border-ink pb-2">
-              {ui.skills.fig}
-            </figcaption>
-            <div className="space-y-3">
-              {top.map((s, i) => (
-                <div key={s.name}>
-                  <div className="flex items-baseline justify-between">
-                    <span className="font-mono text-xs">{s.name}</span>
-                    <span className="font-mono text-xs text-muted">{s.pct}</span>
-                  </div>
-                  <div className="mt-1 h-3 w-full border border-ink bg-paper">
-                    <motion.div
-                      className="h-full bg-ink"
-                      initial={{ width: 0 }}
-                      whileInView={{ width: `${s.pct}%` }}
-                      viewport={{ once: true }}
-                      transition={{ duration: 0.8, delay: i * 0.06, ease: [0.22, 1, 0.36, 1] }}
-                      style={{ background: i === 0 ? 'var(--accent)' : 'var(--ink)' }}
-                    />
-                  </div>
-                </div>
-              ))}
-            </div>
-          </figure>
+        {/* Official logos, centered and fitted into one grid */}
+        <div className="mx-auto grid max-w-4xl grid-cols-4 justify-items-center gap-x-6 gap-y-12 sm:grid-cols-6 md:grid-cols-7">
+          {TOOLS.map((icon, i) => (
+            <BrandTile key={icon.title} icon={icon} delay={(i % 7) * 0.03} />
+          ))}
         </div>
       </div>
     </section>

@@ -40,7 +40,7 @@ const fade = (delay: number) => ({
 
 export function Hero() {
   const { lang } = useLang();
-  const { about, ui } = useContent();
+  const { ui } = useContent();
   const editionDate = new Date().toLocaleDateString(lang === 'fr' ? 'fr-FR' : 'en-US', {
     weekday: 'long',
     year: 'numeric',
@@ -138,24 +138,6 @@ export function Hero() {
               <span>{ui.hero.figCaption}</span>
             </figcaption>
           </motion.figure>
-        </div>
-
-        {/* About briefs */}
-        <div className="mt-12 grid gap-px border border-ink bg-ink sm:grid-cols-2 lg:grid-cols-4">
-          {about.slice(0, 8).map((item, i) => (
-            <motion.div
-              key={item.title}
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ duration: 0.4, delay: (i % 4) * 0.06 }}
-              className="bg-card p-4"
-            >
-              <div className="meta text-accent-deep">{String(i + 1).padStart(2, '0')}</div>
-              <div className="headline mt-1 text-base">{item.title}</div>
-              <p className="mt-1 text-[0.82rem] leading-snug text-ink-soft">{item.text}</p>
-            </motion.div>
-          ))}
         </div>
       </div>
     </header>
