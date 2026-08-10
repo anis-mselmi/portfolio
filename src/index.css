@@ -258,6 +258,151 @@
     opacity: 1;
   }
 
+  /* ── Terminal / git-log console ────────────────────────────── */
+  .terminal {
+    --t-fg: #f5efe0;
+    --t-dim: #b3a98c;
+    --t-user: #a9c97a;
+    --t-path: #7fb0cf;
+    --t-sha: #e6b24a;
+    --t-body: #e7dfca;
+    background: #141009;
+    color: var(--t-fg);
+    border: 1.5px solid var(--ink);
+    box-shadow: 7px 7px 0 var(--ink);
+    font-family: 'Space Mono', ui-monospace, monospace;
+    font-size: 0.95rem;
+    line-height: 1.65;
+  }
+  .term-bar {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    padding: 0.6rem 1.1rem;
+    border-bottom: 1px solid rgba(236, 229, 212, 0.14);
+    color: var(--t-dim);
+    font-size: 0.66rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+  }
+  .term-dot {
+    height: 0.62rem;
+    width: 0.62rem;
+    border: 1px solid rgba(236, 229, 212, 0.35);
+  }
+  .term-body {
+    padding: 1.15rem 1.3rem 1.3rem;
+    overflow-x: auto;
+  }
+  .term-user {
+    color: var(--t-user);
+  }
+  .term-path {
+    color: var(--t-path);
+  }
+  .term-punct {
+    color: var(--t-dim);
+  }
+  .git-commit {
+    position: relative;
+    padding-left: 1.75rem;
+  }
+  .git-node {
+    position: absolute;
+    left: 0.1rem;
+    top: 0;
+    color: var(--accent);
+    font-weight: 700;
+  }
+  .git-spine {
+    position: absolute;
+    left: 0.42rem;
+    top: 1.5em;
+    bottom: -0.25rem;
+    width: 2px;
+    background: rgba(221, 58, 27, 0.42);
+  }
+  .git-sha {
+    color: var(--t-sha);
+    font-weight: 700;
+  }
+  .git-ref {
+    color: var(--accent);
+    font-weight: 700;
+  }
+  .git-title {
+    display: block;
+    margin-top: 0.2rem;
+    color: var(--t-fg);
+    font-weight: 700;
+    font-size: 1.2rem;
+    letter-spacing: 0.005em;
+  }
+  .git-meta {
+    color: var(--t-dim);
+    font-size: 0.86rem;
+  }
+  .git-body {
+    color: var(--t-body);
+    font-size: 0.96rem;
+    line-height: 1.6;
+  }
+  .term-cursor {
+    display: inline-block;
+    width: 0.55ch;
+    height: 1.05em;
+    background: var(--accent);
+    transform: translateY(0.18em);
+    animation: term-blink 1.1s steps(1) infinite;
+  }
+  @keyframes term-blink {
+    50% {
+      opacity: 0;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .term-cursor {
+      animation: none;
+    }
+  }
+
+  /* Live-status blip */
+  .live-dot {
+    position: relative;
+    display: inline-flex;
+    height: 0.5rem;
+    width: 0.5rem;
+  }
+  .live-dot::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 9999px;
+    background: var(--accent);
+    opacity: 0.6;
+    animation: live-ping 1.6s cubic-bezier(0, 0, 0.2, 1) infinite;
+  }
+  .live-dot::after {
+    content: '';
+    position: relative;
+    height: 0.5rem;
+    width: 0.5rem;
+    border-radius: 9999px;
+    background: var(--accent);
+  }
+  @keyframes live-ping {
+    75%,
+    100% {
+      transform: scale(2.2);
+      opacity: 0;
+    }
+  }
+  @media (prefers-reduced-motion: reduce) {
+    .live-dot::before {
+      animation: none;
+    }
+  }
+
   /* ── Editorial link underline ──────────────────────────────── */
   .link-underline {
     background-image: linear-gradient(var(--accent), var(--accent));
@@ -268,6 +413,40 @@
   }
   .link-underline:hover {
     background-size: 100% 2px;
+  }
+}
+
+/* ── View Transitions (Spotlight) ────────────────────────────── */
+@media (prefers-reduced-motion: no-preference) {
+  /* The accent tab-fill morphs its box as it slides between records */
+  ::view-transition-group(active-record) {
+    animation-duration: 0.36s;
+    animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  /* The feature stage swaps content with a soft vertical crossfade */
+  ::view-transition-old(record-stage),
+  ::view-transition-new(record-stage) {
+    animation-duration: 0.4s;
+    animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+    mix-blend-mode: normal;
+  }
+  ::view-transition-old(record-stage) {
+    animation-name: stage-out;
+  }
+  ::view-transition-new(record-stage) {
+    animation-name: stage-in;
+  }
+}
+@keyframes stage-out {
+  to {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+}
+@keyframes stage-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
   }
 }
 

@@ -517,9 +517,15 @@ function buildBundle(lang: Lang) {
       Intermediate: t('Intermediate', 'Intermédiaire'),
       Beginner: t('Beginner', 'Débutant'),
     } as Record<string, string>,
+    education: {
+      current: t('In progress', 'En cours'),
+    },
     experience: {
       position: t('Position №', 'Poste №'),
       volunteerHeader: t('Bénévolat — Community & IEEE Service', 'Bénévolat — Communauté & Service IEEE'),
+      dispatch: t('Dispatch №', 'Dépêche №'),
+      active: t('Active', 'En cours'),
+      serviceHeader: t('Service Record — Community & IEEE', 'Registre de service — Communauté & IEEE'),
     },
     certs: {
       all: t('All', 'Tous'),
