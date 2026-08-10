@@ -1,34 +1,69 @@
-import { useState } from 'react';
+import { useState, type CSSProperties } from 'react';
 import { motion } from 'framer-motion';
+import { siNvidia, siDatacamp, siKaggle, type SimpleIcon } from 'simple-icons';
 import { CERT_PROVIDERS } from '../data/content';
 import { SectionHeader } from '../components/SectionHeader';
 import { cx } from '../lib/utils';
 import { useContent } from '../i18n/content';
 
-interface Row {
-  title: string;
-  issuer: string;
-  date: string;
-  skills: string[];
-  url: string;
+interface Theme {
+  icon: SimpleIcon;
+  tagline: string;
+  bg: string;
+  fg: string;
+  border: string;
+  brand: string;
 }
 
-const ALL: Row[] = CERT_PROVIDERS.flatMap((p) =>
-  p.data.map((c) => ({
-    title: c.title,
-    issuer: p.label,
-    date: c.date,
-    skills: c.skills,
-    url: c.url,
-  }))
-);
+/** Each issuer rendered in its own brand identity. */
+const THEME: Record<string, Theme> = {
+  nvidia: {
+    icon: siNvidia,
+    tagline: 'Deep Learning Institute',
+    bg: '#0b0b0b',
+    fg: '#f4f6f0',
+    border: 'rgba(118,185,0,0.30)',
+    brand: '#76b900',
+  },
+  datacamp: {
+    icon: siDatacamp,
+    tagline: 'Career Track Certification',
+    bg: '#05192d',
+    fg: '#eef4f8',
+    border: 'rgba(3,239,98,0.28)',
+    brand: '#03ef62',
+  },
+  kaggle: {
+    icon: siKaggle,
+    tagline: 'Kaggle Learn',
+    bg: '#ffffff',
+    fg: '#1a1d21',
+    border: '#e0e3e7',
+    brand: '#20beff',
+  },
+};
 
-const FILTERS = CERT_PROVIDERS.map((p) => p.label);
+function Logo({ icon, color, size = 16 }: { icon: SimpleIcon; color: string; size?: number }) {
+  return (
+    <svg
+      role="img"
+      aria-hidden
+      viewBox="0 0 24 24"
+      width={size}
+      height={size}
+      style={{ fill: color }}
+    >
+      <path d={icon.path} />
+    </svg>
+  );
+}
 
 export function Certifications() {
   const { ui } = useContent();
-  const [filter, setFilter] = useState(FILTERS[0]);
-  const rows = ALL.filter((r) => r.issuer === filter);
+  const [key, setKey] = useState<string>(CERT_PROVIDERS[0].key);
+
+  const active = CERT_PROVIDERS.find((p) => p.key === key) ?? CERT_PROVIDERS[0];
+  const t = THEME[active.key];
 
   return (
     <section id="certificates" className="section">
@@ -39,74 +74,90 @@ export function Certifications() {
           standfirst={ui.sections.certificates.standfirst}
         />
 
-        {/* Filter */}
-        <div className="mb-5 flex flex-wrap gap-2">
-          {FILTERS.map((f) => (
-            <button
-              key={f}
-              onClick={() => setFilter(f)}
-              className={cx(
-                'font-mono text-xs uppercase tracking-widest',
-                'border border-ink px-3 py-1 transition-colors',
-                filter === f ? 'bg-ink text-paper' : 'bg-transparent hover:bg-paper-2'
-              )}
-            >
-              {f}{' '}
-              <span className="opacity-60">({ALL.filter((r) => r.issuer === f).length})</span>
-            </button>
-          ))}
+        {/* Issuer filter — active tab wears its brand colour */}
+        <div className="mb-6 flex flex-wrap gap-2">
+          {CERT_PROVIDERS.map((p) => {
+            const isActive = p.key === key;
+            const pt = THEME[p.key];
+            return (
+              <button
+                key={p.key}
+                type="button"
+                aria-pressed={isActive}
+                onClick={() => setKey(p.key)}
+                className={cx(
+                  'flex items-center gap-2 border-[1.5px] px-3 py-1.5 font-mono text-xs uppercase tracking-widest transition-colors',
+                  !isActive && 'border-ink hover:bg-paper-2'
+                )}
+                style={
+                  isActive
+                    ? { background: pt.brand, borderColor: pt.brand, color: '#0b0b0b' }
+                    : undefined
+                }
+              >
+                <Logo icon={pt.icon} color={isActive ? '#0b0b0b' : pt.brand} size={13} />
+                {p.label}
+                <span className="opacity-60">({p.data.length})</span>
+              </button>
+            );
+          })}
         </div>
 
-        {/* Ledger */}
-        <div className="overflow-x-auto border-2 border-ink">
-          <table className="w-full min-w-[720px] border-collapse text-left">
-            <thead>
-              <tr className="border-b-2 border-ink bg-ink text-paper">
-                <th className="meta !text-paper px-3 py-2 w-10">{ui.certs.colNo}</th>
-                <th className="meta !text-paper px-3 py-2">{ui.certs.colCredential}</th>
-                <th className="meta !text-paper px-3 py-2">{ui.certs.colIssuer}</th>
-                <th className="meta !text-paper px-3 py-2">{ui.certs.colFocus}</th>
-                <th className="meta !text-paper px-3 py-2">{ui.certs.colDate}</th>
-                <th className="meta !text-paper px-3 py-2 text-right">{ui.certs.colVerify}</th>
-              </tr>
-            </thead>
-            <tbody>
-              {rows.map((r, i) => (
-                <motion.tr
-                  key={r.title}
-                  initial={{ opacity: 0 }}
-                  whileInView={{ opacity: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ duration: 0.3, delay: Math.min(i * 0.03, 0.3) }}
-                  className="group border-b border-ink/20 align-top transition-colors last:border-0 hover:bg-card"
-                >
-                  <td className="px-3 py-3 font-mono text-xs text-muted">{String(i + 1).padStart(2, '0')}</td>
-                  <td className="px-3 py-3">
-                    <span className="headline text-base leading-tight">{r.title}</span>
-                  </td>
-                  <td className="px-3 py-3">
-                    <span className="tag">{r.issuer}</span>
-                  </td>
-                  <td className="px-3 py-3">
-                    <span className="font-mono text-[0.68rem] text-ink-soft">
-                      {r.skills.slice(0, 3).join(' · ')}
-                    </span>
-                  </td>
-                  <td className="px-3 py-3 font-mono text-xs whitespace-nowrap">{r.date}</td>
-                  <td className="px-3 py-3 text-right">
-                    <a
-                      href={r.url}
-                      target="_blank"
-                      rel="noreferrer"
-                      className="link-underline font-mono text-xs uppercase tracking-widest text-accent-deep"
-                    >
-                      {ui.certs.verify}
-                    </a>
-                  </td>
-                </motion.tr>
-              ))}
-            </tbody>
-          </table>
+        {/* Active issuer strip */}
+        <div className="mb-4 flex items-center gap-3">
+          <span
+            className="grid h-9 w-9 shrink-0 place-items-center border-[1.5px]"
+            style={{ background: t.bg, borderColor: t.brand }}
+          >
+            <Logo icon={t.icon} color={t.brand} size={18} />
+          </span>
+          <span className="meta">{t.tagline}</span>
+          <hr className="rule ml-1 flex-1" />
+        </div>
+
+        {/* Little brand cards — side by side, wrapping under each other */}
+        <div className="grid gap-3 sm:grid-cols-2 xl:grid-cols-3">
+          {active.data.map((c, i) => (
+            <motion.a
+              key={`${active.key}-${c.id}`}
+              href={c.url}
+              target="_blank"
+              rel="noreferrer"
+              aria-label={`${c.title} — ${active.label}. ${ui.certs.verify}`}
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.35, delay: Math.min(i * 0.04, 0.25) }}
+              className="cert-card"
+              style={
+                {
+                  background: t.bg,
+                  color: t.fg,
+                  borderColor: t.border,
+                  ['--brand']: t.brand,
+                } as CSSProperties
+              }
+            >
+              <div className="flex items-center justify-between gap-3">
+                <span className="flex items-center gap-2">
+                  <Logo icon={t.icon} color={t.brand} size={14} />
+                  <span className="cert-issuer">{active.label}</span>
+                </span>
+                <span className="cert-date">{c.date}</span>
+              </div>
+
+              <div className="cert-title">{c.title}</div>
+
+              <div className="cert-skills">
+                {c.skills.slice(0, 3).map((s) => (
+                  <span key={s} className="cert-chip">
+                    {s}
+                  </span>
+                ))}
+              </div>
+
+              <span className="cert-verify">{ui.certs.verify}</span>
+            </motion.a>
+          ))}
         </div>
       </div>
     </section>

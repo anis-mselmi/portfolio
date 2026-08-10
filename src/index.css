@@ -258,6 +258,73 @@
     opacity: 1;
   }
 
+  /* ── Certificate cards (brand-themed per issuer) ───────────── */
+  .cert-card {
+    display: block;
+    border: 1.5px solid;
+    border-left-width: 4px;
+    border-left-color: var(--brand);
+    padding: 0.95rem 1.15rem 1.05rem;
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
+  }
+  .cert-card:hover {
+    transform: translate(-3px, -3px);
+    box-shadow: 6px 6px 0 var(--brand);
+  }
+  .cert-card:focus-visible {
+    outline: 2px solid var(--brand);
+    outline-offset: 2px;
+  }
+  .cert-issuer {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.62rem;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    opacity: 0.75;
+  }
+  .cert-date {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.66rem;
+    font-variant-numeric: tabular-nums;
+    white-space: nowrap;
+    opacity: 0.65;
+  }
+  .cert-title {
+    font-family: 'Fraunces', Georgia, serif;
+    font-weight: 700;
+    font-size: 1.14rem;
+    line-height: 1.15;
+    letter-spacing: -0.01em;
+    margin-top: 0.65rem;
+    text-wrap: balance;
+  }
+  .cert-skills {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.35rem;
+    margin-top: 0.7rem;
+  }
+  .cert-chip {
+    font-family: 'Space Mono', monospace;
+    font-size: 0.58rem;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    padding: 0.14rem 0.45rem;
+    border: 1px solid var(--brand);
+    color: var(--brand);
+  }
+  .cert-verify {
+    display: inline-flex;
+    align-items: center;
+    margin-top: 0.85rem;
+    font-family: 'Space Mono', monospace;
+    font-size: 0.64rem;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--brand);
+  }
+
   /* ── Terminal / git-log console ────────────────────────────── */
   .terminal {
     --t-fg: #f5efe0;
