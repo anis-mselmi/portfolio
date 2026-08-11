@@ -1,9 +1,8 @@
-import { useState, type CSSProperties } from 'react';
+import { type CSSProperties } from 'react';
 import { motion } from 'framer-motion';
-import { siNvidia, siDatacamp, siKaggle, type SimpleIcon } from 'simple-icons';
+import { siNvidia, type SimpleIcon } from 'simple-icons';
 import { CERT_PROVIDERS } from '../data/content';
 import { SectionHeader } from '../components/SectionHeader';
-import { cx } from '../lib/utils';
 import { useContent } from '../i18n/content';
 
 interface Theme {
@@ -25,22 +24,6 @@ const THEME: Record<string, Theme> = {
     border: 'rgba(118,185,0,0.30)',
     brand: '#76b900',
   },
-  datacamp: {
-    icon: siDatacamp,
-    tagline: 'Career Track Certification',
-    bg: '#05192d',
-    fg: '#eef4f8',
-    border: 'rgba(3,239,98,0.28)',
-    brand: '#03ef62',
-  },
-  kaggle: {
-    icon: siKaggle,
-    tagline: 'Kaggle Learn',
-    bg: '#ffffff',
-    fg: '#1a1d21',
-    border: '#e0e3e7',
-    brand: '#20beff',
-  },
 };
 
 function Logo({ icon, color, size = 16 }: { icon: SimpleIcon; color: string; size?: number }) {
@@ -60,9 +43,7 @@ function Logo({ icon, color, size = 16 }: { icon: SimpleIcon; color: string; siz
 
 export function Certifications() {
   const { ui } = useContent();
-  const [key, setKey] = useState<string>(CERT_PROVIDERS[0].key);
-
-  const active = CERT_PROVIDERS.find((p) => p.key === key) ?? CERT_PROVIDERS[0];
+  const active = CERT_PROVIDERS[0];
   const t = THEME[active.key];
 
   return (
@@ -74,44 +55,20 @@ export function Certifications() {
           standfirst={ui.sections.certificates.standfirst}
         />
 
-        {/* Issuer filter — active tab wears its brand colour */}
-        <div className="mb-6 flex flex-wrap gap-2">
-          {CERT_PROVIDERS.map((p) => {
-            const isActive = p.key === key;
-            const pt = THEME[p.key];
-            return (
-              <button
-                key={p.key}
-                type="button"
-                aria-pressed={isActive}
-                onClick={() => setKey(p.key)}
-                className={cx(
-                  'flex items-center gap-2 border-[1.5px] px-3 py-1.5 font-mono text-xs uppercase tracking-widest transition-colors',
-                  !isActive && 'border-ink hover:bg-paper-2'
-                )}
-                style={
-                  isActive
-                    ? { background: pt.brand, borderColor: pt.brand, color: '#0b0b0b' }
-                    : undefined
-                }
-              >
-                <Logo icon={pt.icon} color={isActive ? '#0b0b0b' : pt.brand} size={13} />
-                {p.label}
-                <span className="opacity-60">({p.data.length})</span>
-              </button>
-            );
-          })}
-        </div>
-
-        {/* Active issuer strip */}
-        <div className="mb-4 flex items-center gap-3">
+        {/* Issuer strip */}
+        <div className="mb-5 flex items-center gap-3">
           <span
             className="grid h-9 w-9 shrink-0 place-items-center border-[1.5px]"
             style={{ background: t.bg, borderColor: t.brand }}
           >
             <Logo icon={t.icon} color={t.brand} size={18} />
           </span>
-          <span className="meta">{t.tagline}</span>
+          <div className="min-w-0">
+            <h3 className="headline text-lg leading-none">{active.label}</h3>
+            <div className="meta mt-1">
+              {t.tagline} · {active.data.length} credentials
+            </div>
+          </div>
           <hr className="rule ml-1 flex-1" />
         </div>
 

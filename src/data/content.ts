@@ -373,54 +373,6 @@ export const NVIDIA_CERTIFICATES: Certificate[] = [
   },
 ];
 
-export const DATACAMP_CERTIFICATES: Certificate[] = [
-  {
-    title: 'Data Analyst Associate',
-    id: 'DAA0017212894806',
-    url: 'https://www.datacamp.com/certificate/DAA0017212894806',
-    date: 'Jan 2026',
-    skills: ['Data Management', 'Exploratory Analysis', 'Data Visualization', 'SQL', 'Python'],
-  },
-  {
-    title: 'Data Engineer Associate',
-    id: 'DEA0011654537731',
-    url: 'https://www.datacamp.com/certificate/DEA0011654537731',
-    date: 'Feb 2026',
-    skills: ['Data Engineering', 'Data Pipelines', 'SQL', 'Database Design', 'ETL'],
-  },
-  {
-    title: 'Data Literacy',
-    id: 'DL0035526229636',
-    url: 'https://www.datacamp.com/skill-verification/DL0035526229636',
-    date: 'Jan 2026',
-    skills: ['Data Literacy', 'Data Interpretation', 'Data Communication'],
-  },
-];
-
-export const KAGGLE_CERTIFICATES: Certificate[] = [
-  {
-    title: 'Python',
-    id: '32235257/2535d6015646ff813956ccffb920b1dd',
-    url: 'https://www.kaggle.com/learn/certification/mselmianis/python',
-    date: 'Feb 2026',
-    skills: ['Python', 'Functions', 'Data Structures'],
-  },
-  {
-    title: 'Computer Vision',
-    id: '32235257/f6ad7699c537e94ae518e6e7ed1b656c',
-    url: 'https://www.kaggle.com/learn/certification/mselmianis/computer-vision',
-    date: 'Feb 2026',
-    skills: ['Computer Vision', 'TensorFlow', 'Keras'],
-  },
-  {
-    title: 'Intro to Game AI and Reinforcement Learning',
-    id: '32235257/d4740126f90b7511b24d6d496b686d75',
-    url: 'https://www.kaggle.com/learn/certification/mselmianis/intro-to-game-ai-and-reinforcement-learning',
-    date: 'Feb 2026',
-    skills: ['Reinforcement Learning', 'Game AI', 'Minimax'],
-  },
-];
-
 export const HACKATHONS: Hackathon[] = [
   {
     title: 'AURA 1.0 congress',
@@ -464,6 +416,4 @@ export const INTERESTS: string[] = ['Travelling', 'Sports', 'Reading'];
 
 export const CERT_PROVIDERS = [
   { key: 'nvidia', label: 'NVIDIA', color: '#76b900', data: NVIDIA_CERTIFICATES },
-  { key: 'datacamp', label: 'DataCamp', color: '#03ef90', data: DATACAMP_CERTIFICATES },
-  { key: 'kaggle', label: 'Kaggle', color: '#20beff', data: KAGGLE_CERTIFICATES },
 ] as const;

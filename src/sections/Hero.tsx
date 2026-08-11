@@ -1,12 +1,6 @@
 import { motion } from 'framer-motion';
 import { Github, Linkedin, MapPin, FileText } from 'lucide-react';
-import {
-  PROFILE,
-  HACKATHONS,
-  NVIDIA_CERTIFICATES,
-  DATACAMP_CERTIFICATES,
-  KAGGLE_CERTIFICATES,
-} from '../data/content';
+import { PROFILE, HACKATHONS } from '../data/content';
 import { assetUrl } from '../lib/utils';
 import { Stat } from '../components/Stat';
 import { VisitorBadge } from '../components/VisitorBadge';
@@ -29,8 +23,7 @@ function XIcon({ size = 16 }: { size?: number }) {
     </svg>
   );
 }
-const TOTAL_CERTS =
-  NVIDIA_CERTIFICATES.length + DATACAMP_CERTIFICATES.length + KAGGLE_CERTIFICATES.length;
+const TOTAL_CERTS = 20;
 
 const fade = (delay: number) => ({
   initial: { opacity: 0, y: 16 },
