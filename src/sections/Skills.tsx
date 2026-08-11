@@ -31,6 +31,7 @@ import {
   siApachespark,
   siApachehadoop,
   siApacheairflow,
+  siApachekafka,
   siDvc,
   siKaggle,
   // Notebooks / envs
@@ -82,7 +83,7 @@ const TOOLS: SimpleIcon[] = [
   siNvidia, siHuggingface, siLangchain, siGooglegemini, siOllama, siGradio,
   siWeightsandbiases, siMlflow, siQdrant, siSelenium,
   siNumpy, siPandas, siPlotly, siApachespark, siApachehadoop, siApacheairflow,
-  siDvc, siKaggle,
+  siApachekafka, siDvc, siKaggle,
   siJupyter, siAnaconda, siGooglecolab,
   siSpringboot, siFastapi, siFlask, siDjango, siNodedotjs, siReact, siStreamlit, siVite,
   siMysql, siPostgresql, siMongodb, siRedis, siSqlite,
