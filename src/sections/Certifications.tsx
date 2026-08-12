@@ -81,9 +81,10 @@ export function Certifications() {
               target="_blank"
               rel="noreferrer"
               aria-label={`${c.title} — ${active.label}. ${ui.certs.verify}`}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.35, delay: Math.min(i * 0.04, 0.25) }}
+              initial={{ opacity: 0, y: 18 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '0px 0px -8% 0px' }}
+              transition={{ duration: 0.45, delay: Math.min(i * 0.05, 0.3), ease: [0.22, 1, 0.36, 1] }}
               className="cert-card"
               style={
                 {
