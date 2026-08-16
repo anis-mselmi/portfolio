@@ -78,16 +78,16 @@ import { useContent } from '../i18n/content';
 
 /** Ordered set of official brand logos (Simple Icons) — only tools with a logo. */
 const TOOLS: SimpleIcon[] = [
-  siPython, siCplusplus, siC, siOpenjdk, siJavascript, siTypescript,
+  siLinux, siNvidia, siHuggingface, siOpenjdk, siJavascript, siTypescript,
   siScikitlearn, siPytorch, siTensorflow, siKeras, siOpencv, siSpacy,
-  siNvidia, siHuggingface, siLangchain, siGooglegemini, siOllama, siGradio,
+  siCplusplus, siC, siLangchain, siGooglegemini, siOllama, siGradio,
   siWeightsandbiases, siMlflow, siQdrant, siSelenium,
   siNumpy, siPandas, siPlotly, siApachespark, siApachehadoop, siApacheairflow,
   siApachekafka, siDvc, siKaggle,
   siJupyter, siAnaconda, siGooglecolab,
   siSpringboot, siFastapi, siFlask, siDjango, siNodedotjs, siReact, siStreamlit, siVite,
   siMysql, siPostgresql, siMongodb, siRedis, siSqlite,
-  siDocker, siKubernetes, siGit, siGithub, siGitlab, siLinux, siUbuntu,
+  siDocker, siKubernetes, siGit, siGithub, siGitlab, siPython, siUbuntu,
   siGooglecloud, siFirebase, siGrafana, siPrometheus,
   siPycharm, siIntellijidea, siPostman, siJira, siHtml5,
 ];

@@ -618,3 +618,31 @@
     transform: none;
   }
 }
+
+/* ── Mobile: one full-screen section per swipe (scroll snapping) ───
+   The viewport is pinned to a desktop width (see index.html), so width
+   media queries can't distinguish phone from desktop — every device
+   reports 1280px. Target the touch device directly via its pointer so
+   desktop keeps its normal continuous scroll, untouched.
+
+   Each top-level section is stretched to fill the screen and its content
+   is vertically centred; scroll snapping makes the page advance one whole
+   section at a time. min-height (never a fixed height) means sections
+   taller than the screen still grow and are never clipped. */
+@media (pointer: coarse), (hover: none) {
+  html {
+    scroll-snap-type: y mandatory;
+    scroll-padding-top: 0;
+  }
+  #hero,
+  main > section,
+  footer {
+    scroll-snap-align: start;
+    scroll-snap-stop: always;
+    min-height: 100vh;
+    min-height: 100dvh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+}
