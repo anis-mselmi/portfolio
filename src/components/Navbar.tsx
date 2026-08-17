@@ -52,31 +52,19 @@ export function Navbar() {
             </a>
 
             <nav className="hidden items-center gap-5 md:flex">
-              {NAV_ITEMS.map((item, i) =>
-                'href' in item ? (
-                  <a
-                    key={item.id}
-                    href={item.href}
-                    target="_blank"
-                    rel="noreferrer"
-                    className="link-underline font-mono text-xs uppercase tracking-widest text-accent transition-colors hover:text-accent-deep"
-                  >
-                    <span className="text-muted">{String(i + 1).padStart(2, '0')}</span> {ui.nav[item.id]}
-                  </a>
-                ) : (
-                  <a
-                    key={item.id}
-                    href={`#${item.id}`}
-                    onClick={go(item.id)}
-                    className={cx(
-                      'link-underline font-mono text-xs uppercase tracking-widest transition-colors',
-                      active === item.id ? 'text-accent' : 'text-ink hover:text-accent'
-                    )}
-                  >
-                    <span className="text-muted">{String(i + 1).padStart(2, '0')}</span> {ui.nav[item.id]}
-                  </a>
-                )
-              )}
+              {NAV_ITEMS.map((item, i) => (
+                <a
+                  key={item.id}
+                  href={`#${item.id}`}
+                  onClick={go(item.id)}
+                  className={cx(
+                    'link-underline font-mono text-xs uppercase tracking-widest transition-colors',
+                    active === item.id ? 'text-accent' : 'text-ink hover:text-accent'
+                  )}
+                >
+                  <span className="text-muted">{String(i + 1).padStart(2, '0')}</span> {ui.nav[item.id]}
+                </a>
+              ))}
               <LangToggle className="ml-1" />
             </nav>
 
@@ -101,29 +89,16 @@ export function Navbar() {
                 className="overflow-hidden border-t border-ink bg-paper md:hidden"
               >
                 <div className="shell grid grid-cols-2 gap-px py-2">
-                  {NAV_ITEMS.map((item, i) =>
-                    'href' in item ? (
-                      <a
-                        key={item.id}
-                        href={item.href}
-                        target="_blank"
-                        rel="noreferrer"
-                        onClick={() => setOpen(false)}
-                        className="py-2 font-mono text-xs uppercase tracking-widest text-accent"
-                      >
-                        <span className="text-accent">{String(i + 1).padStart(2, '0')}</span> {ui.nav[item.id]}
-                      </a>
-                    ) : (
-                      <a
-                        key={item.id}
-                        href={`#${item.id}`}
-                        onClick={go(item.id)}
-                        className="py-2 font-mono text-xs uppercase tracking-widest"
-                      >
-                        <span className="text-accent">{String(i + 1).padStart(2, '0')}</span> {ui.nav[item.id]}
-                      </a>
-                    )
-                  )}
+                  {NAV_ITEMS.map((item, i) => (
+                    <a
+                      key={item.id}
+                      href={`#${item.id}`}
+                      onClick={go(item.id)}
+                      className="py-2 font-mono text-xs uppercase tracking-widest"
+                    >
+                      <span className="text-accent">{String(i + 1).padStart(2, '0')}</span> {ui.nav[item.id]}
+                    </a>
+                  ))}
                 </div>
               </motion.nav>
             )}
