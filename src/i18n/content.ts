@@ -422,7 +422,6 @@ function buildBundle(lang: Lang) {
       hackathons: t('Hackathons', 'Hackathons'),
       languages: t('Languages', 'Langues'),
       contact: t('Contact', 'Contact'),
-      chess: t('Chess', 'Échecs'),
     } as Record<string, string>,
     sections: {
       skills: {
@@ -561,8 +560,6 @@ function buildBundle(lang: Lang) {
       dirEmail: t('Email', 'E-mail'),
       dirPhone: t('Telephone', 'Téléphone'),
       dirOffice: t('Bureau', 'Bureau'),
-      dirChess: t('Parlour', 'Salon de jeu'),
-      chessValue: t('Play a game of chess ▸', "Jouer une partie d'échecs ▸"),
       quote: t(
         '“Turning complex ideas into reliable systems, one build at a time.”',
         '« Transformer des idées complexes en systèmes fiables, une réalisation à la fois. »'

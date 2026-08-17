@@ -1,9 +1,7 @@
 import { motion } from 'framer-motion';
 import {
   // Languages
-  siPython,
   siCplusplus,
-  siC,
   siOpenjdk,
   siJavascript,
   siTypescript,
@@ -11,9 +9,7 @@ import {
   siScikitlearn,
   siPytorch,
   siTensorflow,
-  siKeras,
   siOpencv,
-  siSpacy,
   siNvidia,
   siHuggingface,
   siLangchain,
@@ -23,14 +19,7 @@ import {
   siWeightsandbiases,
   siMlflow,
   siQdrant,
-  siSelenium,
   // Data
-  siNumpy,
-  siPandas,
-  siPlotly,
-  siApachespark,
-  siApachehadoop,
-  siApacheairflow,
   siApachekafka,
   siDvc,
   siKaggle,
@@ -58,19 +47,8 @@ import {
   siKubernetes,
   siGit,
   siGithub,
-  siGitlab,
   siLinux,
   siUbuntu,
-  siGooglecloud,
-  siFirebase,
-  siGrafana,
-  siPrometheus,
-  // Tools / IDEs
-  siPycharm,
-  siIntellijidea,
-  siPostman,
-  siJira,
-  siHtml5,
   type SimpleIcon,
 } from 'simple-icons';
 import { SectionHeader } from '../components/SectionHeader';
@@ -79,17 +57,14 @@ import { useContent } from '../i18n/content';
 /** Ordered set of official brand logos (Simple Icons) — only tools with a logo. */
 const TOOLS: SimpleIcon[] = [
   siLinux, siNvidia, siHuggingface, siOpenjdk, siJavascript, siTypescript,
-  siScikitlearn, siPytorch, siTensorflow, siKeras, siOpencv, siSpacy,
-  siCplusplus, siC, siLangchain, siGooglegemini, siOllama, siGradio,
-  siWeightsandbiases, siMlflow, siQdrant, siSelenium,
-  siNumpy, siPandas, siPlotly, siApachespark, siApachehadoop, siApacheairflow,
+  siScikitlearn, siPytorch, siTensorflow, siGit, siSpringboot, siGithub,
+  siUbuntu, siCplusplus, siLangchain, siGooglegemini, siOllama, siGradio,
+  siWeightsandbiases, siMlflow, siQdrant,
   siApachekafka, siDvc, siKaggle,
   siJupyter, siAnaconda, siGooglecolab,
-  siSpringboot, siFastapi, siFlask, siDjango, siNodedotjs, siReact, siStreamlit, siVite,
+  siOpencv, siFastapi, siFlask, siDjango, siNodedotjs, siReact, siStreamlit, siVite,
   siMysql, siPostgresql, siMongodb, siRedis, siSqlite,
-  siDocker, siKubernetes, siGit, siGithub, siGitlab, siPython, siUbuntu,
-  siGooglecloud, siFirebase, siGrafana, siPrometheus,
-  siPycharm, siIntellijidea, siPostman, siJira, siHtml5,
+  siDocker, siKubernetes,
 ];
 
 function BrandTile({ icon, delay }: { icon: SimpleIcon; delay: number }) {
