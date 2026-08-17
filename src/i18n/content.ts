@@ -489,8 +489,8 @@ function buildBundle(lang: Lang) {
       kicker3: t('AI Engineering', 'Ingénierie IA'),
       dateline: t('Sousse, Tunisia — Special Report', 'Sousse, Tunisie — Reportage spécial'),
       lede: t(
-        'A Java developer and AI-engineering student building robust backend services and intelligent AI systems — from RAG pipelines and conversational agents to LLM-powered apps and ML models.',
-        "Développeur Java et étudiant en ingénierie IA, je construis des services back-end robustes et des systèmes d'IA intelligents — des pipelines RAG et agents conversationnels aux applications LLM et modèles de ML."
+        'An AI Engineering student, specializing in Ubuntu and LLMs, but also building RAG pipelines, computer vision systems, and Java Spring Boot apps.',
+        "Étudiant en ingénierie IA, spécialisé dans Ubuntu et les LLM, je développe aussi des pipelines RAG, des systèmes de vision par ordinateur et des applications Java Spring Boot."
       ),
       cv: t('Résumé', 'Mon CV'),
       statCerts: t('Certs', 'Certifs'),
