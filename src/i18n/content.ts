@@ -489,7 +489,7 @@ function buildBundle(lang: Lang) {
       kicker3: t('AI Engineering', 'Ingénierie IA'),
       dateline: t('Sousse, Tunisia — Special Report', 'Sousse, Tunisie — Reportage spécial'),
       lede: t(
-        'AI Engineering student, specializing in Ubuntu and LLMs, but also building RAG pipelines, computer vision systems, and Spring Boot apps.',
+        'An AI Engineering student, specializing in Ubuntu and LLMs, but also building RAG pipelines, computer vision systems, and Spring Boot apps.',
         "Étudiant en ingénierie IA, spécialisé dans Ubuntu et les LLM, je développe aussi des pipelines RAG, des systèmes de vision par ordinateur et des applications Spring Boot."
       ),
       cv: t('Résumé', 'Mon CV'),
