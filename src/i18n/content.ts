@@ -141,7 +141,7 @@ function buildBundle(lang: Lang) {
       tags: ['Docker', 'REST API', 'Data Sync', 'Integration'],
     },
     {
-      role: t('AI Engineer', 'Ingénieur IA'),
+      role: t('Summer Intern', 'Stagiaire d’été'),
       org: 'Verdanova Solutions',
       period: t('Jun 2026 – Present', 'Juin 2026 – Présent'),
       points: [

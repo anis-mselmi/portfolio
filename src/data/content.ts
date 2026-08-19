@@ -118,7 +118,7 @@ export const WORK_EXPERIENCE: ExperienceItem[] = [
     tags: ['Docker', 'REST API', 'Data Sync', 'Integration'],
   },
   {
-    role: 'AI Engineer',
+    role: 'Summer Intern',
     org: 'Verdanova Solutions',
     period: 'Jun 2026 – Present',
     points: [
