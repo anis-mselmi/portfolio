@@ -278,12 +278,12 @@ export const PROJECTS: Project[] = [
     link: 'https://github.com/anis-mselmi/El-Dewejen',
   },
   {
-    name: 'Coffee Recipe App',
-    desc: 'A simple, precise app to calculate the ideal coffee-to-water ratios for your brew.',
-    tags: ['Java', 'UI'],
-    image: '/assets/images/projects/coffee.jpg',
+    name: 'Java Web App',
+    desc: 'A Dockerized Spring Boot app for managing professional certifications.',
+    tags: ['Java', 'Spring Boot', 'Docker'],
+    image: '/assets/images/projects/springboot.svg',
     fit: 'cover',
-    link: 'https://github.com/anis-mselmi/Coffee-Recipe-App',
+    link: 'https://github.com/anis-mselmi/Java-web-app',
   },
 ];
 

@@ -310,15 +310,15 @@ function buildBundle(lang: Lang) {
       link: 'https://github.com/anis-mselmi/El-Dewejen',
     },
     {
-      name: 'Coffee Recipe App',
+      name: 'Java Web App',
       desc: t(
-        'A simple, precise app to calculate the ideal coffee-to-water ratios for your brew.',
-        'Une application simple et précise pour calculer les ratios café/eau idéaux pour votre préparation.'
+        'A Dockerized Spring Boot app for managing professional certifications.',
+        'Une application Spring Boot dockerisée pour gérer les certifications professionnelles.'
       ),
-      tags: ['Java', 'UI'],
-      image: '/assets/images/projects/coffee.jpg',
+      tags: ['Java', 'Spring Boot', 'Docker'],
+      image: '/assets/images/projects/springboot.svg',
       fit: 'cover',
-      link: 'https://github.com/anis-mselmi/Coffee-Recipe-App',
+      link: 'https://github.com/anis-mselmi/Java-web-app',
     },
   ];
 
