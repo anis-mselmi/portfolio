@@ -316,7 +316,7 @@ function buildBundle(lang: Lang) {
         'Une application Spring Boot dockerisée pour gérer les certifications professionnelles.'
       ),
       tags: ['Java', 'Spring Boot', 'Docker'],
-      image: '/assets/images/projects/springboot.svg',
+      image: '/assets/images/projects/java-web-app.png',
       fit: 'cover',
       link: 'https://github.com/anis-mselmi/Java-web-app',
     },
