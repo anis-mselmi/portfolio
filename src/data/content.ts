@@ -279,8 +279,8 @@ export const PROJECTS: Project[] = [
   },
   {
     name: 'Java Web App',
-    desc: 'A Dockerized Spring Boot app for managing professional certifications.',
-    tags: ['Java', 'Spring Boot', 'Docker'],
+    desc: 'A Spring Boot app for managing professional certifications.',
+    tags: ['Java', 'Spring Boot', 'REST API'],
     image: '/assets/images/projects/java-web-app.png',
     fit: 'cover',
     link: 'https://github.com/anis-mselmi/Java-web-app',

@@ -312,10 +312,10 @@ function buildBundle(lang: Lang) {
     {
       name: 'Java Web App',
       desc: t(
-        'A Dockerized Spring Boot app for managing professional certifications.',
-        'Une application Spring Boot dockerisée pour gérer les certifications professionnelles.'
+        'A Spring Boot app for managing professional certifications.',
+        'Une application Spring Boot pour gérer les certifications professionnelles.'
       ),
-      tags: ['Java', 'Spring Boot', 'Docker'],
+      tags: ['Java', 'Spring Boot', 'REST API'],
       image: '/assets/images/projects/java-web-app.png',
       fit: 'cover',
       link: 'https://github.com/anis-mselmi/Java-web-app',
