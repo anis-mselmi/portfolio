@@ -310,7 +310,7 @@ function buildBundle(lang: Lang) {
       link: 'https://github.com/anis-mselmi/El-Dewejen',
     },
     {
-      name: 'Java Web App',
+      name: 'CertTrack',
       desc: t(
         'A Spring Boot app for managing professional certifications.',
         'Une application Spring Boot pour gérer les certifications professionnelles.'
@@ -318,7 +318,7 @@ function buildBundle(lang: Lang) {
       tags: ['Java', 'Spring Boot', 'REST API'],
       image: '/assets/images/projects/java-web-app.png',
       fit: 'cover',
-      link: 'https://github.com/anis-mselmi/Java-web-app',
+      link: 'https://github.com/anis-mselmi/CertTrack',
     },
   ];
 
