@@ -87,4 +87,6 @@ export interface Hackathon {
   tags: string[];
   /** CSS object-position for the cover image, e.g. 'top' or 'center 30%'. Defaults to center. */
   pos?: string;
+  /** 'contain' shows the whole image over a blurred backdrop — for portrait posters. */
+  fit?: 'cover' | 'contain';
 }

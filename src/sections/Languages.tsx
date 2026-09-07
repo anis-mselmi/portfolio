@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { sectionIndex } from '../lib/utils';
 import { SectionHeader } from '../components/SectionHeader';
 import { useContent } from '../i18n/content';
 
@@ -8,7 +9,7 @@ export function Languages() {
     <section id="languages" className="section">
       <div className="shell">
         <SectionHeader
-          index="07"
+          index={sectionIndex('languages')}
           title={ui.sections.languages.title}
           standfirst={ui.sections.languages.standfirst}
         />

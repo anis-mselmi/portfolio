@@ -109,7 +109,7 @@ export const WORK_EXPERIENCE: ExperienceItem[] = [
   {
     role: 'Summer Intern',
     org: 'Digicoser',
-    period: 'Jul 2026 – Present',
+    period: 'Jul 2026 – Sep 2026',
     points: [
       'Engineered an idempotent synchronization pipeline from MaxStore to FleetPOS, guaranteeing replay-safe, consistent data transfer.',
       'Consumed and exposed REST APIs with retry and exponential back-off for resilient, fault-tolerant integration.',
@@ -120,7 +120,7 @@ export const WORK_EXPERIENCE: ExperienceItem[] = [
   {
     role: 'Summer Intern',
     org: 'Verdanova Solutions',
-    period: 'Jun 2026 – Present',
+    period: 'Jun 2026 – Sep 2026',
     points: [
       'Design and build AI features across the stack — from data preparation to model integration.',
       'Apply LLM and RAG techniques to turn business requirements into reliable, knowledge-grounded systems.',
@@ -270,12 +270,12 @@ export const PROJECTS: Project[] = [
     link: 'https://github.com/anis-mselmi/SmartParkTN-D-tection-automatique-des-plaques-tunisiennes-ALPR-pour-parking',
   },
   {
-    name: 'Dewejen',
-    desc: 'Stock management system (Système de gestion de stock) featuring MySQL connectivity.',
-    tags: ['Python', 'MySQL', 'Management'],
-    image: '/assets/images/projects/dewejen.webp',
+    name: 'PrepAI-TN',
+    desc: 'AI study assistant for Tunisian prépa students — upload a past exam paper and get a written correction.',
+    tags: ['Python', 'LLM', 'Gemini', 'Streamlit'],
+    image: '/assets/images/projects/prepai-tn.png',
     fit: 'cover',
-    link: 'https://github.com/anis-mselmi/El-Dewejen',
+    link: 'https://github.com/anis-mselmi/PrepAI-TN',
   },
   {
     name: 'CertTrack',
@@ -391,7 +391,7 @@ export const HACKATHONS: Hackathon[] = [
   {
     title: 'Space Hack competetion',
     image: '/assets/images/hackathons/1765725484606.jpg',
-    badge: 'Winner',
+    badge: '1st Place',
     desc: 'Developed a predictive model to forecast energy consumption using historical weather data.',
     tags: ['Machine Learning', 'PyTorch', 'Pandas', 'scikit-learn'],
   },
@@ -403,9 +403,17 @@ export const HACKATHONS: Hackathon[] = [
     tags: ['Blockchain', 'Solidity', 'React', 'Node.js'],
   },
   {
+    title: 'WIE Wave 2.0',
+    image: '/assets/images/hackathons/wie-wave-2.jpg',
+    fit: 'contain',
+    badge: '1st Place',
+    desc: 'Won first place in the ideathon with team MindMakers at the IEEE WIE Wave 2.0 event.',
+    tags: ['Ideathon', 'Pitching', 'Innovation', 'Team Work'],
+  },
+  {
     title: 'ideathon 4.0',
     image: '/assets/images/hackathons/ideathon.jpg',
-    badge: 'Top 6',
+    badge: '6th Place',
     desc: 'Led a team of 4 to build an automated sorting machine prototype, winning the overall competition.',
     tags: ['Python', 'Computer Vision', 'Hardware', 'Team Lead'],
   },

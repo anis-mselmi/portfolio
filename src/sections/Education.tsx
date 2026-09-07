@@ -1,4 +1,5 @@
 import { SectionHeader } from '../components/SectionHeader';
+import { sectionIndex } from '../lib/utils';
 import { GitLog, type Commit } from '../components/GitLog';
 import { useContent } from '../i18n/content';
 
@@ -16,7 +17,7 @@ export function Education() {
     <section id="education" className="section">
       <div className="shell">
         <SectionHeader
-          index="02"
+          index={sectionIndex('education')}
           title={ui.sections.education.title}
           standfirst={ui.sections.education.standfirst}
         />

@@ -1,7 +1,7 @@
 import { motion } from 'framer-motion';
 import { ArrowUpRight } from 'lucide-react';
 import { SectionHeader } from '../components/SectionHeader';
-import { assetUrl } from '../lib/utils';
+import { assetUrl, sectionIndex } from '../lib/utils';
 import { useContent } from '../i18n/content';
 
 export function Projects() {
@@ -10,7 +10,7 @@ export function Projects() {
     <section id="projects" className="section">
       <div className="shell">
         <SectionHeader
-          index="05"
+          index={sectionIndex('projects')}
           title={ui.sections.projects.title}
           standfirst={ui.sections.projects.standfirst}
         />

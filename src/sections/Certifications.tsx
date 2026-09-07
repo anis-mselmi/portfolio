@@ -1,4 +1,5 @@
 import { type CSSProperties } from 'react';
+import { sectionIndex } from '../lib/utils';
 import { motion } from 'framer-motion';
 import { siNvidia, type SimpleIcon } from 'simple-icons';
 import { CERT_PROVIDERS } from '../data/content';
@@ -50,7 +51,7 @@ export function Certifications() {
     <section id="certificates" className="section">
       <div className="shell">
         <SectionHeader
-          index="04"
+          index={sectionIndex('certificates')}
           title={ui.sections.certificates.title}
           standfirst={ui.sections.certificates.standfirst}
         />

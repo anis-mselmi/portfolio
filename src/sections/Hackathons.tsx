@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import { SectionHeader } from '../components/SectionHeader';
-import { assetUrl } from '../lib/utils';
+import { assetUrl, cx, sectionIndex } from '../lib/utils';
 import { useContent } from '../i18n/content';
 
 export function Hackathons() {
@@ -9,7 +9,7 @@ export function Hackathons() {
     <section id="hackathons" className="section">
       <div className="shell">
         <SectionHeader
-          index="06"
+          index={sectionIndex('hackathons')}
           title={ui.sections.hackathons.title}
           standfirst={ui.sections.hackathons.standfirst}
         />
@@ -24,13 +24,26 @@ export function Hackathons() {
               transition={{ duration: 0.5, delay: (i % 3) * 0.1 }}
               className="print-card group flex flex-col"
             >
-              <div className="relative overflow-hidden border-b-2 border-ink">
+              <div className="relative h-56 overflow-hidden border-b-2 border-ink">
+                {item.fit === 'contain' && (
+                  // Fills the band with a blurred copy so a portrait poster has no empty bars.
+                  <img
+                    src={assetUrl(item.image)}
+                    alt=""
+                    aria-hidden="true"
+                    loading="lazy"
+                    className="absolute inset-0 h-full w-full scale-125 object-cover blur-xl grayscale transition-all duration-500 group-hover:grayscale-0"
+                  />
+                )}
                 <img
                   src={assetUrl(item.image)}
                   alt={item.title}
                   loading="lazy"
                   style={{ objectPosition: item.pos ?? 'center' }}
-                  className="h-44 w-full object-cover grayscale transition-all duration-500 group-hover:grayscale-0 group-hover:scale-105"
+                  className={cx(
+                    'relative h-full w-full grayscale transition-all duration-500 group-hover:scale-105 group-hover:grayscale-0',
+                    item.fit === 'contain' ? 'object-contain' : 'object-cover'
+                  )}
                 />
                 <span className="absolute left-0 top-0 bg-accent px-2.5 py-1 font-mono text-xs font-bold uppercase tracking-wider text-paper">
                   ★ {item.badge}

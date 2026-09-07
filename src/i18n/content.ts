@@ -123,7 +123,7 @@ function buildBundle(lang: Lang) {
     {
       role: t('Summer Intern', "Stagiaire d'été"),
       org: 'Digicoser',
-      period: t('Jul 2026 – Present', 'Juil. 2026 – Présent'),
+      period: t('Jul 2026 – Sep 2026', 'Juil. 2026 – Sept. 2026'),
       points: [
         t(
           'Engineered an idempotent synchronization pipeline from MaxStore to FleetPOS, guaranteeing replay-safe, consistent data transfer.',
@@ -143,7 +143,7 @@ function buildBundle(lang: Lang) {
     {
       role: t('Summer Intern', 'Stagiaire d’été'),
       org: 'Verdanova Solutions',
-      period: t('Jun 2026 – Present', 'Juin 2026 – Présent'),
+      period: t('Jun 2026 – Sep 2026', 'Juin 2026 – Sept. 2026'),
       points: [
         t(
           'Design and build AI features across the stack — from data preparation to model integration.',
@@ -299,15 +299,15 @@ function buildBundle(lang: Lang) {
       link: 'https://github.com/anis-mselmi/SmartParkTN-D-tection-automatique-des-plaques-tunisiennes-ALPR-pour-parking',
     },
     {
-      name: 'Dewejen',
+      name: 'PrepAI-TN',
       desc: t(
-        'Stock management system (Système de gestion de stock) featuring MySQL connectivity.',
-        'Système de gestion de stock avec connectivité MySQL.'
+        'AI study assistant for Tunisian prépa students — upload a past exam paper and get a written correction.',
+        "Assistant d'étude IA pour les étudiants en prépa tunisienne — déposez une épreuve et obtenez une correction rédigée."
       ),
-      tags: ['Python', 'MySQL', 'Management'],
-      image: '/assets/images/projects/dewejen.webp',
+      tags: ['Python', 'LLM', 'Gemini', 'Streamlit'],
+      image: '/assets/images/projects/prepai-tn.png',
       fit: 'cover',
-      link: 'https://github.com/anis-mselmi/El-Dewejen',
+      link: 'https://github.com/anis-mselmi/PrepAI-TN',
     },
     {
       name: 'CertTrack',
@@ -382,7 +382,7 @@ function buildBundle(lang: Lang) {
     {
       title: 'Space Hack competetion',
       image: '/assets/images/hackathons/1765725484606.jpg',
-      badge: t('Winner', 'Vainqueur'),
+      badge: t('1st Place', '1re place'),
       desc: t(
         'Developed a predictive model to forecast energy consumption using historical weather data.',
         "Développement d'un modèle prédictif pour estimer la consommation d'énergie à partir de données météorologiques historiques."
@@ -400,10 +400,21 @@ function buildBundle(lang: Lang) {
       tags: ['Blockchain', 'Solidity', 'React', 'Node.js'],
     },
     {
+      title: 'WIE Wave 2.0',
+      image: '/assets/images/hackathons/wie-wave-2.jpg',
+      fit: 'contain',
+      badge: t('1st Place', '1re place'),
+      desc: t(
+        'Won first place in the ideathon with team MindMakers at the IEEE WIE Wave 2.0 event.',
+        "Première place à l'ideathon avec l'équipe MindMakers lors de l'événement IEEE WIE Wave 2.0."
+      ),
+      tags: ['Ideathon', 'Pitching', 'Innovation', 'Team Work'],
+    },
+    {
       title: 'ideathon 4.0',
       image: '/assets/images/hackathons/ideathon.jpg',
       pos: 'center 25%',
-      badge: t('Top 6', 'Top 6'),
+      badge: t('6th Place', '6e place'),
       desc: t(
         'Led a team of 4 to build an automated sorting machine prototype, winning the overall competition.',
         "Direction d'une équipe de 4 personnes pour construire un prototype de machine de tri automatisée, remportant la compétition."
@@ -417,9 +428,9 @@ function buildBundle(lang: Lang) {
       skills: t('Skills', 'Compétences'),
       education: t('Education', 'Formation'),
       experience: t('Experience', 'Expérience'),
-      certificates: t('Certs', 'Certifs'),
       projects: t('Projects', 'Projets'),
       hackathons: t('Hackathons', 'Hackathons'),
+      certificates: t('Certs', 'Certifs'),
       languages: t('Languages', 'Langues'),
       contact: t('Contact', 'Contact'),
     } as Record<string, string>,

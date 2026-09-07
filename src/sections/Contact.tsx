@@ -1,4 +1,5 @@
 import { useState } from 'react';
+import { sectionIndex } from '../lib/utils';
 import { motion } from 'framer-motion';
 import { Mail, Phone, MapPin, Linkedin, Github } from 'lucide-react';
 import { PROFILE } from '../data/content';
@@ -57,7 +58,7 @@ export function Contact() {
     <section id="contact" className="section">
       <div className="shell">
         <SectionHeader
-          index="08"
+          index={sectionIndex('contact')}
           title={ui.sections.contact.title}
           standfirst={ui.sections.contact.standfirst}
         />

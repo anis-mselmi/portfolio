@@ -1,4 +1,5 @@
 import { motion } from 'framer-motion';
+import { sectionIndex } from '../lib/utils';
 import {
   // Languages
   siCplusplus,
@@ -94,7 +95,7 @@ export function Skills() {
     <section id="skills" className="section">
       <div className="shell">
         <SectionHeader
-          index="01"
+          index={sectionIndex('skills')}
           title={ui.sections.skills.title}
           standfirst={ui.sections.skills.standfirst}
         />

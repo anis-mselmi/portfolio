@@ -16,9 +16,18 @@ export const NAV_ITEMS = [
   { id: 'skills', label: 'Skills' },
   { id: 'education', label: 'Education' },
   { id: 'experience', label: 'Experience' },
-  { id: 'certificates', label: 'Certs' },
   { id: 'projects', label: 'Projects' },
   { id: 'hackathons', label: 'Hackathons' },
+  { id: 'certificates', label: 'Certs' },
   { id: 'languages', label: 'Languages' },
   { id: 'contact', label: 'Contact' },
 ] as const;
+
+/**
+ * Editorial number shown in a section header ("N°04"), derived from NAV_ITEMS
+ * so the sequence follows page order instead of drifting when sections move.
+ */
+export function sectionIndex(id: string): string {
+  const at = NAV_ITEMS.findIndex((item) => item.id === id);
+  return String(at + 1).padStart(2, '0');
+}
