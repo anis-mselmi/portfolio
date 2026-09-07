@@ -271,8 +271,8 @@ export const PROJECTS: Project[] = [
   },
   {
     name: 'PrepAI-TN',
-    desc: 'AI study assistant for Tunisian prépa students — upload a past exam paper and get a written correction.',
-    tags: ['Python', 'LLM', 'Gemini', 'Streamlit'],
+    desc: 'AI corrector for the Tunisian prépa concours — upload an épreuve and get a written corrigé, or just ask.',
+    tags: ['Python', 'LLM', 'Hugging Face', 'LoRA'],
     image: '/assets/images/projects/prepai-tn.png',
     fit: 'cover',
     link: 'https://github.com/anis-mselmi/PrepAI-TN',
