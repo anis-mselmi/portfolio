@@ -507,7 +507,6 @@ function buildBundle(lang: Lang) {
       statWins: t('Wins', 'Victoires'),
       statProjects: t('Projects', 'Projets'),
       figCaption: t('Fig. 1 — The Developer', 'Fig. 1 — Le Développeur'),
-      circulation: t('Circulation:', 'Tirage :'),
     },
     ticker: { label: t('Stack ▸', 'Technos ▸') },
     skills: {

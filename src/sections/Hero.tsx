@@ -3,7 +3,6 @@ import { Github, Linkedin, MapPin, FileText } from 'lucide-react';
 import { PROFILE, HACKATHONS } from '../data/content';
 import { assetUrl } from '../lib/utils';
 import { Stat } from '../components/Stat';
-import { VisitorBadge } from '../components/VisitorBadge';
 import { useContent } from '../i18n/content';
 import { useLang } from '../i18n/LanguageContext';
 
@@ -48,7 +47,6 @@ export function Hero() {
         <motion.div {...fade(0)} className="flex flex-wrap items-center justify-between gap-2 pb-2">
           <span className="meta">{ui.hero.folio}</span>
           <span className="meta hidden sm:inline">{editionDate}</span>
-          <VisitorBadge />
         </motion.div>
         <hr className="rule-double" />
 
