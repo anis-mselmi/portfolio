@@ -459,8 +459,8 @@ function buildBundle(lang: Lang) {
       certificates: {
         title: t('Credentials Ledger', 'Registre des certifications'),
         standfirst: t(
-          'A verified registry of professional certifications. Every entry links to its issuer for authentication.',
-          'Un registre vérifié de certifications professionnelles. Chaque entrée renvoie à son émetteur pour authentification.'
+          'A verified registry of NVIDIA certifications. Every entry links to its issuer for authentication.',
+          'Un registre vérifié de certifications NVIDIA. Chaque entrée renvoie à son émetteur pour authentification.'
         ),
       },
       projects: {
