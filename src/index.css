@@ -208,6 +208,11 @@
     color: var(--paper);
     border-color: var(--accent);
   }
+  .btn-linkedin {
+    background: #0a66c2;
+    color: #fff;
+    border-color: #0a66c2;
+  }
 
   /* ── Brand tiles: official logos, ink at rest → brand on hover ─ */
   .brand-tile {

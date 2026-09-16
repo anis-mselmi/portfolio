@@ -82,7 +82,7 @@ export function Hero() {
               <a href={PROFILE.github} target="_blank" rel="noreferrer" className="btn btn-solid">
                 <Github size={16} /> GitHub
               </a>
-              <a href={PROFILE.linkedin} target="_blank" rel="noreferrer" className="btn">
+              <a href={PROFILE.linkedin} target="_blank" rel="noreferrer" className="btn btn-linkedin">
                 <Linkedin size={16} /> LinkedIn
               </a>
               <a
