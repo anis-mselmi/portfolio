@@ -19,7 +19,7 @@ export const PROFILE: Profile = {
   phone: '+216 25 141 636',
   github: 'https://github.com/anis-mselmi',
   linkedin: 'https://www.linkedin.com/in/anis-mselmi-441b39326/',
-  x: 'https://x.com/anismsalmi',
+  x: 'https://x.com/anismsell',
   // Read-only Google Drive view link. Edit the Doc in place — the link stays the same.
   cv: 'https://docs.google.com/document/d/1xWY5GQe9aXmcVKnHEvEuuF1BacYiZBB_nB13NWiQdlg/preview',
 };
